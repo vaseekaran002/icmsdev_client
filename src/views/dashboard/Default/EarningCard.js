@@ -19,7 +19,7 @@ import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: '#fff',
     color: '#fff',
     overflow: 'hidden',
     position: 'relative',
@@ -28,7 +28,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
         position: 'absolute',
         width: 210,
         height: 210,
-        background: theme.palette.secondary[800],
+        background: '#fff',
         borderRadius: '50%',
         top: -85,
         right: -95,
@@ -42,7 +42,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
         position: 'absolute',
         width: 210,
         height: 210,
-        background: theme.palette.secondary[800],
+        background: '#fff',
         borderRadius: '50%',
         top: -125,
         right: -15,
@@ -79,7 +79,7 @@ const EarningCard = ({ isLoading }) => {
                         <Grid container direction="column">
                             <Grid item>
                                 <Grid container justifyContent="space-between">
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <Avatar
                                             variant="rounded"
                                             sx={{
@@ -91,9 +91,9 @@ const EarningCard = ({ isLoading }) => {
                                         >
                                             <img src={EarningIcon} alt="Notification" />
                                         </Avatar>
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item>
-                                        <Avatar
+                                        {/* <Avatar
                                             variant="rounded"
                                             sx={{
                                                 ...theme.typography.commonAvatar,
@@ -107,8 +107,8 @@ const EarningCard = ({ isLoading }) => {
                                             onClick={handleClick}
                                         >
                                             <MoreHorizIcon fontSize="inherit" />
-                                        </Avatar>
-                                        <Menu
+                                        </Avatar> */}
+                                        {/* <Menu
                                             id="menu-earning-card"
                                             anchorEl={anchorEl}
                                             keepMounted
@@ -136,19 +136,19 @@ const EarningCard = ({ isLoading }) => {
                                             <MenuItem onClick={handleClose}>
                                                 <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Archive File
                                             </MenuItem>
-                                        </Menu>
+                                        </Menu> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item>
                                 <Grid container alignItems="center">
                                     <Grid item>
-                                        <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                        {/* <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
                                             $500.00
-                                        </Typography>
+                                        </Typography> */}
                                     </Grid>
                                     <Grid item>
-                                        <Avatar
+                                        {/* <Avatar
                                             sx={{
                                                 cursor: 'pointer',
                                                 ...theme.typography.smallAvatar,
@@ -157,7 +157,7 @@ const EarningCard = ({ isLoading }) => {
                                             }}
                                         >
                                             <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
-                                        </Avatar>
+                                        </Avatar> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -166,10 +166,10 @@ const EarningCard = ({ isLoading }) => {
                                     sx={{
                                         fontSize: '1rem',
                                         fontWeight: 500,
-                                        color: theme.palette.secondary[200]
+                                        color: '#000'
                                     }}
                                 >
-                                    Total Earning
+                                    In Progress
                                 </Typography>
                             </Grid>
                         </Grid>
