@@ -11,11 +11,14 @@ import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
+import { useDispatch, useSelector } from 'react-redux';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
+    const user = useSelector((state) => state.user.user);
+    console.log(user);
     useEffect(() => {
         setLoading(false);
     }, []);

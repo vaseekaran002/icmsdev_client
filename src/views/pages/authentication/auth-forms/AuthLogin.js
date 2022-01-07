@@ -35,17 +35,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
 import {signInUser} from 'store/userReducer';
+import { handleSignInUser } from 'sagas/handlers/user';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
-const initialState ={
-    username: "donna",
-    password: "donna@123"
-}
-
 const FirebaseLogin = ({ ...others }) => {
-    const [formValue, setFormValue] = useState(initialState);
-    const {username, password } = formValue;
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -62,12 +56,15 @@ const FirebaseLogin = ({ ...others }) => {
         navigate('/dashboard', { replace: true });
     };
 
-    const handleSignIn = (e) => {    
-        e.preventDefault();        
-        dispatch(signInUser(formValue));
+    const handleSignIn = (values) => {    
+        dispatch(signInUser(values));
         setTimeout(() => {
-            navigate('/dashboard', { replace: true });
-        }, 500);        
+
+            if(user !== undefined ){
+                navigate('/dashboard', { replace: true });       
+            }
+                
+        }, 100);            
     };
 
     const [showPassword, setShowPassword] = useState(false);
@@ -152,15 +149,12 @@ const FirebaseLogin = ({ ...others }) => {
                     username: Yup.string().max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required')
                 })}
-                onSubmit={async (values, { props, setErrors, setStatus, setSubmitting }) => {
+                onSubmit={async (values, {event, props, setErrors, setStatus, setSubmitting }) => {
                     try {
                         if (scriptedRef.current) {
-                            dispatch(signInUser(values));
+                            handleSignIn(values);
                             setStatus({ success: true });
-                            setSubmitting(false);
-                            setTimeout(() => {
-                                navigate('/dashboard', { replace: true });
-                            }, 200);  
+                            setSubmitting(true);  
                         }
                     } catch (err) {
                         console.error(err);
