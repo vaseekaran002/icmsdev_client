@@ -45,8 +45,10 @@ const FirebaseLogin = ({ ...others }) => {
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const customization = useSelector((state) => state.customization);
     const user = useSelector((state) => state.user.user);
+    const error = useSelector((state) => state.user.error);
     const dispatch = useDispatch();
     const [checked, setChecked] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
     const googleHandler = async () => {
         console.error('Login');
@@ -57,15 +59,21 @@ const FirebaseLogin = ({ ...others }) => {
     };
 
     const handleSignIn = (values) => {    
-        dispatch(signInUser(values));
-        setTimeout(() => {
-
-            if(user !== undefined ){
-                navigate('/dashboard', { replace: true });       
-            }
-                
-        }, 100);            
+        dispatch(signInUser(values));          
     };
+
+    useEffect(() => {
+        console.log(user);
+        console.log(error);
+        if(user){
+            if(user.status === 401){
+                setErrorMessage(`${user.error} - ${user.message}`);
+            }else{
+                navigate('/dashboard', { replace: true });  
+            }
+        }
+        
+    }, [user]);
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -241,6 +249,12 @@ const FirebaseLogin = ({ ...others }) => {
                         {errors.submit && (
                             <Box sx={{ mt: 3 }}>
                                 <FormHelperText error>{errors.submit}</FormHelperText>
+                            </Box>
+                        )}
+
+                        {errorMessage && (
+                            <Box sx={{ mt: 3 }}>
+                                <FormHelperText error>{errorMessage}</FormHelperText>
                             </Box>
                         )}
 
