@@ -63,17 +63,12 @@ const FirebaseLogin = ({ ...others }) => {
     };
 
     useEffect(() => {
-        console.log(user);
-        console.log(error);
         if(user){
-            if(user.status === 401){
-                setErrorMessage(`${user.error} - ${user.message}`);
-            }else{
-                navigate('/dashboard', { replace: true });  
-            }
-        }
-        
-    }, [user]);
+            navigate('/dashboard', { replace: true });           
+        }else if(error){
+            setErrorMessage(`${error.error} - ${error.message}`); 
+        }    
+    }, [user, error]);
 
     const [showPassword, setShowPassword] = useState(false);
 

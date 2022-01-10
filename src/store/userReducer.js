@@ -21,18 +21,19 @@ export const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-
+    
     switch (action.type) {
-        case actionTypes.SIGNIN_USER_SUCCESS:
-            console.log(action.payload);
+        case actionTypes.SIGNIN_USER_SUCCESS:           
             return {
                 ...state,
-               user: action.payload
+               user: action.payload,
+               error: undefined
             };
         case actionTypes.SIGNIN_USER_ERROR:
             return {
                 ...state,
-                error: action.payload
+                error: action.payload,
+                user: undefined
             };
         default:
             return state;

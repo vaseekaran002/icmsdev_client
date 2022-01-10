@@ -17,8 +17,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
-    const user = useSelector((state) => state.user.user);
-    console.log(user);
     useEffect(() => {
         setLoading(false);
     }, []);
