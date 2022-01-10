@@ -33,7 +33,7 @@ const utilities = {
             breadcrumbs: false
         },
         {
-            id: 'util-shadow',
+            id: 'util-pages',
             title: 'Pages',
             type: 'item',
             url: '/utils/util-shadow',
@@ -41,7 +41,7 @@ const utilities = {
             breadcrumbs: false
         },
         {
-            id: 'util-shadow',
+            id: 'util-groups',
             title: 'Groups',
             type: 'item',
             url: '/utils/util-shadow',
@@ -49,7 +49,7 @@ const utilities = {
             breadcrumbs: false
         },
         {
-            id: 'util-shadow',
+            id: 'util-fans',
             title: 'Fans',
             type: 'item',
             url: '/utils/util-shadow',
@@ -57,10 +57,10 @@ const utilities = {
             breadcrumbs: false
         },
         {
-            id: 'util-shadow',
+            id: 'util-market-place',
             title: 'Market Place',
             type: 'item',
-            url: '/utils/util-shadow',
+            url: '/icons/tabler-icons',
             icon: icons.IconShadow,
             breadcrumbs: false
         }
