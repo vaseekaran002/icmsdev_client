@@ -42,18 +42,11 @@ const Register = () => {
                                             <Grid item>
                                                 <Stack alignItems="center" justifyContent="center" spacing={1}>
                                                     <Typography
-                                                        color={theme.palette.secondary.main}
+                                                        color={theme.palette.custom.dark}
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
                                                         Sign up
-                                                    </Typography>
-                                                    <Typography
-                                                        variant="caption"
-                                                        fontSize="16px"
-                                                        textAlign={matchDownSM ? 'center' : 'inherit'}
-                                                    >
-                                                        Enter your credentials to continue
                                                     </Typography>
                                                 </Stack>
                                             </Grid>
@@ -69,7 +62,7 @@ const Register = () => {
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
                                                 component={Link}
-                                                to="/pages/login/login3"
+                                                to="/"
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >
