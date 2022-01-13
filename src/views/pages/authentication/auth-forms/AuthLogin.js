@@ -35,7 +35,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
 import {signInUser} from 'store/userReducer';
-import { handleSignInUser } from 'sagas/handlers/user';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 

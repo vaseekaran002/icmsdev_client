@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -31,19 +32,23 @@ import useScriptRef from 'hooks/useScriptRef';
 import Google from 'assets/images/icons/social-google.svg';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
+import {registerUser} from 'store/userReducer';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
-// ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const customization = useSelector((state) => state.customization);
+    const user = useSelector((state) => state.user.user);
+    const error = useSelector((state) => state.user.error);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
     const [checked, setChecked] = useState(true);
 
     const [strength, setStrength] = useState(0);
@@ -52,6 +57,20 @@ const FirebaseRegister = ({ ...others }) => {
     const googleHandler = async () => {
         console.error('Register');
     };
+
+    const handleRegisterUser = (values) => {   
+        dispatch(registerUser(values));   
+    };
+
+    useEffect(() => {
+        console.log("use effect called back====");
+        if(user){
+            navigate('/dashboard', { replace: true });           
+        }else if(error){
+            console.log("Error seciton is called==");
+            setErrorMessage(`${error.error} - ${error.message}`); 
+        }    
+    }, [user, error]);
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -85,6 +104,8 @@ const FirebaseRegister = ({ ...others }) => {
                 initialValues={{
                     email: '',
                     password: '',
+                    lastName: '',
+                    firstName: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -94,6 +115,7 @@ const FirebaseRegister = ({ ...others }) => {
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         if (scriptedRef.current) {
+                            handleRegisterUser(values);
                             setStatus({ success: true });
                             setSubmitting(false);
                         }
@@ -115,7 +137,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     fullWidth
                                     label="First Name"
                                     margin="normal"
-                                    name="fname"
+                                    name="firstName"
                                     type="text"
                                     defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
@@ -126,7 +148,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     fullWidth
                                     label="Last Name"
                                     margin="normal"
-                                    name="lname"
+                                    name="lastName"
                                     type="text"
                                     defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
@@ -232,9 +254,9 @@ const FirebaseRegister = ({ ...others }) => {
                                 />
                             </Grid>
                         </Grid>
-                        {errors.submit && (
+                        {errorMessage && (
                             <Box sx={{ mt: 3 }}>
-                                <FormHelperText error>{errors.submit}</FormHelperText>
+                                <FormHelperText error>{errorMessage}</FormHelperText>
                             </Box>
                         )}
 
