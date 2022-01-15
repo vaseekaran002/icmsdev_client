@@ -16,11 +16,19 @@ const utilities = {
     title: '',
     type: 'group',
     children: [
-        {
+        /*{
             id: 'util-typography',
             title: 'Administration',
             type: 'item',
             url: '/utils/util-typography',
+            icon: icons.IconTypography,
+            breadcrumbs: false
+        },*/
+        {
+            id: 'administration',
+            title: 'Administration',
+            type: 'item',
+            url: '/administration',
             icon: icons.IconTypography,
             breadcrumbs: false
         },
