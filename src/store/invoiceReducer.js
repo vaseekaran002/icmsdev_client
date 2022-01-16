@@ -15,6 +15,21 @@ export const getInvoicesError = (error) => ({
     payload: error
 });
 
+export const getInvoice = (invoice) => ({
+    type: actionTypes.GET_INVOICE,
+    payload: invoice
+});
+
+export const getInvoiceSuccess = (invoice) => ({
+    type: actionTypes.GET_INVOICE_SUCCESS,
+    payload: invoice
+});
+
+export const getInvoiceError = (error) => ({
+    type: actionTypes.GET_INVOICE_ERROR,
+    payload: error
+});
+
 export const updateInvoice = (invoice) => ({
     type: actionTypes.UPDATE_INVOICE,
     payload: invoice
@@ -52,13 +67,15 @@ const invoiceReducer = (state = initialState, action) => {
                 error: action.payload,
                 invoices: undefined
             };
-        case actionTypes.UPDATE_INVOICE_SUCCESS:             
+        case actionTypes.UPDATE_INVOICE_SUCCESS:
+        case actionTypes.GET_INVOICE_SUCCESS:            
             return {
                ...state,
                invoice: action.payload,
                error: undefined
             };
         case actionTypes.UPDATE_INVOICE_ERROR:
+        case actionTypes.GET_INVOICE_ERROR:
             return {
                 ...state,
                 error: action.payload,

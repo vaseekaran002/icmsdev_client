@@ -1,3 +1,8 @@
+// action - Get CONTRACT reducer
+export const GET_CONTRACT_SUCCESS = "GET_CONTRACT_SUCCESS";
+export const GET_CONTRACT_ERROR = "GET_CONTRACT_ERROR";
+export const GET_CONTRACT = "GET_CONTRACT";
+
 // action - Get CONTRACTS reducer
 export const GET_CONTRACTS_SUCCESS = "GET_CONTRACTS_SUCCESS";
 export const GET_CONTRACTS_ERROR = "GET_CONTRACTS_ERROR";
