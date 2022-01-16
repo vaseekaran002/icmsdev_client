@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { getMusicians, updateMusician, addMusicianMembers, getMusicianMembers} from 'sagas/requests/musician';
-import { getMusiciansSuccess, getMusiciansError, updateMusicianSuccess, updateMusicianError, addMusicianMembersSuccess, addMusicianMembersError, getMusicianMembersSuccess, getMusicianMembersError} from 'store/musicianReducer';
+import { getMusiciansSuccess, getMusiciansError, updateMusicianSuccess, updateMusicianError, addMusicianMembersSuccess, addMusicianMembersError, getMusicianMembersSuccess, getMusicianMembersError} from 'store/reducer/musicianReducer';
 
 export function* handleGetMusicians({payload}){
     try{

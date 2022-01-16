@@ -1,4 +1,4 @@
-import * as actionTypes from './actions/musicianActions';
+import * as actionTypes from '../actions/musicianActions';
 
 export const getMusicians = (musician) => ({
     type: actionTypes.GET_MUSICIANS,

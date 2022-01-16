@@ -1,4 +1,4 @@
-import * as actionTypes from './actions';
+import * as actionTypes from '../actions';
 
 export const signInUser = (login) => ({
     type: actionTypes.SIGNIN_USER,

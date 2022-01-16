@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
 // reducer import
-import customizationReducer from './customizationReducer';
-import userReducer from './userReducer';
-import musicianReducer from './musicianReducer';
-import contractReducer from './contractReducer';
-import invoiceReducer from './invoiceReducer';
+import customizationReducer from './reducer/customizationReducer';
+import userReducer from './reducer/userReducer';
+import musicianReducer from './reducer/musicianReducer';
+import contractReducer from './reducer/contractReducer';
+import invoiceReducer from './reducer/invoiceReducer';
+import roleReducer from './reducer/roleReducer';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -14,7 +15,8 @@ const reducer = combineReducers({
     user: userReducer,
     musician: musicianReducer,
     contract: contractReducer,
-    invoice: invoiceReducer
+    invoice: invoiceReducer,
+    role : roleReducer
 });
 
 export default reducer;

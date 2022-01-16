@@ -1,4 +1,4 @@
-import * as actionTypes from './actions/contractActions';
+import * as actionTypes from '../actions/contractActions';
 
 export const getContracts = (contract) => ({
     type: actionTypes.GET_CONTRACTS,
