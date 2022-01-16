@@ -15,6 +15,21 @@ export const getContractsError = (error) => ({
     payload: error
 });
 
+export const getContract = (contract) => ({
+    type: actionTypes.GET_CONTRACT,
+    payload: contract
+});
+
+export const getContractSuccess = (contract) => ({
+    type: actionTypes.GET_CONTRACT_SUCCESS,
+    payload: contract
+});
+
+export const getContractError = (error) => ({
+    type: actionTypes.GET_CONTRACT_ERROR,
+    payload: error
+});
+
 export const updateContract = (contract) => ({
     type: actionTypes.UPDATE_CONTRACT,
     payload: contract
@@ -52,13 +67,15 @@ const contractReducer = (state = initialState, action) => {
                 error: action.payload,
                 contracts: undefined
             };
-        case actionTypes.UPDATE_CONTRACT_SUCCESS:             
+        case actionTypes.UPDATE_CONTRACT_SUCCESS:
+        case actionTypes.GET_CONTRACT_SUCCESS:             
             return {
                ...state,
                contract: action.payload,
                error: undefined
             };
         case actionTypes.UPDATE_CONTRACT_ERROR:
+        case actionTypes.GET_CONTRACT_ERROR:
             return {
                 ...state,
                 error: action.payload,

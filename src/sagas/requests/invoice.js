@@ -9,3 +9,8 @@ export const updateInvoice = async (invoice) => {
     console.log(invoice);
     return await axios.post("http://18.205.56.216:90/api/invoice", invoice);
 }
+
+export const getInvoice = async (invoice) => {
+    console.log(invoice);
+    return await axios.get("http://18.205.56.216:90/api/invoice/"+invoice.invoiceId);
+}

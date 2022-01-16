@@ -1,4 +1,9 @@
 // action - Get Invoices reducer
+export const GET_INVOICE_SUCCESS = "GET_INVOICE_SUCCESS";
+export const GET_INVOICE_ERROR = "GET_INVOICE_ERROR";
+export const GET_INVOICE = "GET_INVOICE";
+
+// action - Get Invoices reducer
 export const GET_INVOICES_SUCCESS = "GET_INVOICES_SUCCESS";
 export const GET_INVOICES_ERROR = "GET_INVOICES_ERROR";
 export const GET_INVOICES = "GET_INVOICES";
