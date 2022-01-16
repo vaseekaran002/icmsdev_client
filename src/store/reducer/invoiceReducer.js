@@ -1,4 +1,4 @@
-import * as actionTypes from './actions/invoiceActions';
+import * as actionTypes from '../actions/invoiceActions';
 
 export const getInvoices = (invoice) => ({
     type: actionTypes.GET_INVOICES,
