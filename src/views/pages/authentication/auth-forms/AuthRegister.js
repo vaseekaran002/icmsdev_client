@@ -20,7 +20,8 @@ import {
     OutlinedInput,
     TextField,
     Typography,
-    useMediaQuery
+    useMediaQuery,
+    MenuItem
 } from '@mui/material';
 
 // third party
@@ -106,6 +107,7 @@ const FirebaseRegister = ({ ...others }) => {
                     password: '',
                     lastName: '',
                     firstName: '',
+                    role: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -153,6 +155,16 @@ const FirebaseRegister = ({ ...others }) => {
                                     defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
                                 />
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                                <TextField fullWidth id="select" sx={{ ...theme.typography.customInput }} value="Select Role" select>
+                                    <MenuItem value="Select Role">Select Role</MenuItem>
+                                    <MenuItem value="FAN">Fan</MenuItem>
+                                    <MenuItem value="MUSICIAN">Musician</MenuItem>
+                                    <MenuItem value="SPUSER">SPUser</MenuItem>
+                                    <MenuItem value="ADMIN">Admin</MenuItem>
+                                    <MenuItem value="SUPERADMIN">Superadmin</MenuItem>
+                                </TextField>
                             </Grid>
                         </Grid>
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
