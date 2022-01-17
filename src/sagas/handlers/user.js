@@ -6,9 +6,9 @@ export function* handleSignInUser({payload}){
     try{
         const response = yield call(requestSignInUser, payload);
         if(response.status === 200){
-            yield put(signInUserSuccess(response.data));
+            yield put(signInUserSuccess(response.data.data));
         }else{
-            yield put(signInUserError(response.data));
+            yield put(signInUserError(response.data.data));
         }       
     }catch(error){
         yield put(signInUserError(error.response.data));
@@ -17,8 +17,8 @@ export function* handleSignInUser({payload}){
 
 export function* handleLogoutUser({payload}){
     try{
-        const response = yield call(requestSignInUser, payload);
-        yield put(resetUserData(response.data));       
+        const response = yield call(requestLogoutUser, payload);
+        yield put(resetUserData(response.data.data));       
     }catch(error){
         yield put(resetUserData(error.response.data));
     }

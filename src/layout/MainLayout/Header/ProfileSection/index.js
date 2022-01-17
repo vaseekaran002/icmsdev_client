@@ -59,11 +59,10 @@ const ProfileSection = () => {
     const anchorRef = useRef(null);
 
     const handleLogout = () => {
-       dispatch(logoutUser(JSON.stringify({ token: `${user.accessToken}`, username: `${user.username}`})));
+       dispatch(logoutUser(user));
     };
 
     useEffect(() => {
-        
         if(user === undefined){
             navigate('/', { replace: true });           
         }   
@@ -164,16 +163,17 @@ const ProfileSection = () => {
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
-                                    <Box sx={{ p: 2 }}>
-                                        <Stack>
-                                            <Stack direction="row" spacing={0.5} alignItems="center">
-                                                {/* <Typography variant="h4">Good Morning,</Typography> */}
-                                                <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                                                {user.username}
-                                                </Typography>
-                                            </Stack>
-                                        </Stack>
-                                    </Box>
+                                    {user && (
+                                            <Box sx={{ p: 2 }}>
+                                                <Stack>
+                                                    <Stack direction="row" spacing={0.5} alignItems="center">
+                                                        <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
+                                                              {user.username}
+                                                        </Typography>
+                                                    </Stack>
+                                                </Stack>
+                                            </Box>
+                                    )}
                                     <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                                         <Box sx={{ p: 2 }}>    
                                             <List

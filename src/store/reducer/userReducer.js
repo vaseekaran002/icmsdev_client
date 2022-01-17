@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions';
+import * as actionTypes from '../actions/userActions';
 
 export const signInUser = (login) => ({
     type: actionTypes.SIGNIN_USER,
@@ -49,7 +49,8 @@ const userReducer = (state = initialState, action) => {
     
     switch (action.type) {
         case actionTypes.SIGNIN_USER_SUCCESS:
-        case actionTypes.REGISTER_USER_SUCCESS:              
+        case actionTypes.REGISTER_USER_SUCCESS:
+            console.log("sign in success===="+action.payload.data);              
             return {
                 ...state,
                user: action.payload,
