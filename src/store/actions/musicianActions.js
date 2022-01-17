@@ -1,19 +1,56 @@
-// action - Get Musicians reducer
-export const GET_MUSICIANS_SUCCESS = "GET_MUSICIANS_SUCCESS";
-export const GET_MUSICIANS_ERROR = "GET_MUSICIANS_ERROR";
-export const GET_MUSICIANS = "GET_MUSICIANS";
+import * as actionTypes from '../actionTypes/musicianActionTypes';
 
-// action - Update Musician reducer
-export const UPDATE_MUSICIAN_SUCCESS = "UPDATE_MUSICIAN_SUCCESS";
-export const UPDATE_MUSICIAN_ERROR = "UPDATE_MUSICIAN_ERROR";
-export const UPDATE_MUSICIAN = "UPDATE_MUSICIAN";
+export const getMusicians = (musician) => ({
+    type: actionTypes.GET_MUSICIANS,
+    payload: musician
+});
 
-// action - Get Musician members reducer
-export const GET_MUSICIAN_MEMBERS_SUCCESS = "GET_MUSICIAN_MEMBERS_SUCCESS";
-export const GET_MUSICIAN_MEMBERS_ERROR = "GET_MUSICIAN_MEMBERS_ERROR";
-export const GET_MUSICIAN_MEMBERS = "GET_MUSICIAN_MEMBERS";
+export const getMusiciansSuccess = (musicians) => ({
+    type: actionTypes.GET_MUSICIANS_SUCCESS,
+    payload: musicians
+});
 
-// action - Add Musician member reducer
-export const ADD_MUSICIAN_MEMBER_SUCCESS = "ADD_MUSICIAN_MEMBER_SUCCESS";
-export const ADD_MUSICIAN_MEMBER_ERROR = "ADD_MUSICIAN_MEMBER_ERROR";
-export const ADD_MUSICIAN_MEMBER = "ADD_MUSICIAN_MEMBER";
+export const getMusiciansError = (error) => ({
+    type: actionTypes.GET_MUSICIANS_ERROR,
+    payload: error
+});
+
+export const getMusicianMembers = (musicianId) => ({
+    type: actionTypes.GET_MUSICIAN_MEMBERS,
+    payload: musicianId
+});
+
+export const getMusicianMembersSuccess = (musicians) => ({
+    type: actionTypes.GET_MUSICIAN_MEMBERS_SUCCESS,
+    payload: musicians
+});
+
+export const getMusicianMembersError = (error) => ({
+    type: actionTypes.GET_MUSICIAN_MEMBERS_ERROR,
+    payload: error
+});
+
+export const addMusicianMembers = (member) => ({
+    type: actionTypes.ADD_MUSICIAN_MEMBER,
+    payload: member
+});
+
+export const addMusicianMembersError = (error) => ({
+    type: actionTypes.ADD_MUSICIAN_MEMBER_ERROR,
+    payload: error
+});
+
+export const updateMusician = (musician) => ({
+    type: actionTypes.UPDATE_MUSICIAN,
+    payload: musician
+});
+
+export const updateMusicianSuccess = (musician) => ({
+    type: actionTypes.UPDATE_MUSICIAN_SUCCESS,
+    payload: musician
+});
+
+export const updateMusicianError = (error) => ({
+    type: actionTypes.UPDATE_MUSICIAN_ERROR,
+    payload: error
+});

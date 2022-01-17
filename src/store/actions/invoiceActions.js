@@ -1,19 +1,46 @@
-// action - Get Invoices reducer
-export const GET_INVOICE_SUCCESS = "GET_INVOICE_SUCCESS";
-export const GET_INVOICE_ERROR = "GET_INVOICE_ERROR";
-export const GET_INVOICE = "GET_INVOICE";
+import * as actionTypes from '../actionTypes/invoiceActionTypes';
 
-// action - Get Invoices reducer
-export const GET_INVOICES_SUCCESS = "GET_INVOICES_SUCCESS";
-export const GET_INVOICES_ERROR = "GET_INVOICES_ERROR";
-export const GET_INVOICES = "GET_INVOICES";
+export const getInvoices = (invoice) => ({
+    type: actionTypes.GET_INVOICES,
+    payload: invoice
+});
 
-// action - Update Invoice reducer
-export const CREATE_INVOICE_SUCCESS = "CREATE_INVOICE_SUCCESS";
-export const CREATE_INVOICE_ERROR = "CREATE_INVOICE_ERROR";
-export const CREATE_INVOICE = "CREATE_INVOICE";
+export const getInvoicesSuccess = (invoices) => ({
+    type: actionTypes.GET_INVOICES_SUCCESS,
+    payload: invoices
+});
 
-// action - Update Invoice reducer
-export const UPDATE_INVOICE_SUCCESS = "UPDATE_INVOICE_SUCCESS";
-export const UPDATE_INVOICE_ERROR = "UPDATE_INVOICE_ERROR";
-export const UPDATE_INVOICE = "UPDATE_INVOICE";
+export const getInvoicesError = (error) => ({
+    type: actionTypes.GET_INVOICES_ERROR,
+    payload: error
+});
+
+export const getInvoice = (invoice) => ({
+    type: actionTypes.GET_INVOICE,
+    payload: invoice
+});
+
+export const getInvoiceSuccess = (invoice) => ({
+    type: actionTypes.GET_INVOICE_SUCCESS,
+    payload: invoice
+});
+
+export const getInvoiceError = (error) => ({
+    type: actionTypes.GET_INVOICE_ERROR,
+    payload: error
+});
+
+export const updateInvoice = (invoice) => ({
+    type: actionTypes.UPDATE_INVOICE,
+    payload: invoice
+});
+
+export const updateMusicianSuccess = (invoice) => ({
+    type: actionTypes.UPDATE_INVOICE_SUCCESS,
+    payload: invoice
+});
+
+export const updateMusicianError = (error) => ({
+    type: actionTypes.UPDATE_INVOICE_ERROR,
+    payload: error
+});

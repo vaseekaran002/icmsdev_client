@@ -15,7 +15,7 @@ import { makeStyles } from "@mui/styles";
 import { Formik } from "formik";
 import { useTheme } from "@emotion/react";
 import AnimateButton from "ui-component/extended/AnimateButton";
-import { createRole } from "store/reducer/roleReducer";
+import { createRole } from "store/actions/roleActions";
 import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
