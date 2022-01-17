@@ -5,11 +5,69 @@
     display: flex;
 }
 
-.members-container img{
-    width: 50px;
-    height: 50px;
+.members-list img{
+    width: 30px;
+    height: 30px;
 }
 
 table{
     width: 100%;
+}
+
+table th {
+    text-align: left;
+    border-bottom: 2px solid #b8b7b7;
+}
+
+table td {
+    border-bottom: 1px solid #b8b7b7;
+}
+
+table td:first-child {
+    width: 20%;
+}
+
+table tr {
+    height: 30px;
+}
+
+.administration .form-view .label{
+    width: 40%;
+}
+.administration .form-view .value{
+    font-weight: bold;
+}
+
+.members-section div:first-child{
+    width: 50%;
+}
+.members-section div:nth-child(2){
+    width: 50%;
+    text-align: right;
+}
+
+.members-details {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.members-details div:first-child{
+    width: 70%;
+    margin-left: 5px;
+}
+.members-details div:nth-child(2){
+    width: 30%;
+    text-align: right;
+}
+.section {
+    margin: 15px 0;
+}
+
+.form-view {
+    line-height: 30px;
+}
+
+.admin-form-view{
+    border-right: 1px solid #616161;
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import Body from './body';
 import MainCard from 'ui-component/cards/MainCard';
 
@@ -85,6 +87,10 @@ const invoices = [
 ];
 
 const Index = () => {
+    /*const invoices = useSelector((state) => state.invoice.invoices);
+    const contracts = useSelector((state) => state.contract.contracts);
+    const members = useSelector((state) => state.musician.musicians);
+    */
     return (
         <MainCard>
             <Body 

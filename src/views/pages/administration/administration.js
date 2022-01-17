@@ -9,37 +9,45 @@ import './style.css';
 const Administartion = ({administration, members}) => {
 
     return (
-        <>
+        <div className="administration section">
           <MuiTypography variant="h4" gutterBottom>
               Administration
           </MuiTypography>
           <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} sm={8}>
+            <Grid item xs={12} sm={8} className="admin-form-view">
               {administration && 
                 <>
-                  <div>
-                    <span>StaksPay Id</span> {administration.staksPayId}
+                  <div className="flex form-view">
+                    <div className="label">StaksPay Id</div> 
+                    <div className="value">{administration.staksPayId}</div>
                   </div>
-                  <div>
-                    <span>StaksPay Username</span> {administration.userName}
+                  <div className="flex form-view">
+                    <div className="label">StaksPay Username</div> 
+                    <div className="value">{administration.userName}</div>
                   </div>
-                  <div>
-                    <span>Artist Name (Public)</span> {administration.artistName}
+                  <div className="flex form-view">
+                    <div className="label">Artist Name (Public)</div> 
+                    <div className="value">{administration.artistName}</div>
                   </div>
-                  <div>
-                    <span>Facebook Link</span> <a target="_blank" href={administration.facebookLink}>{administration.facebookLink}</a>
+                  <div className="flex form-view">
+                    <div className="label">Facebook Link</div> 
+                    <div className="value">
+                      <a target="_blank" href={administration.facebookLink}>{administration.facebookLink}</a>
+                    </div>
                   </div>
-                  <div>
-                    <span>Hometown</span> {administration.hometown}
+                  <div className="flex form-view">
+                    <div className="label">Hometown</div> 
+                    <div className="value">{administration.hometown}</div>
                   </div>
-                  <div>
-                    <span>Genres</span> {administration.genres}
+                  <div className="flex form-view">
+                    <div className="label">Genres</div> 
+                    <div className="value">{administration.genres}</div>
                   </div>
                 </>
               } 
             </Grid>
             <Grid item xs={12} sm={4}>
-            <div className="flex">
+            <div className="flex members-section">
               <div>
                 <MuiTypography variant="h5" gutterBottom>
                     Members
@@ -52,11 +60,11 @@ const Administartion = ({administration, members}) => {
               {members && members.length > 0 && 
                 members.map(item => {
                   return (
-                    <div className="members-container"> 
+                    <div className="flex members-list"> 
                       <div>
                         <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
                       </div>
-                      <div className="flex">
+                      <div className="flex members-details">
                         <div>
                           <MuiTypography variant="h5" gutterBottom>
                               {item.artistName}
@@ -73,7 +81,7 @@ const Administartion = ({administration, members}) => {
             </Grid>
           </Grid>
           
-        </>
+        </div>
     );
 }
 

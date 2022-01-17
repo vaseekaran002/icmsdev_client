@@ -10,7 +10,7 @@ const Invoices = ({invoices}) => {
     const header = ['Date', 'Invoice To', 'Status', ''];
 
     return (
-        <>
+        <div className="invoice-section section">
           <MuiTypography variant="h4" gutterBottom>
             Invoices
           </MuiTypography>
@@ -39,7 +39,7 @@ const Invoices = ({invoices}) => {
               </table>
             </Grid>
           </Grid>
-        </>
+        </div>
     );
 }
 

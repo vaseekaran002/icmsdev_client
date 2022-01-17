@@ -10,12 +10,12 @@ const Contracts = ({contracts}) => {
     const header = ['Date', 'Contract Details', ''];
     
     return (
-        <>
+        <div className="contract-section section">
           <MuiTypography variant="h4" gutterBottom>
             Contracts
           </MuiTypography>
           <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} sm={8}>
+            <Grid item xs={12} sm={12}>
               <table>
                 <thead>
                   {header && header.length > 0 && 
@@ -38,7 +38,7 @@ const Contracts = ({contracts}) => {
               </table>
             </Grid>
           </Grid>
-        </>
+        </div>
     );
 }
 
