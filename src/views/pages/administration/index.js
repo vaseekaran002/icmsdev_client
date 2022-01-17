@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import Body from './body';
 import MainCard from 'ui-component/cards/MainCard';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const administration = {
     "radaptiveId" : "MUSIC-10",
