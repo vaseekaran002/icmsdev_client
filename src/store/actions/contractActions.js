@@ -1,19 +1,46 @@
-// action - Get CONTRACT reducer
-export const GET_CONTRACT_SUCCESS = "GET_CONTRACT_SUCCESS";
-export const GET_CONTRACT_ERROR = "GET_CONTRACT_ERROR";
-export const GET_CONTRACT = "GET_CONTRACT";
+import * as actionTypes from '../actionTypes/contractActionTypes';
 
-// action - Get CONTRACTS reducer
-export const GET_CONTRACTS_SUCCESS = "GET_CONTRACTS_SUCCESS";
-export const GET_CONTRACTS_ERROR = "GET_CONTRACTS_ERROR";
-export const GET_CONTRACTS = "GET_CONTRACTS";
+export const getContracts = (contract) => ({
+    type: actionTypes.GET_CONTRACTS,
+    payload: contract
+});
 
-// action - Update CONTRACT reducer
-export const CREATE_CONTRACT_SUCCESS = "CREATE_CONTRACT_SUCCESS";
-export const CREATE_CONTRACT_ERROR = "CREATE_CONTRACT_ERROR";
-export const CREATE_CONTRACT = "CREATE_CONTRACT";
+export const getContractsSuccess = (contracts) => ({
+    type: actionTypes.GET_CONTRACTS_SUCCESS,
+    payload: contracts
+});
 
-// action - Update CONTRACT reducer
-export const UPDATE_CONTRACT_SUCCESS = "UPDATE_CONTRACT_SUCCESS";
-export const UPDATE_CONTRACT_ERROR = "UPDATE_CONTRACT_ERROR";
-export const UPDATE_CONTRACT = "UPDATE_CONTRACT";
+export const getContractsError = (error) => ({
+    type: actionTypes.GET_CONTRACTS_ERROR,
+    payload: error
+});
+
+export const getContract = (contract) => ({
+    type: actionTypes.GET_CONTRACT,
+    payload: contract
+});
+
+export const getContractSuccess = (contract) => ({
+    type: actionTypes.GET_CONTRACT_SUCCESS,
+    payload: contract
+});
+
+export const getContractError = (error) => ({
+    type: actionTypes.GET_CONTRACT_ERROR,
+    payload: error
+});
+
+export const updateContract = (contract) => ({
+    type: actionTypes.UPDATE_CONTRACT,
+    payload: contract
+});
+
+export const updateContractSuccess = (contract) => ({
+    type: actionTypes.UPDATE_CONTRACT_SUCCESS,
+    payload: contract
+});
+
+export const updateContractError = (error) => ({
+    type: actionTypes.UPDATE_CONTRACT_ERROR,
+    payload: error
+});

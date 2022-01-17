@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { getInvoices, updateInvoice, getInvoice} from 'sagas/requests/musician';
-import { getInvoicesSuccess, getInvoicesError, updateInvoiceSuccess, updateInvoiceError, getInvoiceSuccess, getInvoiceError} from 'store/musicianReducer';
+import { getInvoicesSuccess, getInvoicesError, updateInvoiceSuccess, updateInvoiceError, getInvoiceSuccess, getInvoiceError} from 'store/actions/invoiceActions';
 
 export function* handleGetInvoices({payload}){
     try{

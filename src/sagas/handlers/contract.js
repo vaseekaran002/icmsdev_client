@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { getContracts, updateContract, getContract} from 'sagas/requests/musician';
-import { getContractsSuccess, getContractsError, updateContractSuccess, updateContractError, getContractSuccess, getContractError} from 'store/musicianReducer';
+import { getContractsSuccess, getContractsError, updateContractSuccess, updateContractError, getContractSuccess, getContractError} from 'store/actions/contractActions';
 
 export function* handleGetContracts({payload}){
     try{

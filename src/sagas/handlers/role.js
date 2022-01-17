@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { createRole,getAllRoles } from 'sagas/requests/role';
-import { createRoleSuccess ,createRoleError} from 'store/reducer/roleReducer'; 
+import { createRoleSuccess ,createRoleError} from 'store/actions/roleActions'; 
 
 export function* handleCreateRole({payload}){
     try{

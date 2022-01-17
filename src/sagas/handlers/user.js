@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { requestSignInUser, requestRegisternUser, requestLogoutUser } from 'sagas/requests/user';
-import { signInUserSuccess, signInUserError, registerUserSuccess, registerUserError, resetUserData} from 'store/reducer/userReducer';
+import { signInUserSuccess, signInUserError, registerUserSuccess, registerUserError, resetUserData} from 'store/actions/authActions';
 
 export function* handleSignInUser({payload}){
     try{

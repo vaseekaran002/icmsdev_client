@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga/effects';
-import * as userActionTypes from 'store/actions/userActions';
-import * as roleActionTypes from 'store/actions/roleActions'
+import * as userActionTypes from 'store/actionTypes/authActionTypes';
+import * as roleActionTypes from 'store/actionTypes/roleActionTypes'
 import { handleCreateRole } from './handlers/role';
 import { handleSignInUser, handleRegisterUser, handleLogoutUser} from './handlers/user';
 

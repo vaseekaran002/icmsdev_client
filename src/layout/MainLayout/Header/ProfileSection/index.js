@@ -38,7 +38,7 @@ import User1 from 'assets/images/users/user-round.svg';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
-import {logoutUser} from 'store/reducer/userReducer';
+import {logoutUser} from 'store/actions/authActions';
 
 // ==============================|| PROFILE MENU ||============================== //
 
