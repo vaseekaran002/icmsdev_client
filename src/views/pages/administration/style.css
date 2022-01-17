@@ -10,25 +10,9 @@
     height: 30px;
 }
 
-table{
-    width: 100%;
-}
-
-table th {
-    text-align: left;
-    border-bottom: 2px solid #b8b7b7;
-}
-
-table td {
-    border-bottom: 1px solid #b8b7b7;
-}
-
-table td:first-child {
+.contract-section table td:first-child,
+.invoice-section table td:first-child {
     width: 20%;
-}
-
-table tr {
-    height: 30px;
 }
 
 .administration .form-view .label{

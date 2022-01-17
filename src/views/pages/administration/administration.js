@@ -1,15 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button, Modal } from 'react-bootstrap';
 
 import MuiTypography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import { gridSpacing } from 'store/constant';
 import './style.css';
 
+import UserModal from './user-modal';
+
+
 const Administartion = ({administration, members}) => {
+
+    const [modalShow, setModalShow] = React.useState(false);
 
     return (
         <div className="administration section">
+
+          { modalShow && 
+            <UserModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              members= {members}
+            />
+          }
+
           <MuiTypography variant="h4" gutterBottom>
               Administration
           </MuiTypography>
@@ -54,7 +69,7 @@ const Administartion = ({administration, members}) => {
                 </MuiTypography>
               </div>
               <div>
-                <a href="#">Discover</a>
+                <Button variant="link" onClick={() => setModalShow(true)}>Discover</Button>
               </div>
             </div>
               {members && members.length > 0 && 
@@ -71,7 +86,7 @@ const Administartion = ({administration, members}) => {
                           </MuiTypography>
                         </div>
                         <div>
-                          <a href={item.artistName}>Manage</a>
+                          <Button variant="link" onClick="">Manage</Button>
                         </div>
                       </div>
                     </div>

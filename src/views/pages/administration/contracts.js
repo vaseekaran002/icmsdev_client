@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Table } from 'react-bootstrap';
 
 import { Grid } from '@mui/material';
 import { gridSpacing } from 'store/constant';
@@ -16,7 +17,7 @@ const Contracts = ({contracts}) => {
           </MuiTypography>
           <Grid container spacing={gridSpacing}>
             <Grid item xs={12} sm={12}>
-              <table>
+              <Table responsive>
                 <thead>
                   {header && header.length > 0 && 
                     header.map(item => <th>{item}</th>)
@@ -35,7 +36,7 @@ const Contracts = ({contracts}) => {
                     })
                   }
                 </tbody>
-              </table>
+              </Table>
             </Grid>
           </Grid>
         </div>
