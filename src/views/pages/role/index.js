@@ -1,154 +1,84 @@
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  FormHelperText,
-  Grid,
-  InputLabel,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
-import * as Yup from "yup";
-import React, { useState } from "react";
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { Button, Container, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Formik } from "formik";
-import { useTheme } from "@emotion/react";
-import AnimateButton from "ui-component/extended/AnimateButton";
-import { createRole } from "store/actions/roleActions";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllRole } from "store/actions/roleActions";
+
+const columns = [
+  {
+    field: "id",
+    identity: true,
+    headerName: "ID",
+    width: 100,
+  },
+  { field: "name", headerName: "Role name", width: 300 },
+  { field: "description", headerName: "Description", width: 430 },
+  { field: "status", headerName: "Status", width: 100 },
+  {
+    field: "edit",
+    headerName: "Edit",
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <Button variant="contained" color="custom">
+          <Typography color="#ffffff">edit</Typography>
+        </Button>
+      );
+    },
+  },
+];
 
 const useStyles = makeStyles({
-  container: {
-    height: "100%",
+  creatBtn: {
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  box: {
-    boxShadow: "2px 3px 17px -5px rgba(22,138,21,0.65)",
-    backgroundColor: "white",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "20px",
-    borderRadius: "20px",
+    justifyContent: "end",
+    margin: "2rem 2rem 2rem 2rem",
   },
 });
-export const Index = () => {
-  const theme = useTheme();
+
+const rows = [
+  { id: 1, roleName: "USER", description: "none" },
+  { id: 2, roleName: "TENANT_ADMIN", description: "none" },
+  { id: 3, roleName: "SUPER_ADMIN", description: "none" },
+  { id: 4, roleName: "PAGE_ADMIN", description: "none" },
+];
+
+export default function DataTable() {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const stateRoles = useSelector((state) => state.role.roles);
   const dispatch = useDispatch();
-  const handleCreateRole = (values) => {
-    console.log(values)
-    dispatch(createRole(values))
-  }
+  const [roles, setRoles] = React.useState([]);
+  React.useEffect(() => {
+    dispatch(getAllRole());
+  }, []);
 
-
+  React.useEffect(() => {
+    dispatch(getAllRole());
+  }, [stateRoles]);
   return (
-    <Container className={classes.container}>
-      <Grid className={classes.box} sm={9} md={5} container spacing={1}>
-        <Grid item>
-          <Typography variant="h3">Create Role</Typography>
-        </Grid>
-        <Grid item>
-          <Formik
-            initialValues={{
-              name: "",
-              description: "",
-              status: "active",
-            }}
-            validationSchema={Yup.object({
-              name: Yup.string().uppercase().required("Role name required").matches('[A-Z]'),
-              description: Yup.string()
-            })}
-            onSubmit={async (values,{event, props, setErrors, setStatus, setSubmitting }) => {
-              try {
-                    handleCreateRole(values);
-                    setStatus({ success: true });
-                    setSubmitting(true);
-                
-            } catch (err) {
-                console.error(err);
-                setStatus({ success: false });
-                setErrors({ submit: err.message });
-                setSubmitting(false);       
-            }
-            }}
-          >
-            {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => {
-              return (
-                <form noValidate onSubmit={handleSubmit}>
-                  <FormControl
-                    fullWidth
-                    error={Boolean(touched.name && errors.name)}
-                    sx={{ ...theme.typography.customInput }}
-                  >
-                    <InputLabel>Role Name</InputLabel>
-                    <OutlinedInput
-                      id="role-name"
-                      type="text"
-                      value={values.name}
-                      name="name"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      label="Role Name"
-                      inputProps={{}}
-                    />
-                    {touched.name && errors.name && (
-                      <FormHelperText error id="role-name">
-                        {errors.name}
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                  <FormControl
-                    fullWidth
-                    error={Boolean(touched.description && errors.description)}
-                    sx={{ ...theme.typography.customInput }}
-                  >
-                    <InputLabel>Description</InputLabel>
-                    <OutlinedInput
-                      id="description"
-                      type="text"
-                      value={values.description}
-                      name="description"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      label="description"
-                      inputProps={{}}
-                      multiline
-                      maxRows={4}
-                    />
-                    {touched.description && errors.description && (
-                      <FormHelperText error id="description">
-                        {errors.description}
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                  <Box sx={{ mt: 2 }}>
-                    <AnimateButton>
-                      <Button
-                        disableElevation
-                        disabled={isSubmitting}
-                        fullWidth
-                        size="large"
-                        variant="contained"
-                        color="custom"
-                        id="white-color"
-                        type="submit"
-                      >
-                        Submit
-                      </Button>
-                    </AnimateButton>
-                  </Box>
-                </form>
-              );
-            }}
-          </Formik>
-        </Grid>
-      </Grid>
+    <Container>
+      <div className={classes.creatBtn}>
+        <Button
+          onClick={(e) => {
+            navigate("/create-role");
+          }}
+          variant="contained"
+          color="custom"
+        >
+          <Typography color="#ffffff">Create Role</Typography>
+        </Button>
+      </div>
+      <div style={{ height: 400, width: "100%", backgroundColor: "#ffffff" }}>
+        <DataGrid
+          rows={stateRoles || rows}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+        />
+      </div>
     </Container>
   );
-};
-
-export default Index;
+}

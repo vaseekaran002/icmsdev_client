@@ -1,13 +1,23 @@
-import axios from 'axios';
+import axios from "axios";
+import { environment } from "evironment";
 
 export const requestSignInUser = async (login) => {
-    return await axios.post("http://18.205.56.216:7070/auth/88eb970f-d7ea-49a7-9442-97e522135af5/login", login);
-}
+  return await axios.post(
+    `${environment.auth_url}/${environment.tenantId}/login`,
+    login
+  );
+};
 
 export const requestLogoutUser = async (logout) => {
-    return await axios.post("http://18.205.56.216:7070/auth/88eb970f-d7ea-49a7-9442-97e522135af5/logout", logout);
-}
+  return await axios.post(
+    `${environment.auth_url}/${environment.tenantId}/logout`,
+    logout
+  );
+};
 
 export const requestRegisternUser = async (user) => {
-    return await axios.post("http://18.205.56.216:7070/auth/88eb970f-d7ea-49a7-9442-97e522135af5/signup", user);
-}
+  return await axios.post(
+    `${environment.auth_url}/${environment.tenantId}/signup`,
+    user
+  );
+};
