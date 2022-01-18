@@ -71,6 +71,14 @@ const utilities = {
             url: '/icons/tabler-icons',
             icon: icons.IconShadow,
             breadcrumbs: false
+        },
+        {
+            id: 'Role',
+            title: 'Role',
+            type: 'item',
+            url: '/role',
+            icon: icons.IconShadow,
+            breadcrumbs: false
         }
         // {
         //     id: 'icons',

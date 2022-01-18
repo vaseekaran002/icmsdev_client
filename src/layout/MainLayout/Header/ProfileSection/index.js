@@ -35,7 +35,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
 import UpgradePlanCard from './UpgradePlanCard';
 import User1 from 'assets/images/users/user-round.svg';
-import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
+
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 import {logoutUser} from 'store/actions/authActions';
@@ -229,15 +229,6 @@ const ProfileSection = () => {
                                                         <IconLogout stroke={1.5} size="1.3rem" />
                                                     </ListItemIcon>
                                                     <ListItemText primary={<Typography variant="body2">Logout</Typography>} />
-                                                </ListItemButton>
-                                                <ListItemButton
-                                                onClick={(event) => handleListItemClick(event, 3, '/role')}>
-                                                    <ListItemIcon>
-                                                      <PersonAddAltOutlinedIcon  stroke={1.5} size="1.3rem"/>
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={<Typography variant='"body2'>Create Role</Typography>}>
-                                                      
-                                                    </ListItemText>
                                                 </ListItemButton>
                                             </List>
                                         </Box>
