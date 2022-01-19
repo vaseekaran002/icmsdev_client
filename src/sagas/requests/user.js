@@ -1,5 +1,5 @@
 import axios from "axios";
-import { environment } from "evironment";
+import { environment } from "environment";
 
 export const requestSignInUser = async (login) => {
   return await axios.post(

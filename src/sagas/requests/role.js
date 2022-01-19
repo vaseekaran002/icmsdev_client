@@ -1,5 +1,5 @@
 import axios from "axios";
-import { environment } from "evironment";
+import { environment } from "environment";
 
 export const createRole = async (role) => {
   console.log(role);
