@@ -29,6 +29,7 @@ const Administration = Loadable(
 );
 const Role = Loadable(lazy(() => import("views/pages/role")));
 const CreateRole = Loadable(lazy(() => import("views/pages/role/CreatRole")));
+const EditRole = Loadable(lazy(() => import("views/pages/role/EditRole")));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -78,6 +79,10 @@ const MainRoutes = {
     {
       path: "/create-role",
       element: <CreateRole />,
+    },
+    {
+      path: "/role/edit-role/:name",
+      element: <EditRole />,
     },
   ],
 };
