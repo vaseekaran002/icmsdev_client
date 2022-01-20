@@ -53,7 +53,7 @@ export const CreatRole = () => {
     console.log(values);
     dispatch(createRole(values));
     if (role) {
-      navigate("/role", { replace: true });
+      navigate("/role");
     }
   };
 
@@ -71,10 +71,7 @@ export const CreatRole = () => {
               status: "active",
             }}
             validationSchema={Yup.object({
-              name: Yup.string()
-                .uppercase()
-                .required("Role name required")
-                .matches("[A-Z]"),
+              name: Yup.string().uppercase().required("Role name required"),
               description: Yup.string(),
             })}
             onSubmit={async (

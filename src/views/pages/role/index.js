@@ -5,30 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRole } from "store/actions/roleActions";
-
-const columns = [
-  {
-    field: "id",
-    identity: true,
-    headerName: "ID",
-    width: 100,
-  },
-  { field: "name", headerName: "Role name", width: 300 },
-  { field: "description", headerName: "Description", width: 430 },
-  { field: "status", headerName: "Status", width: 100 },
-  {
-    field: "edit",
-    headerName: "Edit",
-    width: 200,
-    renderCell: (params) => {
-      return (
-        <Button variant="contained" color="custom">
-          <Typography color="#ffffff">edit</Typography>
-        </Button>
-      );
-    },
-  },
-];
+import { useState } from "react";
 
 const useStyles = makeStyles({
   creatBtn: {
@@ -46,18 +23,45 @@ const rows = [
 ];
 
 export default function DataTable() {
+  const columns = [
+    {
+      field: "id",
+      identity: true,
+      headerName: "ID",
+      width: 100,
+    },
+    { field: "name", headerName: "Role name", width: 300 },
+    { field: "description", headerName: "Description", width: 430 },
+    { field: "status", headerName: "Status", width: 100 },
+    {
+      field: "edit",
+      headerName: "Edit",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <Button
+            onClick={() => navigate(`edit-role/${params.row.name}`)}
+            variant="contained"
+            color="custom"
+          >
+            <Typography color="#ffffff">edit</Typography>
+          </Button>
+        );
+      },
+    },
+  ];
+
   const classes = useStyles();
   const navigate = useNavigate();
   const stateRoles = useSelector((state) => state.role.roles);
   const dispatch = useDispatch();
-  const [roles, setRoles] = React.useState([]);
-  React.useEffect(() => {
-    dispatch(getAllRole());
-  }, []);
 
   React.useEffect(() => {
+    console.log("hi");
     dispatch(getAllRole());
-  }, [stateRoles]);
+    console.log("h1");
+  }, []);
+
   return (
     <Container>
       <div className={classes.creatBtn}>
@@ -73,10 +77,11 @@ export default function DataTable() {
       </div>
       <div style={{ height: 400, width: "100%", backgroundColor: "#ffffff" }}>
         <DataGrid
-          rows={stateRoles || rows}
+          rows={stateRoles}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
+          disableSelection={true}
         />
       </div>
     </Container>
