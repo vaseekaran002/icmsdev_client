@@ -7,6 +7,7 @@ import musicianReducer from './musicianReducer';
 import contractReducer from './contractReducer';
 import invoiceReducer from './invoiceReducer';
 import roleReducer from './roleReducer';
+import tenantReducer from './tenantReducer';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     musician: musicianReducer,
     contract: contractReducer,
     invoice: invoiceReducer,
-    role : roleReducer
+    role : roleReducer,
+    tenant : tenantReducer
 });
 
 export default rootReducer;
