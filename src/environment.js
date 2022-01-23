@@ -1,6 +1,6 @@
 export const environment = {
-  api_url: "http://18.205.56.216:90/api",
-  auth_url: "http://18.205.56.216:7070/auth",
+  api_url: "http://localhost:8080/api",
+  auth_url: "http://localhost:8080/auth",
   tenantId: "88eb970f-d7ea-49a7-9442-97e522135af5",
 };
 

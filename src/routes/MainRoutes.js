@@ -30,6 +30,9 @@ const Administration = Loadable(
 const Role = Loadable(lazy(() => import("views/pages/role")));
 const CreateRole = Loadable(lazy(() => import("views/pages/role/CreatRole")));
 const EditRole = Loadable(lazy(() => import("views/pages/role/EditRole")));
+
+const Tenant = Loadable(lazy(()=> import("views/pages/tenant")));
+const CreateTenant = Loadable(lazy(()=>import("views/pages/tenant/CreateTenant")));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -84,6 +87,14 @@ const MainRoutes = {
       path: "/role/edit-role/:name",
       element: <EditRole />,
     },
+    {
+      path: "/tenant",
+      element: <Tenant/>
+    },
+    {
+      path:"/create-tenant",
+      element: <CreateTenant/>
+    }
   ],
 };
 
