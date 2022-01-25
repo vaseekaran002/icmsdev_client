@@ -23,7 +23,7 @@ import {
   Radio,
   Typography,
 } from "@mui/material";
-import { retry } from "redux-saga/effects";
+
 const useStyles = makeStyles({
   container: {
     height: "100%",
@@ -46,7 +46,7 @@ export const EditRole = () => {
   const theme = useTheme();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [statusChecked, setStatusChecked] = useState(false);
+  const [statusChecked, setStatusChecked] = useState(true);
   const roles = useSelector((state) => state.role.roles);
   const [editRole, setEditRole] = useState();
   const { name } = useParams();

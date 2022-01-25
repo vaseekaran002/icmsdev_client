@@ -30,7 +30,6 @@ const Administration = Loadable(
 const Role = Loadable(lazy(() => import("views/pages/role")));
 const CreateRole = Loadable(lazy(() => import("views/pages/role/CreatRole")));
 const EditRole = Loadable(lazy(() => import("views/pages/role/EditRole")));
-
 const Tenant = Loadable(lazy(() => import("views/pages/tenant")));
 const CreateTenant = Loadable(
   lazy(() => import("views/pages/tenant/CreateTenant"))
@@ -121,7 +120,7 @@ const MainRoutes = {
       element: <EditTenant />,
     },
     { path: "/create-metadata", element: <CreateMetadata /> },
-    { path: "metadata/edit-metadata/:name", element: <EditMetadata /> },
+    { path: "metadata/edit-metadata/:name", element: <EditMetadata /> }
   ],
 };
 
