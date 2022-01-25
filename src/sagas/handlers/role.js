@@ -1,10 +1,10 @@
 import { call, put } from "redux-saga/effects";
-import { createRole, getAllRoles } from "sagas/requests/role";
+import { createRole, getRolesByTenant } from "sagas/requests/role";
 import {
   createRoleSuccess,
   createRoleError,
-  getAllRolesSuccess,
-  getAllRolesError,
+  getRolesByTenantSuccess,
+  getRolesByTenantError,
 } from "store/actions/roleActions";
 
 export function* handleCreateRole({ payload }) {
@@ -20,15 +20,15 @@ export function* handleCreateRole({ payload }) {
   }
 }
 
-export function* handleGetAllRole({ payload }) {
+export function* handleGetRoleByTenant({ payload }) {
   try {
-    const response = yield call(getAllRoles, payload);
+    const response = yield call(getRolesByTenant, payload);
     if (response.status === 200) {
-      yield put(getAllRolesSuccess(response.data.data));
+      yield put(getRolesByTenantSuccess(response.data.data));
     } else {
-      yield put(getAllRolesError(response.data.data));
+      yield put(getRolesByTenantError(response.data.data));
     }
   } catch (error) {
-    yield put(getAllRolesError(error.response.data));
+    yield put(getRolesByTenantError(error.response.data));
   }
 }

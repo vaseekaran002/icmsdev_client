@@ -93,6 +93,14 @@ const utilities = {
       icon: icons.IconShadow,
       breadcrumbs: false,
     },
+    {
+      id: "Metadata",
+      title: "Metadata",
+      type: "item",
+      url: "/metadata",
+      icon: icons.IconShadow,
+      breadcrumbs: false,
+    },
     // {
     //     id: 'icons',
     //     title: 'Icons',

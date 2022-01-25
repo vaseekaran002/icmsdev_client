@@ -31,9 +31,18 @@ const Role = Loadable(lazy(() => import("views/pages/role")));
 const CreateRole = Loadable(lazy(() => import("views/pages/role/CreatRole")));
 const EditRole = Loadable(lazy(() => import("views/pages/role/EditRole")));
 
-const Tenant = Loadable(lazy(()=> import("views/pages/tenant")));
-const CreateTenant = Loadable(lazy(()=>import("views/pages/tenant/CreateTenant")));
-const EditTenant = Loadable(lazy(()=> import("views/pages/tenant/EditTenant")));
+const Tenant = Loadable(lazy(() => import("views/pages/tenant")));
+const CreateTenant = Loadable(
+  lazy(() => import("views/pages/tenant/CreateTenant"))
+);
+const EditTenant = Loadable(
+  lazy(() => import("views/pages/tenant/EditTenant"))
+);
+
+const Metadata = Loadable(lazy(() => import("views/pages/metadata/index")));
+const CreateMetadata = Loadable(
+  lazy(() => import("views/pages/metadata/CreateMetadata"))
+);
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -90,16 +99,25 @@ const MainRoutes = {
     },
     {
       path: "/tenant",
-      element: <Tenant/>
+      element: <Tenant />,
     },
     {
-      path:"/create-tenant",
-      element: <CreateTenant/>
+      path: "/create-tenant",
+      element: <CreateTenant />,
     },
     {
-      path:"/tenant/edit-tenant/:name",
-      element: <EditTenant/>
-    }
+      path: "/metadata",
+      element: <Metadata />,
+    },
+    {
+      path: "/create-tenant",
+      element: <CreateTenant />,
+    },
+    {
+      path: "/tenant/edit-tenant/:name",
+      element: <EditTenant />,
+    },
+    { path: "/create-metadata", element: <CreateMetadata /> },
   ],
 };
 

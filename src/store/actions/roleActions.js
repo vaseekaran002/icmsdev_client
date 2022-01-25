@@ -15,17 +15,17 @@ export const createRoleError = (error) => ({
   payload: error,
 });
 
-export const getAllRole = () => ({
-  type: actionTpyes.GET_ALL_ROLE,
+export const getRoleByTenant = () => ({
+  type: actionTpyes.GET_ROLE_BY_TENANT,
   payload: undefined,
 });
 
-export const getAllRolesSuccess = (roles) => ({
-  type: actionTpyes.GET_ALL_ROLE_SUCCESS,
+export const getRolesByTenantSuccess = (roles) => ({
+  type: actionTpyes.GET_ROLE_BY_TENANT_SUCCESS,
   payload: roles,
 });
 
-export const getAllRolesError = (error) => ({
-  type: actionTpyes.GET_ALL_ROLE_ERROR,
+export const getRolesByTenantError = (error) => ({
+  type: actionTpyes.GET_ROLE_BY_TENANT_ERROR,
   payload: error,
 });
