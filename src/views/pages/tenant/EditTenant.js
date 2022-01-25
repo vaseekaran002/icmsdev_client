@@ -13,15 +13,15 @@ import {
     Radio,
     Typography,
   } from "@mui/material";
-  import * as Yup from "yup";
-  import React, { useState } from "react";
-  import { makeStyles } from "@mui/styles";
-  import { Formik } from "formik";
-  import { useTheme } from "@emotion/react";
-  import AnimateButton from "ui-component/extended/AnimateButton";
-  import { createTenant } from "store/actions/tenantActions";
-  import { useDispatch, useSelector } from "react-redux";
-  import { useNavigate } from "react-router";
+import * as Yup from "yup";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@mui/styles";
+import { Formik } from "formik";
+import { useTheme } from "@emotion/react";
+import AnimateButton from "ui-component/extended/AnimateButton";
+import { createTenant } from "store/actions/tenantActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
 import { Form } from "react-bootstrap";
 
 
@@ -45,23 +45,36 @@ const useStyles = makeStyles({
 
  
 
-const CreateTenant = () => {
+export const EditTenant = () => {
 
     const theme = useTheme();
     const classes = useStyles();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {name} = useParams();
     const [statusChecked, setStatusChecked] = useState(true);
-    const tenant = useSelector((state) => state.tenant.tenants);
+    const [editTenant, setEditTenant] = useState();
+    const tenants = useSelector((state) => state.tenant.tenants);
     const error = useSelector((state) => state.tenant.tenants);
-    const handleCreateRole = (values) => {
+    const handleCreateTenant = (values) => {
       console.log(values);
       dispatch(createTenant(values));
-      if (tenant) {
+      if (tenants) {
         navigate("/role");
       }
     };
 
+    useEffect(() => {
+      console.log(tenants);
+      setEditTenant(tenants.filter((item) => item.name === name));
+      console.log(editTenant);
+      console.log("Hello",name);
+    }, []);
+
+    useEffect(()=>{
+      
+      console.log(editTenant);
+    },[editTenant]);
 
   return (
       <Container className={classes.container}>
@@ -75,7 +88,7 @@ const CreateTenant = () => {
             initialValues={{
               name: "",
               description: "",
-              status: "active",
+              status: "",
             }}
             validationSchema={Yup.object({
               name: Yup.string().uppercase().required("Tenant name required"),
@@ -86,7 +99,7 @@ const CreateTenant = () => {
               { event, props, setErrors, setStatus, setSubmitting }
             ) => {
               try {
-                handleCreateRole(values);
+                handleCreateTenant(values);
                 setStatus({ success: true });
                 setSubmitting(true);
               } catch (err) {
@@ -201,4 +214,4 @@ const CreateTenant = () => {
   );
 };
 
-export default CreateTenant;
+export default EditTenant;

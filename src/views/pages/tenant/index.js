@@ -7,21 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllTenant } from 'store/actions/tenantActions';
 
 
-const columns = [
-    { field: "id",identity: true,headerName: "ID",width: 100},
-    { field: "name",headerName: "Tenant Name",width: 300},
-    { field: "description",headerName: "Description",width: 430},
-    { field: "status",headerName: "Status",width: 100},
-    { field: "edit",headerName: "Edit",width: 200,
-    renderCell: (params)=>{
-        return(
-            <Button variant="contained" color="custom">
-                <Typography color="#ffffff">edit</Typography>
-            </Button>
-        );
-    },
-    },
-];
+
 
 
 const rows = [
@@ -56,6 +42,25 @@ export default function DataTable() {
         console.log("rows",stateTenants);
     },[stateTenants])
 
+    const columns = [
+        { field: "id",identity: true,headerName: "ID",width: 100},
+        { field: "name",headerName: "Tenant Name",width: 300},
+        { field: "description",headerName: "Description",width: 430},
+        { field: "status",headerName: "Status",width: 100},
+        { field: "edit",headerName: "Edit",width: 200,
+        renderCell: (params)=>{
+            return(
+                <Button 
+                onClick={()=> navigate(`edit-tenant/${params.row.name}`)}
+                variant="contained" 
+                color="custom">
+                    <Typography color="#ffffff">edit</Typography>
+                </Button>
+            );
+        },
+        },
+    ];
+
   return (
       
     <Container>
@@ -68,7 +73,7 @@ export default function DataTable() {
                 <Typography color="#ffffff"> Create Tenant </Typography>
             </Button>
             </div>
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%',backgroundColor: "#ffffff" }}>
         <DataGrid
             rows={stateTenants}
             columns={columns}
