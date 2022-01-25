@@ -1,5 +1,5 @@
 import axios from "axios";
-import { environment } from "evironment";
+import { environment } from "environment";
 
 export const createRole = async (role) => {
   console.log(role);
@@ -9,7 +9,7 @@ export const createRole = async (role) => {
   );
 };
 
-export const getAllRoles = async () => {
+export const getRolesByTenant = async () => {
   return await axios.get(
     `${environment.api_url}/${environment.tenantId}/role/list`
   );

@@ -1,13 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
-import { useNavigate } from "react-router";
-import { Formik } from "formik";
-import { useTheme } from "@emotion/react";
-import AnimateButton from "ui-component/extended/AnimateButton";
-import { createRole } from "store/actions/roleActions";
-import * as Yup from "yup";
 import {
   Box,
   Button,
@@ -23,6 +13,16 @@ import {
   Radio,
   Typography,
 } from "@mui/material";
+import * as Yup from "yup";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@mui/styles";
+import { Formik } from "formik";
+import { useTheme } from "@emotion/react";
+import AnimateButton from "ui-component/extended/AnimateButton";
+import { createTenant } from "store/actions/tenantActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import { Form } from "react-bootstrap";
 
 const useStyles = makeStyles({
   container: {
@@ -42,31 +42,29 @@ const useStyles = makeStyles({
   },
 });
 
-export const EditRole = () => {
+export const EditTenant = () => {
   const theme = useTheme();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [statusChecked, setStatusChecked] = useState(true);
-  const roles = useSelector((state) => state.role.roles);
-  const [editRole, setEditRole] = useState();
-  const { name } = useParams();
   const navigate = useNavigate();
-  const role = useSelector((state) => state.role.roles);
-  const error = useSelector((state) => state.role.error);
-  const handleCreateRole = (values) => {
+  const { name } = useParams();
+  const [statusChecked, setStatusChecked] = useState(true);
+  const [editTenant, setEditTenant] = useState();
+  const tenants = useSelector((state) => state.tenant.tenants);
+  const error = useSelector((state) => state.tenant.tenants);
+  const handleCreateTenant = (values) => {
     console.log(values);
-    dispatch(createRole(values));
-    if (role) {
-      navigate("/role");
-    }
+    dispatch(createTenant(values));
+    // if (tenants) {
+    //   navigate("/tenant");
+    // }
   };
 
   useEffect(() => {
-    console.log("role", roles);
-    setEditRole(roles.filter((item) => item.name === name));
+    setEditTenant(tenants.filter((item) => item.name === name));
     setStatusChecked(() => {
-      const role = roles.filter((item) => item.name === name);
-      if (role[0].status === "active") {
+      const tenant = tenants.filter((item) => item.name === name);
+      if (tenant[0].status === "active") {
         return true;
       } else {
         return false;
@@ -74,23 +72,28 @@ export const EditRole = () => {
     });
   }, []);
 
+  useEffect(() => {
+    console.log(editTenant);
+  }, [editTenant]);
+
   return (
     <Container className={classes.container}>
-      {editRole && (
+      {editTenant && (
         <Grid className={classes.box} sm={9} md={5} container spacing={1}>
           <Grid item>
-            <Typography variant="h3">Create Role</Typography>
+            <Typography variant="h3"> Create Tenant</Typography>
           </Grid>
+
           <Grid item>
             <Formik
               initialValues={{
-                id: editRole[0].id,
-                name: editRole[0].name,
-                description: editRole[0].description,
-                status: editRole[0].status,
+                id: editTenant[0].id,
+                name: editTenant[0].name,
+                description: editTenant[0].description,
+                status: editTenant[0].status,
               }}
               validationSchema={Yup.object({
-                name: Yup.string().uppercase().required("Role name required"),
+                name: Yup.string().uppercase().required("Tenant name required"),
                 description: Yup.string(),
               })}
               onSubmit={async (
@@ -98,7 +101,7 @@ export const EditRole = () => {
                 { event, props, setErrors, setStatus, setSubmitting }
               ) => {
                 try {
-                  handleCreateRole(values);
+                  handleCreateTenant(values);
                   setStatus({ success: true });
                   setSubmitting(true);
                 } catch (err) {
@@ -123,29 +126,26 @@ export const EditRole = () => {
                   <form noValidate onSubmit={handleSubmit}>
                     <FormControl
                       fullWidth
-                      error={Boolean(touched.name && errors.name)}
                       sx={{ ...theme.typography.customInput }}
                     >
-                      <InputLabel>Role Name</InputLabel>
+                      <InputLabel>Tenant Name</InputLabel>
                       <OutlinedInput
-                        id="role-name"
+                        id="tenant-name"
                         type="text"
                         value={values.name}
                         name="name"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        label="Role Name"
-                        inputProps={{}}
+                        label="Tenant Name"
                       />
                       {touched.name && errors.name && (
-                        <FormHelperText error id="role-name">
+                        <FormHelperText error id="tenant-name">
                           {errors.name}
                         </FormHelperText>
                       )}
                     </FormControl>
                     <FormControl
                       fullWidth
-                      error={Boolean(touched.description && errors.description)}
                       sx={{ ...theme.typography.customInput }}
                     >
                       <InputLabel>Description</InputLabel>
@@ -216,4 +216,4 @@ export const EditRole = () => {
   );
 };
 
-export default EditRole;
+export default EditTenant;
