@@ -15,13 +15,6 @@ const useStyles = makeStyles({
   },
 });
 
-const rows = [
-  { id: 1, roleName: "USER", description: "none" },
-  { id: 2, roleName: "TENANT_ADMIN", description: "none" },
-  { id: 3, roleName: "SUPER_ADMIN", description: "none" },
-  { id: 4, roleName: "PAGE_ADMIN", description: "none" },
-];
-
 export default function DataTable() {
   const columns = [
     {

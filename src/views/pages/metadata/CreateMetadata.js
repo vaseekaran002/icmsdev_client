@@ -14,13 +14,15 @@ import {
   Typography,
 } from "@mui/material";
 import * as Yup from "yup";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useTheme } from "@emotion/react";
 import AnimateButton from "ui-component/extended/AnimateButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { getRoleByTenant } from "store/actions/roleActions";
+import { createMetadata } from "store/actions/metadataActions";
 
 const useStyles = makeStyles({
   container: {
@@ -38,6 +40,13 @@ const useStyles = makeStyles({
     padding: "20px",
     borderRadius: "20px",
   },
+  options: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  form: {
+    padding: "0px 0px 0xp 0xp",
+  },
 });
 
 export const CreatMetadata = () => {
@@ -46,17 +55,24 @@ export const CreatMetadata = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [statusChecked, setStatusChecked] = useState(true);
-  const role = useSelector((state) => state.role.roles);
+  const options = useSelector((state) => state.role.roles);
   const error = useSelector((state) => state.role.error);
-  const handleCreateMetadata = (values) => {};
+  const handleCreateMetadata = (values) => {
+    console.log(values);
+    dispatch(createMetadata(values));
+  };
 
   const initialValues = {
     componentName: "",
     componentOrder: "",
     displayName: "",
-    status: "",
+    status: "active",
     roles: [],
   };
+
+  useEffect(() => {
+    dispatch(getRoleByTenant());
+  }, []);
 
   const validatation = Yup.object({
     componentName: Yup.string().required("component Name required"),
@@ -75,11 +91,16 @@ export const CreatMetadata = () => {
         <Grid item>
           <Typography variant="h3">Create Metadata</Typography>
         </Grid>
-        <Grid item>
+        <Grid
+          className={classes.form}
+          item
+          justifyContent="center"
+          alignItems="center"
+        >
           <Formik
             initialValues={initialValues}
             validationSchema={validatation}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={handleCreateMetadata}
           >
             <Form>
               <Field name="componentName">
@@ -177,6 +198,45 @@ export const CreatMetadata = () => {
                   );
                 }}
               </Field>
+              <Field name="roles">
+                {(props) => {
+                  const { field, form, meta } = props;
+                  return (
+                    <div>
+                      <InputLabel>Roles</InputLabel>
+                      {options.map((option) => (
+                        <FormControl className={classes.options}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                {...field}
+                                value={option.name}
+                                checked={field.value.includes(option.name)}
+                              />
+                            }
+                            label={option.name}
+                          />
+                        </FormControl>
+                      ))}
+                    </div>
+                  );
+                }}
+              </Field>
+              <Box sx={{ mt: 2 }}>
+                <AnimateButton>
+                  <Button
+                    disableElevation
+                    fullWidth
+                    size="large"
+                    variant="contained"
+                    color="custom"
+                    id="white-color"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </AnimateButton>
+              </Box>
             </Form>
           </Formik>
         </Grid>

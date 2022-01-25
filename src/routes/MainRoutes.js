@@ -43,6 +43,9 @@ const Metadata = Loadable(lazy(() => import("views/pages/metadata/index")));
 const CreateMetadata = Loadable(
   lazy(() => import("views/pages/metadata/CreateMetadata"))
 );
+const EditMetadata = Loadable(
+  lazy(() => import("views/pages/metadata/EditMetadata"))
+);
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -118,6 +121,7 @@ const MainRoutes = {
       element: <EditTenant />,
     },
     { path: "/create-metadata", element: <CreateMetadata /> },
+    { path: "metadata/edit-metadata/:name", element: <EditMetadata /> },
   ],
 };
 

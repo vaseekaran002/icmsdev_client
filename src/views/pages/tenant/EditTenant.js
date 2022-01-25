@@ -62,6 +62,14 @@ export const EditTenant = () => {
 
   useEffect(() => {
     setEditTenant(tenants.filter((item) => item.name === name));
+    setStatusChecked(() => {
+      const tenant = tenants.filter((item) => item.name === name);
+      if (tenant[0].status === "active") {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }, []);
 
   useEffect(() => {

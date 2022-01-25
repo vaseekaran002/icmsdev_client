@@ -3,7 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
 import { makeStyles } from "@mui/styles";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getAllMetadata } from "../../../store/actions/metadataActions";
 const useStyles = makeStyles({
   creatBtn: {
     display: "flex",
@@ -27,28 +28,64 @@ const rows = [
 export default function DataTable() {
   const navigate = useNavigate();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const metadatas = useSelector((state) => state.metadata.metadatas);
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "firstName", headerName: "First name", width: 130 },
-    { field: "lastName", headerName: "Last name", width: 130 },
+    { field: "componentName", headerName: "Component Name", width: 230 },
+    { field: "componentOrder", headerName: "Order", width: 130 },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      width: 90,
+      field: "displayName",
+      headerName: "Display Name",
+      width: 200,
+    },
+    { field: "status", headerName: "Status", width: 150 },
+
+    {
+      field: "roles",
+      headerName: "Roles",
+      width: 200,
+      renderCell: (params) => {
+        const { row } = params;
+        const { roles } = row;
+        let str = "";
+        roles.map((item, i) => {
+          if (i + 1 != roles.length) {
+            str = str.concat(item.name, ",");
+          } else {
+            str = str.concat(item.name);
+          }
+        });
+        return str;
+      },
     },
     {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.getValue(params.id, "firstName") || ""} ${
-          params.getValue(params.id, "lastName") || ""
-        }`,
+      field: "edit",
+      headerName: "Edit",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <Button
+            onClick={() =>
+              navigate(`edit-metadata/${params.row.componentName}`)
+            }
+            variant="contained"
+            color="custom"
+          >
+            <Typography color="#ffffff">edit</Typography>
+          </Button>
+        );
+      },
     },
   ];
+
+  React.useEffect(() => {
+    dispatch(getAllMetadata());
+  }, []);
+
+  React.useEffect(() => {
+    console.log("state", metadatas);
+  }, [metadatas]);
 
   return (
     <Container>
@@ -63,13 +100,12 @@ export default function DataTable() {
           <Typography color="#ffffff">Create Metadata</Typography>
         </Button>
       </div>
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: 400, width: "100%", backgroundColor: "#ffffff" }}>
         <DataGrid
-          rows={rows}
+          rows={metadatas || rows}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
-          checkboxSelection
         />
       </div>
     </Container>
