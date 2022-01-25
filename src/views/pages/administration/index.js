@@ -92,6 +92,11 @@ const Index = () => {
     const contracts = useSelector((state) => state.contract.contracts);
     const members = useSelector((state) => state.musician.musicians);
     */
+
+    const invoices = useSelector((state) => {
+        return state.invoice.invoices;
+    });
+
     return (
         <MainCard>
             <Body 
