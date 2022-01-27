@@ -96,20 +96,6 @@ const MainRoutes = {
     {
       path: "/administration",
       element: <Administration />,
-      children: [
-        {
-          path: "/contracts",
-          element: <Contracts />,
-        },
-        {
-          path: "/view-contracts",
-          element: <ViewContracts />,
-        },
-        {
-          path: "/create-contract",
-          element: <CreateContract />,
-        },
-      ],
     },
     {
       path: "/role",
@@ -145,6 +131,18 @@ const MainRoutes = {
     },
     { path: "/create-metadata", element: <CreateMetadata /> },
     { path: "metadata/edit-metadata/:name", element: <EditMetadata /> },
+    {
+      path: "/contracts",
+      element: <Contracts />,
+    },
+    {
+      path: "/view-contracts/:id",
+      element: <ViewContracts />,
+    },
+    {
+      path: "/create-contract",
+      element: <CreateContract />,
+    },
   ],
 };
 
