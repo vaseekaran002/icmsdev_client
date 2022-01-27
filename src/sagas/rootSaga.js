@@ -3,12 +3,14 @@ import * as userActionTypes from "store/actionTypes/authActionTypes";
 import * as roleActionTypes from "store/actionTypes/roleActionTypes";
 import * as tenantActionTypes from "store/actionTypes/tenantActionTypes";
 import * as metadataActionTypes from "store/actionTypes/metadataActionTypes";
+import * as contractActionTypes from "store/actionTypes/contractActionTypes";
 import {
   handleCreateRole,
   handleGetRoleByTenant,
   handleGetRoles,
 } from "./handlers/role";
 import { handleCreateTenant, handleGetAllTenant } from "./handlers/tenant";
+import { handleGetContracts, handleUpdateContract } from "./handlers/contract";
 import {
   handleSignInUser,
   handleRegisterUser,
@@ -32,4 +34,6 @@ export function* watcherSaga() {
     handleCreateMetadata
   );
   yield takeEvery(metadataActionTypes.GET_ALL_METADATA, handleGetAllMetadata);
+  yield takeEvery(contractActionTypes.GET_CONTRACTS, handleGetContracts);
+  yield takeEvery(contractActionTypes.UPDATE_CONTRACT, handleUpdateContract);
 }
