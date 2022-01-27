@@ -23,8 +23,10 @@ const Contracts = ({ contracts }) => {
   return (
     <div className="contract-section section">
       <div className={classes.header}>
-        <MuiTypography paddingTop="7px" variant="h4" gutterBottom>
-          Contracts
+        <div className={classes.header}>
+          <MuiTypography paddingTop="9px" variant="h4" gutterBottom>
+            Contracts
+          </MuiTypography>
           <IconButton
             onClick={() => {
               navigate("/create-contract");
@@ -34,7 +36,7 @@ const Contracts = ({ contracts }) => {
           >
             <AddIcon />
           </IconButton>
-        </MuiTypography>
+        </div>
         <Button
           onClick={() => {
             navigate("/contracts");
