@@ -4,7 +4,7 @@ import { Button, Container, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllRole } from "store/actions/roleActions";
+import { getRoleByTenant } from "store/actions/roleActions";
 import { useState } from "react";
 
 const useStyles = makeStyles({
@@ -14,13 +14,6 @@ const useStyles = makeStyles({
     margin: "2rem 2rem 2rem 2rem",
   },
 });
-
-const rows = [
-  { id: 1, roleName: "USER", description: "none" },
-  { id: 2, roleName: "TENANT_ADMIN", description: "none" },
-  { id: 3, roleName: "SUPER_ADMIN", description: "none" },
-  { id: 4, roleName: "PAGE_ADMIN", description: "none" },
-];
 
 export default function DataTable() {
   const columns = [
@@ -57,9 +50,7 @@ export default function DataTable() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    console.log("hi");
-    dispatch(getAllRole());
-    console.log("h1");
+    dispatch(getRoleByTenant());
   }, []);
 
   return (

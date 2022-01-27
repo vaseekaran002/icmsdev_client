@@ -9,7 +9,7 @@ export const createRole = async (role) => {
   );
 };
 
-export const getAllRoles = async () => {
+export const getRolesByTenant = async () => {
   return await axios.get(
     `${environment.api_url}/${environment.tenantId}/role/list`
   );

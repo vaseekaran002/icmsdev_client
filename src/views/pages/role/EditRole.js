@@ -23,6 +23,7 @@ import {
   Radio,
   Typography,
 } from "@mui/material";
+
 const useStyles = makeStyles({
   container: {
     height: "100%",
@@ -63,6 +64,14 @@ export const EditRole = () => {
   useEffect(() => {
     console.log("role", roles);
     setEditRole(roles.filter((item) => item.name === name));
+    setStatusChecked(() => {
+      const role = roles.filter((item) => item.name === name);
+      if (role[0].status === "active") {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }, []);
 
   return (

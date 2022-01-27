@@ -19,13 +19,13 @@ export const roleReducer = (state = initialState, action) => {
         roles: undefined,
         error: action.payload,
       };
-    case actionTypes.GET_ALL_ROLE_SUCCESS:
+    case actionTypes.GET_ROLE_BY_TENANT_SUCCESS:
       return {
         ...state,
         roles: action.payload,
         error: undefined,
       };
-    case actionTypes.GET_ALL_ROLE_ERROR:
+    case actionTypes.GET_ROLE_BY_TENANT_ERROR:
       return {
         ...state,
         roles: undefined,
