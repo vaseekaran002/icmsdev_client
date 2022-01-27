@@ -45,6 +45,16 @@ const CreateMetadata = Loadable(
 const EditMetadata = Loadable(
   lazy(() => import("views/pages/metadata/EditMetadata"))
 );
+
+const Contracts = Loadable(
+  lazy(() => import("views/pages/administration/contract/Contracts"))
+);
+const ViewContracts = Loadable(
+  lazy(() => import("views/pages/administration/contract/ViewContract"))
+);
+const CreateContract = Loadable(
+  lazy(() => import("views/pages/administration/contract/CreateContract"))
+);
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -120,7 +130,19 @@ const MainRoutes = {
       element: <EditTenant />,
     },
     { path: "/create-metadata", element: <CreateMetadata /> },
-    { path: "metadata/edit-metadata/:name", element: <EditMetadata /> }
+    { path: "metadata/edit-metadata/:name", element: <EditMetadata /> },
+    {
+      path: "/contracts",
+      element: <Contracts />,
+    },
+    {
+      path: "/view-contracts/:id",
+      element: <ViewContracts />,
+    },
+    {
+      path: "/create-contract",
+      element: <CreateContract />,
+    },
   ],
 };
 
