@@ -1,21 +1,11 @@
 import * as React from 'react'
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, Container, Typography } from "@mui/material";
+import { Button, Container, Typography,Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoices } from 'store/actions/invoiceActions';
 
-
-
-
-
-const rows = [
-    {id:"1",invoiceId: 1, channelName:"tenant", title: "Tenant 1", contractDescription: "none",totalFeesDue: "1000", dueDate: "16/07/2022",contractId: "12" },
-    {id:"2",invoiceId: 2, channelName:"tenant", title: "Tenant 1", contractDescription: "none",totalFeesDue: "1000", dueDate: "16/07/2022",contractId: "12" },
-    {id:"3",invoiceId: 3, channelName:"tenant", title: "Tenant 1", contractDescription: "none",totalFeesDue: "1000", dueDate: "16/07/2022",contractId: "12" },
-    {id:"4",invoiceId: 4, channelName:"tenant", title: "Tenant 1", contractDescription: "none",totalFeesDue: "1000", dueDate: "16/07/2022",contractId: "12" },
-];
 
 
 const useStyles = makeStyles({
@@ -43,18 +33,88 @@ export default function DataTable() {
     },[allInvoices])
 
     const columns = [
-        { field: "invoiceId",identity: true,headerName: "ID",width: 100},
-        {field: "channelName",headerName: "Channel Name",width:400},
-        { field: "title",headerName: "Title",width: 300},
-        { field: "contractDescription",headerName: " Contract Description",width: 430},
-        { field: "totalFeesDue",headerName: "Fees Due",width: 100},
-        { field: "dueDate",headerName: "Due Date",width: 100},
-        { field: "contractId",headerName: "Contract Id",width: 100},
+        
+      {
+        field: "id",
+        headerName: "ID",
+        width: 90,
+        type: "string",
+        renderCell: (params) => (
+          <Tooltip title={params.row.invoiceId}>
+            <span className={classes.tablecelltrucate}>
+              {params.row.invoiceId}
+            </span>
+          </Tooltip>
+        ),
+      },
+        { field: "channelName",headerName: "Channel Name",width:200,type: "string",
+        renderCell: (params) => (
+          <Tooltip title={params.row.channelName}>
+            <span className={classes.tablecelltrucate}>
+              {params.row.channelName}
+            </span>
+          </Tooltip>
+        ),
+        },
+        { field: "contractDescription",headerName: " Contract Description",width: 250,type: "string",
+        renderCell: (params) => (
+          <Tooltip title={params.row.contractDescription}>
+            <span className={classes.tablecelltrucate}>
+              {params.row.contractDescription}
+            </span>
+          </Tooltip>
+        ),
+        },
+        { field: "contractId",headerName: "Contract Id",width: 100,type: "string",
+        renderCell: (params) => (
+          <Tooltip title={params.row.contractId}>
+            <span className={classes.tablecelltrucate}>
+              {params.row.contractId}
+            </span>
+          </Tooltip>
+        ),
+        },
+        { field: "description",headerName: " Description",width: 300,type: "string",
+        renderCell: (params) => (
+          <Tooltip title={params.row.description}>
+            <span className={classes.tablecelltrucate}>
+              {params.row.description}
+            </span>
+          </Tooltip>
+        ),
+        },
+        { field: "dueDate",headerName: "Due Date",width: 100,type: "string",
+        renderCell: (params) => (
+          <Tooltip title={params.row.dueDate}>
+            <span className={classes.tablecelltrucate}>
+              {params.row.dueDate}
+            </span>
+          </Tooltip>
+        ),
+        },
+        { field: "title",headerName: "Title",width: 150,type: "string",
+        renderCell: (params) => (
+          <Tooltip title={params.row.title}>
+            <span className={classes.tablecelltrucate}>
+              {params.row.title}
+            </span>
+          </Tooltip>
+        ),
+        },
+        { field: "totalFeesDue",headerName: "Fees Due",width: 100,type: "string",
+        renderCell: (params) => (
+          <Tooltip title={params.row.totalFeesDue}>
+            <span className={classes.tablecelltrucate}>
+              {params.row.totalFeesDue}
+            </span>
+          </Tooltip>
+        ),
+        },
         { field: "edit",headerName: "Edit",width: 200,
         renderCell: (params)=>{
             return(
                 <Button 
-                // onClick={()=> navigate(`edit-tenant/${params.row.name}`)}
+                onClick={()=> navigate(`edit-invoice/${params.row.invoiceId}`)}
                 variant="contained" 
                 color="custom">
                     <Typography color="#ffffff">edit</Typography>
@@ -78,7 +138,8 @@ export default function DataTable() {
             </div>
         <div style={{ height: 400, width: '100%',backgroundColor: "#ffffff" }}>
         <DataGrid
-            rows={rows}
+            rows={allInvoices}
+            getRowId={(r) => r.invoiceId}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
