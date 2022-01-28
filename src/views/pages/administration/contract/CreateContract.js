@@ -56,7 +56,7 @@ export const CreateContract = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const contracts = useSelector((state) => state.contract.contracts);
   const initialValues = {
     channelName: "",
     city: "",
@@ -65,15 +65,21 @@ export const CreateContract = () => {
     timeZone: "",
     title: "",
     venue: "",
+    staksPayId: "",
   };
 
   const validatation = Yup.object({
-    //channelName: Yup.string().required("Channel name required"),
+    staksPayId: Yup.string().required("StaksPayId required"),
+    fees: Yup.string().required("fees required"),
+    description: Yup.string().required("description required"),
   });
 
   const handleSubmit = (values) => {
     console.log(values);
     dispatch(updateContract(values));
+    if (contracts) {
+      navigate("/contracts");
+    }
   };
   return (
     <Container className={classes.container}>
@@ -88,6 +94,25 @@ export const CreateContract = () => {
             onSubmit={handleSubmit}
           >
             <Form>
+              <Field name="staksPayId">
+                {(props) => {
+                  const { field, form, meta } = props;
+                  return (
+                    <FormControl
+                      fullWidth
+                      sx={{ ...theme.typography.customInput }}
+                    >
+                      <InputLabel>StaksPay Id</InputLabel>
+                      <OutlinedInput fullWidth {...field}></OutlinedInput>
+                      {meta.touched && meta.error ? (
+                        <FormHelperText error id="staksPayId">
+                          {meta.error}
+                        </FormHelperText>
+                      ) : null}
+                    </FormControl>
+                  );
+                }}
+              </Field>
               <Field name="channelName">
                 {(props) => {
                   const { field, form, meta } = props;

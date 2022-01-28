@@ -136,7 +136,11 @@ const MainRoutes = {
       element: <Contracts />,
     },
     {
-      path: "/view-contracts/:id",
+      path: "/contracts/view-contracts/:id",
+      element: <ViewContracts />,
+    },
+    {
+      path: "/contracts/edit-contracts/:id",
       element: <ViewContracts />,
     },
     {

@@ -17,9 +17,9 @@ export function* handleGetContracts({ payload }) {
   try {
     const response = yield call(getContracts, payload);
     if (response.status === 200) {
-      yield put(getContractsSuccess(response.data));
+      yield put(getContractsSuccess(response.data.data));
     } else {
-      yield put(getContractsError(response.data));
+      yield put(getContractsError(response.data.data));
     }
   } catch (error) {
     yield put(getContractsError(error.response.data));
