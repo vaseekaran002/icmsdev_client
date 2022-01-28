@@ -97,9 +97,9 @@ const Index = () => {
     const members = useSelector((state) => state.musician.musicians);
     */
 
-  const invoices = useSelector((state) => {
-    return state.invoice.invoices;
-  });
+  // const invoices = useSelector((state) => {
+  //   return state.invoice.invoices;
+  // });
 
   return (
     <MainCard>
