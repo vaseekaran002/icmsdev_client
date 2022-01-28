@@ -1,16 +1,17 @@
 import axios from 'axios';
+import { environment } from 'environment';
 
 export const getInvoices = async (invoice) => {
     console.log(invoice);
-    return await axios.get("http://18.205.56.216:90/api/musician/"+invoice.musicianId+"/invoices");
+    return await axios.get(`${environment.api_url}/musician/${invoice.musicianId}/invoices`);
 }
 
 export const updateInvoice = async (invoice) => {
     console.log(invoice);
-    return await axios.post("http://18.205.56.216:90/api/invoice", invoice);
+    return await axios.post(`${environment.api_url}/invoice`, invoice);
 }
 
 export const getInvoice = async (invoice) => {
     console.log(invoice);
-    return await axios.get("http://18.205.56.216:90/api/invoice/"+invoice.invoiceId);
+    return await axios.get(`${environment.api_url}/invoice/${invoice.invoiceId}`);
 }
