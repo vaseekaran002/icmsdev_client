@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, Tooltip, Typography } from "@mui/material";
+import { Button, Container, Tooltip, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getContracts } from "store/actions/contractActions";
 import { makeStyles } from "@mui/styles";
@@ -11,6 +11,11 @@ const useStyles = makeStyles({
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+  },
+  createBtn: {
+    display: "flex",
+    justifyContent: "end",
+    margin: "2rem 2rem 2rem 2rem",
   },
 });
 
@@ -161,22 +166,34 @@ export const ContractDisplay = () => {
   ];
 
   return (
-    <div
-      style={{
-        height: 400,
-        width: "100%",
-        backgroundColor: "#ffffff",
-        marginTop: "5%",
-      }}
-    >
-      <DataGrid
-        rows={stateContracts}
-        getRowId={(r) => r.contractId}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-      />
-    </div>
+    <Container>
+      <div className={classes.createBtn}>
+        <Button
+          onClick={(e) => {
+            navigate("/create-contract");
+          }}
+          variant="contained"
+          color="custom"
+        >
+          <Typography color="#ffffff"> Create Tenant </Typography>
+        </Button>
+      </div>
+      <div
+        style={{
+          height: 400,
+          width: "100%",
+          backgroundColor: "#ffffff",
+        }}
+      >
+        <DataGrid
+          rows={stateContracts}
+          getRowId={(r) => r.contractId}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+        />
+      </div>
+    </Container>
   );
 };
 

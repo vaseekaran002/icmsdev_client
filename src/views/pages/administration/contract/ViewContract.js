@@ -59,16 +59,6 @@ export const ViewContract = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const contracts = useSelector((state) => state.contract.contracts);
-  const initialValues = {
-    channelName: "",
-    city: "",
-    description: "",
-    fees: "",
-    timeZone: "",
-    title: "",
-    venue: "",
-    staksPayId: "",
-  };
   const [editContract, SetEditContract] = useState();
   const [isEdit, setIsEdit] = useState(true);
   useEffect(() => {
@@ -78,7 +68,6 @@ export const ViewContract = () => {
     }
   }, []);
 
-  console.log("location", location, id);
   const validatation = Yup.object({
     staksPayId: Yup.string().required("StaksPayId required"),
     fees: Yup.string().required("fees required"),
@@ -102,6 +91,7 @@ export const ViewContract = () => {
           <Grid className={classes.form} item>
             <Formik
               initialValues={{
+                contractId: editContract[0].contractId,
                 channelName: editContract[0].channelName,
                 city: editContract[0].city,
                 description: editContract[0].description,
