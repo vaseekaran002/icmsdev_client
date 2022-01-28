@@ -8,7 +8,7 @@ export const getInvoices = async (invoice) => {
 
 export const updateInvoice = async (invoice) => {
     console.log(invoice);
-    return await axios.post(`${environment.api_url}/invoice`, invoice);
+    return await axios.post(`${environment.api_url}/musician/MUSIC-45/invoice`, invoice);
 }
 
 export const getInvoice = async (invoice) => {

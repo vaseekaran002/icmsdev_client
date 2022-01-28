@@ -19,7 +19,7 @@ import { makeStyles } from "@mui/styles";
 import { Formik, Field, Form } from "formik";
 import { useTheme } from "@emotion/react";
 import AnimateButton from "ui-component/extended/AnimateButton";
-import { createTenant } from "store/actions/tenantActions";
+import { updateInvoice } from "store/actions/invoiceActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -46,32 +46,31 @@ const CreateInvoice = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [statusChecked, setStatusChecked] = useState(true);
-  // const tenant = useSelector((state) => state.tenant.tenants);
-  // const error = useSelector((state) => state.tenant.tenants);
+  const invoice = useSelector((state) => state.invoice.invoices);
+  
 
   const initialValues = {
     contractId: "",
     channelName: "",
     title: "",
     description: "",
-    totalFeesdue: "",
+    totalFeesDue: "",
     contractDescription: "",
     dueDate: "",
   };
 
-  const validatation = Yup.object({
+  const validation = Yup.object({
     contractId: Yup.string().required("Contract Id required"),
-    // totalFeesdue: Yup.string().required("Total Fees Due required"),
+    totalFeesDue: Yup.string().required("Total Fees Due required"),
     dueDate: Yup.string().required("Due Date required"),
   });
 
   const handleSubmit = (values) => {
     console.log(values);
-    // dispatch(createTenant(values));
-    // if (tenant) {
-    //   navigate("/tenant");
-    // }
+    dispatch(updateInvoice(values));
+    if (invoice) {
+      navigate("/administration");
+    }
   };
 
   return (
@@ -83,10 +82,8 @@ const CreateInvoice = () => {
         <Grid className={classes.form} item>
           <Formik
             initialValues={initialValues}
-            validationSchema={validatation}
-            onSubmit={(values) => {
-              console.log(values);
-            }}
+            validationSchema={validation}
+            onSubmit={handleSubmit}
           >
             <Form>
               <Field name="channelName">
@@ -175,7 +172,7 @@ const CreateInvoice = () => {
                       sx={{ ...theme.typography.customInput }}
                     >
                       <InputLabel>Due Date</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
+                      <OutlinedInput type="date" fullWidth {...field}></OutlinedInput>
                       {meta.touched && meta.error ? (
                         <FormHelperText error id="dueDate">
                           {meta.error}

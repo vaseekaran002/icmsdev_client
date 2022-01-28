@@ -65,6 +65,7 @@ const ViewInvoice = Loadable(
 const CreateInvoice = Loadable(
   lazy(()=> import("views/pages/administration/invoice/CreateInvoice"))
 );
+
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -174,6 +175,10 @@ const MainRoutes = {
     {
       path: "/invoices",
       element: <Invoices/>
+    },
+    {
+      path: "/invoices/edit-invoice/:id",
+      element: <ViewInvoice/>
     }
   ],
 };
