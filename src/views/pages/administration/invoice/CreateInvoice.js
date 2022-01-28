@@ -16,7 +16,7 @@ import {
 import * as Yup from "yup";
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { Formik,Field,Form } from "formik";
+import { Formik, Field, Form } from "formik";
 import { useTheme } from "@emotion/react";
 import AnimateButton from "ui-component/extended/AnimateButton";
 import { createTenant } from "store/actions/tenantActions";
@@ -42,7 +42,6 @@ const useStyles = makeStyles({
 });
 
 const CreateInvoice = () => {
-
   const theme = useTheme();
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -52,7 +51,7 @@ const CreateInvoice = () => {
   // const error = useSelector((state) => state.tenant.tenants);
 
   const initialValues = {
-    invoiceId:"",
+    contractId: "",
     channelName: "",
     title: "",
     description: "",
@@ -64,7 +63,7 @@ const CreateInvoice = () => {
   const validatation = Yup.object({
     contractId: Yup.string().required("Contract Id required"),
     // totalFeesdue: Yup.string().required("Total Fees Due required"),
-    dueDate: Yup.string().required("Due Date required")
+    dueDate: Yup.string().required("Due Date required"),
   });
 
   const handleSubmit = (values) => {
@@ -76,7 +75,6 @@ const CreateInvoice = () => {
   };
 
   return (
-
     <Container className={classes.container}>
       <Grid sm={9} md={5} className={classes.box} container spacing={1}>
         <Grid item>
@@ -86,8 +84,9 @@ const CreateInvoice = () => {
           <Formik
             initialValues={initialValues}
             validationSchema={validatation}
-            onSubmit={(values)=>{
-              console.log(values)}}
+            onSubmit={(values) => {
+              console.log(values);
+            }}
           >
             <Form>
               <Field name="channelName">
@@ -147,7 +146,7 @@ const CreateInvoice = () => {
                   );
                 }}
               </Field>
-              
+
               <Field name="description">
                 {(props) => {
                   const { field, form, meta } = props;
@@ -186,7 +185,7 @@ const CreateInvoice = () => {
                   );
                 }}
               </Field>
-              {/* <Field name="venue">
+              <Field name="contractId">
                 {(props) => {
                   const { field, form, meta } = props;
                   return (
@@ -194,17 +193,17 @@ const CreateInvoice = () => {
                       fullWidth
                       sx={{ ...theme.typography.customInput }}
                     >
-                      <InputLabel>Venue</InputLabel>
+                      <InputLabel>Contract Id</InputLabel>
                       <OutlinedInput fullWidth {...field}></OutlinedInput>
                       {meta.touched && meta.error ? (
-                        <FormHelperText error id="venue">
+                        <FormHelperText error id="contractId">
                           {meta.error}
                         </FormHelperText>
                       ) : null}
                     </FormControl>
                   );
                 }}
-              </Field> */}
+              </Field>
               <Field name="totalFeesDue">
                 {(props) => {
                   const { field, form, meta } = props;
@@ -244,7 +243,6 @@ const CreateInvoice = () => {
         </Grid>
       </Grid>
     </Container>
-
   );
 };
 
