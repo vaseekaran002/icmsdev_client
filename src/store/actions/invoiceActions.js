@@ -35,12 +35,12 @@ export const updateInvoice = (invoice) => ({
     payload: invoice
 });
 
-export const updateMusicianSuccess = (invoice) => ({
+export const updateInvoiceSuccess = (invoice) => ({
     type: actionTypes.UPDATE_INVOICE_SUCCESS,
     payload: invoice
 });
 
-export const updateMusicianError = (error) => ({
+export const updateInvoiceError = (error) => ({
     type: actionTypes.UPDATE_INVOICE_ERROR,
     payload: error
 });

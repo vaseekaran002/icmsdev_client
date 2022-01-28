@@ -14,14 +14,14 @@ import {
   Typography,
 } from "@mui/material";
 import * as Yup from "yup";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { Formik, Form, ErrorMessage, Field } from "formik";
+import { Formik, Field, Form } from "formik";
 import { useTheme } from "@emotion/react";
 import AnimateButton from "ui-component/extended/AnimateButton";
+import { updateInvoice } from "store/actions/invoiceActions";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { updateContract } from "store/actions/contractActions";
+import { useNavigate, useLocation, useParams } from "react-router";
 
 const useStyles = makeStyles({
   container: {
@@ -45,74 +45,71 @@ const useStyles = makeStyles({
   },
   form: {
     "&&": {
-      // => .makeStyles-item.makeStyles-item
       padding: "0px 0px 0px 0px",
     },
   },
 });
 
-export const CreateContract = () => {
+const ViewInvoice = () => {
   const theme = useTheme();
+  const location = useLocation();
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const contracts = useSelector((state) => state.contract.contracts);
-  const initialValues = {
-    channelName: "",
-    city: "",
-    description: "",
-    fees: "",
-    timeZone: "",
-    title: "",
-    venue: "",
-    staksPayId: "",
-  };
+  const [isEdit, setIsEdit] = useState(true);
+  const [editInvoice,setEditInvoice] = useState();
+  const {id} = useParams();
+  const invoice = useSelector((state) => state.invoice.invoices);
+  
 
-  const validatation = Yup.object({
-    staksPayId: Yup.string().required("StaksPayId required"),
-    fees: Yup.string().required("fees required"),
-    description: Yup.string().required("description required"),
+  const validation = Yup.object({
+    contractId: Yup.string().required("Contract Id required"),
+    totalFeesDue: Yup.string().required("Total Fees Due required"),
+    dueDate: Yup.string().required("Due Date required"),
   });
 
   const handleSubmit = (values) => {
     console.log(values);
-    dispatch(updateContract(values));
-    if (contracts) {
-      navigate("/contracts");
+    dispatch(updateInvoice(values));
+    if (invoice) {
+      navigate("/invoices");
     }
   };
+
+  React.useEffect(()=>{
+    console.log("Hello")
+    console.log(invoice);
+    setEditInvoice(invoice.filter((item)=>item.invoiceId === id));
+    if (location.pathname.includes("edit")) {
+      setIsEdit(false);
+    }
+  },[])
+
   return (
     <Container className={classes.container}>
       <Grid sm={9} md={5} className={classes.box} container spacing={1}>
         <Grid item>
-          <Typography variant="h3">Create Contract</Typography>
+          <Typography variant="h3">Create Invoice</Typography>
         </Grid>
-        <Grid className={classes.form} item>
+       {editInvoice && (
+          <Grid className={classes.form} item>
           <Formik
-            initialValues={initialValues}
-            validationSchema={validatation}
+            initialValues={
+              {
+                invoiceId: editInvoice[0].invoiceId,
+                contractId: editInvoice[0].contractId,
+                channelName: editInvoice[0].channelName,
+                title: editInvoice[0].title,
+                description: editInvoice[0].description,
+                totalFeesDue: editInvoice[0].totalFeesDue,
+                contractDescription: editInvoice[0].contractDescription,
+                dueDate: editInvoice[0].dueDate,
+              }
+            }
+            validationSchema={validation}
             onSubmit={handleSubmit}
           >
             <Form>
-              <Field name="staksPayId">
-                {(props) => {
-                  const { field, form, meta } = props;
-                  return (
-                    <FormControl
-                      fullWidth
-                      sx={{ ...theme.typography.customInput }}
-                    >
-                      <InputLabel>StaksPay Id</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
-                      {meta.touched && meta.error ? (
-                        <FormHelperText error id="staksPayId">
-                          {meta.error}
-                        </FormHelperText>
-                      ) : null}
-                    </FormControl>
-                  );
-                }}
-              </Field>
               <Field name="channelName">
                 {(props) => {
                   const { field, form, meta } = props;
@@ -122,7 +119,7 @@ export const CreateContract = () => {
                       sx={{ ...theme.typography.customInput }}
                     >
                       <InputLabel>Channel Name</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
+                      <OutlinedInput disabled={isEdit} fullWidth {...field}></OutlinedInput>
                       {meta.touched && meta.error ? (
                         <FormHelperText error id="channelName">
                           {meta.error}
@@ -141,7 +138,7 @@ export const CreateContract = () => {
                       sx={{ ...theme.typography.customInput }}
                     >
                       <InputLabel>Title</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
+                      <OutlinedInput disabled={isEdit} fullWidth {...field}></OutlinedInput>
                       {meta.touched && meta.error ? (
                         <FormHelperText error id="title">
                           {meta.error}
@@ -151,6 +148,26 @@ export const CreateContract = () => {
                   );
                 }}
               </Field>
+              <Field name="contractDescription">
+                {(props) => {
+                  const { field, form, meta } = props;
+                  return (
+                    <FormControl
+                      fullWidth
+                      sx={{ ...theme.typography.customInput }}
+                    >
+                      <InputLabel>Contract Description</InputLabel>
+                      <OutlinedInput disabled={isEdit} fullWidth {...field}></OutlinedInput>
+                      {meta.touched && meta.error ? (
+                        <FormHelperText error id="contractDescription">
+                          {meta.error}
+                        </FormHelperText>
+                      ) : null}
+                    </FormControl>
+                  );
+                }}
+              </Field>
+
               <Field name="description">
                 {(props) => {
                   const { field, form, meta } = props;
@@ -160,7 +177,7 @@ export const CreateContract = () => {
                       sx={{ ...theme.typography.customInput }}
                     >
                       <InputLabel>Description</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
+                      <OutlinedInput disabled={isEdit} fullWidth {...field}></OutlinedInput>
                       {meta.touched && meta.error ? (
                         <FormHelperText error id="description">
                           {meta.error}
@@ -170,7 +187,7 @@ export const CreateContract = () => {
                   );
                 }}
               </Field>
-              <Field name="city">
+              <Field name="dueDate">
                 {(props) => {
                   const { field, form, meta } = props;
                   return (
@@ -178,10 +195,10 @@ export const CreateContract = () => {
                       fullWidth
                       sx={{ ...theme.typography.customInput }}
                     >
-                      <InputLabel>City</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
+                      <InputLabel>Due Date</InputLabel>
+                      <OutlinedInput disabled={isEdit} fullWidth {...field}></OutlinedInput>
                       {meta.touched && meta.error ? (
-                        <FormHelperText error id="city">
+                        <FormHelperText error id="dueDate">
                           {meta.error}
                         </FormHelperText>
                       ) : null}
@@ -189,7 +206,7 @@ export const CreateContract = () => {
                   );
                 }}
               </Field>
-              <Field name="fees">
+              <Field name="contractId">
                 {(props) => {
                   const { field, form, meta } = props;
                   return (
@@ -197,10 +214,10 @@ export const CreateContract = () => {
                       fullWidth
                       sx={{ ...theme.typography.customInput }}
                     >
-                      <InputLabel>Fees</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
+                      <InputLabel>Contract Id</InputLabel>
+                      <OutlinedInput disabled={isEdit} fullWidth {...field}></OutlinedInput>
                       {meta.touched && meta.error ? (
-                        <FormHelperText error id="fees">
+                        <FormHelperText error id="contractId">
                           {meta.error}
                         </FormHelperText>
                       ) : null}
@@ -208,7 +225,7 @@ export const CreateContract = () => {
                   );
                 }}
               </Field>
-              <Field name="timeZone">
+              <Field name="totalFeesDue">
                 {(props) => {
                   const { field, form, meta } = props;
                   return (
@@ -216,29 +233,10 @@ export const CreateContract = () => {
                       fullWidth
                       sx={{ ...theme.typography.customInput }}
                     >
-                      <InputLabel>Time Zone</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
+                      <InputLabel>Total Fees Due</InputLabel>
+                      <OutlinedInput disabled={isEdit} fullWidth {...field}></OutlinedInput>
                       {meta.touched && meta.error ? (
-                        <FormHelperText error id="timeZone">
-                          {meta.error}
-                        </FormHelperText>
-                      ) : null}
-                    </FormControl>
-                  );
-                }}
-              </Field>
-              <Field name="venue">
-                {(props) => {
-                  const { field, form, meta } = props;
-                  return (
-                    <FormControl
-                      fullWidth
-                      sx={{ ...theme.typography.customInput }}
-                    >
-                      <InputLabel>Venue</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
-                      {meta.touched && meta.error ? (
-                        <FormHelperText error id="venue">
+                        <FormHelperText error id="totalFeesDue">
                           {meta.error}
                         </FormHelperText>
                       ) : null}
@@ -264,9 +262,10 @@ export const CreateContract = () => {
             </Form>
           </Formik>
         </Grid>
+       )}
       </Grid>
     </Container>
   );
 };
 
-export default CreateContract;
+export default ViewInvoice;
