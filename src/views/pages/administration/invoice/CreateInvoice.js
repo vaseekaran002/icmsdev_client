@@ -11,6 +11,7 @@ import {
   InputLabel,
   OutlinedInput,
   Radio,
+  TextField,
   Typography,
 } from "@mui/material";
 import * as Yup from "yup";
@@ -22,6 +23,8 @@ import AnimateButton from "ui-component/extended/AnimateButton";
 import { updateInvoice } from "store/actions/invoiceActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/lab";
+import DateAdapter from "@mui/lab/AdapterDateFns";
 
 const useStyles = makeStyles({
   container: {
@@ -47,7 +50,6 @@ const CreateInvoice = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const invoice = useSelector((state) => state.invoice.invoices);
-  
 
   const initialValues = {
     contractId: "",
@@ -166,13 +168,22 @@ const CreateInvoice = () => {
               <Field name="dueDate">
                 {(props) => {
                   const { field, form, meta } = props;
+                  const { setFieldValue } = form;
                   return (
                     <FormControl
                       fullWidth
                       sx={{ ...theme.typography.customInput }}
                     >
                       <InputLabel>Due Date</InputLabel>
-                      <OutlinedInput type="date" fullWidth {...field}></OutlinedInput>
+                      <LocalizationProvider dateAdapter={DateAdapter}>
+                        <DesktopDatePicker
+                          inputFormat="MM/dd/yyyy"
+                          {...field}
+                          onChange={(val) => setFieldValue("dueDate", val)}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </LocalizationProvider>
+
                       {meta.touched && meta.error ? (
                         <FormHelperText error id="dueDate">
                           {meta.error}
