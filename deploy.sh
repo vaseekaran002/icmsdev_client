@@ -20,3 +20,6 @@ docker build -t eswarpalani/icms_client:latest .
 
 #push new image
 docker push eswarpalani/icms_client:latest
+
+#docker logout
+docker logout
