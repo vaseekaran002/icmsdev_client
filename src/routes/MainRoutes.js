@@ -55,6 +55,17 @@ const ViewContracts = Loadable(
 const CreateContract = Loadable(
   lazy(() => import("views/pages/administration/contract/CreateContract"))
 );
+
+const Invoices = Loadable(
+  lazy(()=> import("views/pages/administration/invoice/Invoices"))
+);
+const ViewInvoice = Loadable(
+  lazy(()=> import("views/pages/administration/invoice/ViewInvoice"))
+);
+const CreateInvoice = Loadable(
+  lazy(()=> import("views/pages/administration/invoice/CreateInvoice"))
+);
+
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -129,20 +140,46 @@ const MainRoutes = {
       path: "/tenant/edit-tenant/:name",
       element: <EditTenant />,
     },
-    { path: "/create-metadata", element: <CreateMetadata /> },
-    { path: "metadata/edit-metadata/:name", element: <EditMetadata /> },
+    { 
+      path: "/create-metadata",
+      element: <CreateMetadata /> 
+    },
+    { 
+      path: "metadata/edit-metadata/:name", 
+      element: <EditMetadata /> 
+    },
     {
       path: "/contracts",
       element: <Contracts />,
     },
     {
-      path: "/view-contracts/:id",
+      path: "/contracts/view-contracts/:id",
+      element: <ViewContracts />,
+    },
+    {
+      path: "/contracts/edit-contracts/:id",
       element: <ViewContracts />,
     },
     {
       path: "/create-contract",
       element: <CreateContract />,
     },
+    {
+      path: "/view-invoice/:id",
+      element: <ViewInvoice/>
+    },
+    {
+      path: "/create-invoice",
+      element: <CreateInvoice/>
+    },
+    {
+      path: "/invoices",
+      element: <Invoices/>
+    },
+    {
+      path: "/invoices/edit-invoice/:id",
+      element: <ViewInvoice/>
+    }
   ],
 };
 

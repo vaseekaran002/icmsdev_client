@@ -46,7 +46,7 @@ const members = [
 
 const contracts = [
   {
-    id: "1",
+    id: "CONTR-53",
     title: "Celebration Square",
     contractDescription: "Celebration Square",
     dateOfContract: "02/12/2022 02:02:22",
@@ -97,9 +97,9 @@ const Index = () => {
     const members = useSelector((state) => state.musician.musicians);
     */
 
-  const invoices = useSelector((state) => {
-    return state.invoice.invoices;
-  });
+  // const invoices = useSelector((state) => {
+  //   return state.invoice.invoices;
+  // });
 
   return (
     <MainCard>

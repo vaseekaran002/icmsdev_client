@@ -65,7 +65,7 @@ const Contracts = ({ contracts }) => {
                       <td>
                         <Button
                           onClick={() => {
-                            navigate(`/view-contracts/${item.id}`);
+                            navigate(`/contracts/view-contracts/${item.id}`);
                           }}
                           color="primary"
                         >

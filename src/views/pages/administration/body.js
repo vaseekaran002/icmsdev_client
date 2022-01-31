@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Administartion from "./administration";
 import Contracts from "./contract/index";
-import Invoices from "./invoice";
+import Invoices from "./invoice/index";
 
 import { Divider, Typography } from "@mui/material";
 
