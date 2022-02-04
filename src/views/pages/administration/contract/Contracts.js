@@ -54,20 +54,20 @@ export const ContractDisplay = () => {
         </Tooltip>
       ),
     },
-    {
-      field: "title",
-      headerName: "Title",
-      width: 150,
-      renderCell: (params) => (
-        <Tooltip title={params.row.title}>
-          <span className={classes.tablecelltrucate}>{params.row.title}</span>
-        </Tooltip>
-      ),
-    },
+    // {
+    //   field: "title",
+    //   headerName: "Title",
+    //   width: 150,
+    //   renderCell: (params) => (
+    //     <Tooltip title={params.row.title}>
+    //       <span className={classes.tablecelltrucate}>{params.row.title}</span>
+    //     </Tooltip>
+    //   ),
+    // },
     {
       field: "description",
       headerName: "Description",
-      width: 150,
+      width: 200,
       renderCell: (params) => (
         <Tooltip title={params.row.description}>
           <span className={classes.tablecelltrucate}>
@@ -76,18 +76,18 @@ export const ContractDisplay = () => {
         </Tooltip>
       ),
     },
-    {
-      field: "staksPayId",
-      headerName: "StaksPay Id",
-      width: 110,
-      renderCell: (params) => (
-        <Tooltip title={params.row.staksPayId}>
-          <span className={classes.tablecelltrucate}>
-            {params.row.staksPayId}
-          </span>
-        </Tooltip>
-      ),
-    },
+    // {
+    //   field: "staksPayId",
+    //   headerName: "StaksPay Id",
+    //   width: 110,
+    //   renderCell: (params) => (
+    //     <Tooltip title={params.row.staksPayId}>
+    //       <span className={classes.tablecelltrucate}>
+    //         {params.row.staksPayId}
+    //       </span>
+    //     </Tooltip>
+    //   ),
+    // },
     {
       field: "channelName",
       headerName: "Channel Name",
@@ -103,7 +103,7 @@ export const ContractDisplay = () => {
     {
       field: "city",
       headerName: "City",
-      width: 110,
+      width: 150,
       renderCell: (params) => (
         <Tooltip title={params.row.city}>
           <span className={classes.tablecelltrucate}>{params.row.city}</span>
@@ -113,29 +113,29 @@ export const ContractDisplay = () => {
     {
       field: "fees",
       headerName: "Fees",
-      width: 110,
+      width: 150,
       renderCell: (params) => (
         <Tooltip title={params.row.fees}>
           <span className={classes.tablecelltrucate}>{params.row.fees}</span>
         </Tooltip>
       ),
     },
-    {
-      field: "timeZone",
-      headerName: "Time Zone",
-      width: 110,
-      renderCell: (params) => (
-        <Tooltip title={params.row.timeZone}>
-          <span className={classes.tablecelltrucate}>
-            {params.row.timeZone}
-          </span>
-        </Tooltip>
-      ),
-    },
+    // {
+    //   field: "timeZone",
+    //   headerName: "Time Zone",
+    //   width: 110,
+    //   renderCell: (params) => (
+    //     <Tooltip title={params.row.timeZone}>
+    //       <span className={classes.tablecelltrucate}>
+    //         {params.row.timeZone}
+    //       </span>
+    //     </Tooltip>
+    //   ),
+    // },
     {
       field: "venue",
       headerName: "Venue",
-      width: 110,
+      width: 150,
       renderCell: (params) => (
         <Tooltip title={params.row.venue}>
           <span className={classes.tablecelltrucate}>{params.row.venue}</span>
@@ -175,7 +175,7 @@ export const ContractDisplay = () => {
           variant="contained"
           color="custom"
         >
-          <Typography color="#ffffff"> Create Tenant </Typography>
+          <Typography color="#ffffff"> Create Contract </Typography>
         </Button>
       </div>
       <div

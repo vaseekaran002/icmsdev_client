@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/lab";
 import DateAdapter from "@mui/lab/AdapterDateFns";
+import { style } from "@mui/system";
 
 const useStyles = makeStyles({
   container: {
@@ -41,6 +42,11 @@ const useStyles = makeStyles({
     alignItems: "center",
     padding: "20px",
     borderRadius: "20px",
+  },
+  form: {
+    "&&": {
+      padding: "0px 0px 0px 0px",
+    },
   },
 });
 
@@ -174,13 +180,22 @@ const CreateInvoice = () => {
                       fullWidth
                       sx={{ ...theme.typography.customInput }}
                     >
-                      <InputLabel>Due Date</InputLabel>
+                      {/* <InputLabel>Due Date</InputLabel> */}
                       <LocalizationProvider dateAdapter={DateAdapter}>
                         <DesktopDatePicker
-                          inputFormat="MM/dd/yyyy"
+                          inputFormat="dd/MM/yyyy"
                           {...field}
                           onChange={(val) => setFieldValue("dueDate", val)}
-                          renderInput={(params) => <TextField {...params} />}
+                          renderInput={(params) => {
+                            params.inputProps.placeholder = "Due Date";
+                            return (
+                              <TextField
+                                value={field.value}
+                                {...params}
+                                variant="outlined"
+                              />
+                            );
+                          }}
                         />
                       </LocalizationProvider>
 

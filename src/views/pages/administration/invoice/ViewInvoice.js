@@ -211,13 +211,22 @@ const ViewInvoice = () => {
                         fullWidth
                         sx={{ ...theme.typography.customInput }}
                       >
-                        <InputLabel>Due Date</InputLabel>
+                        {/* <InputLabel>Due Date</InputLabel> */}
                         <LocalizationProvider dateAdapter={DateAdapter}>
                           <DesktopDatePicker
-                            inputFormat="MM/dd/yyyy"
                             {...field}
+                            inputFormat="dd/MM/yyyy"
                             onChange={(val) => setFieldValue("dueDate", val)}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => {
+                              params.inputProps.placeholder = "Due Date";
+                              return (
+                                <TextField
+                                  value={field.value}
+                                  {...params}
+                                  variant="outlined"
+                                />
+                              );
+                            }}
                           />
                         </LocalizationProvider>
 
