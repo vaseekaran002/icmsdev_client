@@ -78,7 +78,7 @@ export const CreateContract = () => {
     console.log(values);
     dispatch(updateContract(values));
     if (contracts) {
-      navigate("/contracts");
+      navigate("/administration");
     }
   };
   return (
