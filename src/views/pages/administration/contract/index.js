@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import AddIcon from "@mui/icons-material/Add";
-import { Button, Grid, IconButton } from "@mui/material";
+import {
+  Button,
+  Grid,
+  IconButton,
+  Paper,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { gridSpacing } from "store/constant";
 import MuiTypography from "@mui/material/Typography";
 import { useNavigate } from "react-router";
 import { makeStyles } from "@mui/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { getContracts } from "store/actions/contractActions";
 
 const useStyles = makeStyles({
   header: {
@@ -20,6 +32,13 @@ const Contracts = ({ contracts }) => {
   const header = ["Date", "Contract Details", ""];
   const navigate = useNavigate();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getContracts({ musicianId: "MUSIC-45" }));
+  }, []);
+
+  const rows = useSelector((state) => state.contract.contracts);
+  console.log(rows);
   return (
     <div className="contract-section section">
       <div className={classes.header}>
@@ -48,7 +67,49 @@ const Contracts = ({ contracts }) => {
       </div>
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12} sm={12}>
-          <Table responsive>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Channel Name </TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>City</TableCell>
+                  <TableCell>Fees</TableCell>
+                  <TableCell>Venue</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row, i) => {
+                  if (i < 3) {
+                    return (
+                      <TableRow key={row.name}>
+                        <TableCell component="th" scope="row">
+                          {row.channelName}
+                        </TableCell>
+                        <TableCell>{row.description}</TableCell>
+                        <TableCell>{row.city}</TableCell>
+                        <TableCell>{row.fees}</TableCell>
+                        <TableCell>{row.venue}</TableCell>
+                        <TableCell>
+                          <Button
+                            onClick={() => {
+                              navigate(
+                                `/contracts/view-contracts/${row.contractId}`
+                              );
+                            }}
+                            color="primary"
+                          >
+                            View
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  }
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {/* <Table responsive>
             <thead>
               {header &&
                 header.length > 0 &&
@@ -63,20 +124,13 @@ const Contracts = ({ contracts }) => {
                       <td>{item.dateOfContract}</td>
                       <td>{item.contractDescription}</td>
                       <td>
-                        <Button
-                          onClick={() => {
-                            navigate(`/contracts/view-contracts/${item.id}`);
-                          }}
-                          color="primary"
-                        >
-                          View
-                        </Button>
+                        
                       </td>
                     </tr>
                   );
                 })}
             </tbody>
-          </Table>
+          </Table> */}
         </Grid>
       </Grid>
     </div>

@@ -56,7 +56,7 @@ const CreateInvoice = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const invoice = useSelector((state) => state.invoice.invoices);
-
+  const [dateOpen, setDateOpen] = useState(false);
   const initialValues = {
     contractId: "",
     channelName: "",
@@ -180,20 +180,23 @@ const CreateInvoice = () => {
                       fullWidth
                       sx={{ ...theme.typography.customInput }}
                     >
-                      {/* <InputLabel>Due Date</InputLabel> */}
+                      <InputLabel>Due Date</InputLabel>
                       <LocalizationProvider dateAdapter={DateAdapter}>
                         <DesktopDatePicker
+                          open={dateOpen}
+                          onClose={() => setDateOpen(false)}
                           inputFormat="dd/MM/yyyy"
                           {...field}
                           onChange={(val) => setFieldValue("dueDate", val)}
                           renderInput={(params) => {
                             params.inputProps.placeholder = "Due Date";
                             return (
-                              <TextField
+                              <OutlinedInput
                                 value={field.value}
                                 {...params}
                                 variant="outlined"
-                              />
+                                onClick={() => setDateOpen(true)}
+                              ></OutlinedInput>
                             );
                           }}
                         />

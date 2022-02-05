@@ -13,7 +13,7 @@ const Body = ({ administration, members, contracts, invoices }) => {
       <Administartion administration={administration} members={members} />
       <Divider />
       <Contracts contracts={contracts} />
-      <Divider />
+
       <Invoices invoices={invoices} />
     </>
   );
