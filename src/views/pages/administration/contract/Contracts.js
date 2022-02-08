@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button, Container, Tooltip, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getContracts } from "store/actions/contractActions";
+
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router";
 
@@ -20,14 +20,10 @@ const useStyles = makeStyles({
 });
 
 export const ContractDisplay = () => {
-  const dispatch = useDispatch();
   const [rows, setRows] = useState();
   const navigate = useNavigate();
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(getContracts({ musicianId: "MUSIC-45" }));
-  }, []);
   const stateContracts = useSelector((state) => state.contract.contracts);
 
   useEffect(() => {

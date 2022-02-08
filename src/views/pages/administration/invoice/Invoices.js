@@ -4,7 +4,6 @@ import { Button, Container, Typography, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { getInvoices } from "store/actions/invoiceActions";
 
 const useStyles = makeStyles({
   createBtn: {
@@ -17,12 +16,8 @@ const useStyles = makeStyles({
 export default function DataTable() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const allInvoices = useSelector((state) => state.invoice.invoices);
 
-  React.useEffect(() => {
-    dispatch(getInvoices({ musicianId: "MUSIC-45" }));
-  }, []);
+  const allInvoices = useSelector((state) => state.invoice.invoices);
 
   React.useEffect(() => {
     console.log("rows", allInvoices);
