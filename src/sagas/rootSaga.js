@@ -5,7 +5,7 @@ import * as tenantActionTypes from "store/actionTypes/tenantActionTypes";
 import * as metadataActionTypes from "store/actionTypes/metadataActionTypes";
 import * as contractActionTypes from "store/actionTypes/contractActionTypes";
 import * as invoiceActionTypes from "store/actionTypes/invoiceActionTypes";
-
+import * as musicianActionTypes from "store/actionTypes/musicianActionTypes";
 import {
   handleCreateRole,
   handleGetRoleByTenant,
@@ -22,7 +22,16 @@ import {
   handleCreateMetadata,
   handleGetAllMetadata,
 } from "./handlers/metadata";
-import { handleGetInvoice, handleGetInvoices, handleUpdateInvoice} from "./handlers/invoice";
+import {
+  handleGetInvoice,
+  handleGetInvoices,
+  handleUpdateInvoice,
+} from "./handlers/invoice";
+import {
+  handleGetMusician,
+  handleGetMusicians,
+  handleUpdateMusician,
+} from "./handlers/musician";
 
 export function* watcherSaga() {
   yield takeEvery(userActionTypes.SIGNIN_USER, handleSignInUser);
@@ -32,10 +41,15 @@ export function* watcherSaga() {
   yield takeEvery(roleActionTypes.GET_ROLE_BY_TENANT, handleGetRoleByTenant);
   yield takeEvery(tenantActionTypes.CREATE_TENANT_REQUEST, handleCreateTenant);
   yield takeEvery(tenantActionTypes.GET_ALL_TENANT, handleGetAllTenant);
-  yield takeEvery(metadataActionTypes.CREATE_METADATA_REQUEST,handleCreateMetadata);
+  yield takeEvery(
+    metadataActionTypes.CREATE_METADATA_REQUEST,
+    handleCreateMetadata
+  );
   yield takeEvery(metadataActionTypes.GET_ALL_METADATA, handleGetAllMetadata);
   yield takeEvery(contractActionTypes.GET_CONTRACTS, handleGetContracts);
   yield takeEvery(contractActionTypes.UPDATE_CONTRACT, handleUpdateContract);
-  yield takeEvery(invoiceActionTypes.GET_INVOICES,handleGetInvoices);
-  yield takeEvery(invoiceActionTypes.UPDATE_INVOICE,handleUpdateInvoice);
+  yield takeEvery(invoiceActionTypes.GET_INVOICES, handleGetInvoices);
+  yield takeEvery(invoiceActionTypes.UPDATE_INVOICE, handleUpdateInvoice);
+  yield takeEvery(musicianActionTypes.GET_MUSICIAN, handleGetMusician);
+  yield takeEvery(musicianActionTypes.GET_MUSICIANS, handleGetMusicians);
 }
