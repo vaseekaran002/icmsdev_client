@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/lab";
 import DateAdapter from "@mui/lab/AdapterDateFns";
+import { style } from "@mui/system";
 
 const useStyles = makeStyles({
   container: {
@@ -42,6 +43,11 @@ const useStyles = makeStyles({
     padding: "20px",
     borderRadius: "20px",
   },
+  form: {
+    "&&": {
+      padding: "0px 0px 0px 0px",
+    },
+  },
 });
 
 const CreateInvoice = () => {
@@ -50,7 +56,7 @@ const CreateInvoice = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const invoice = useSelector((state) => state.invoice.invoices);
-
+  const [dateOpen, setDateOpen] = useState(false);
   const initialValues = {
     contractId: "",
     channelName: "",
@@ -177,10 +183,22 @@ const CreateInvoice = () => {
                       <InputLabel>Due Date</InputLabel>
                       <LocalizationProvider dateAdapter={DateAdapter}>
                         <DesktopDatePicker
-                          inputFormat="MM/dd/yyyy"
+                          open={dateOpen}
+                          onClose={() => setDateOpen(false)}
+                          inputFormat="dd/MM/yyyy"
                           {...field}
                           onChange={(val) => setFieldValue("dueDate", val)}
-                          renderInput={(params) => <TextField {...params} />}
+                          renderInput={(params) => {
+                            params.inputProps.placeholder = "Due Date";
+                            return (
+                              <OutlinedInput
+                                value={field.value}
+                                {...params}
+                                variant="outlined"
+                                onClick={() => setDateOpen(true)}
+                              ></OutlinedInput>
+                            );
+                          }}
                         />
                       </LocalizationProvider>
 

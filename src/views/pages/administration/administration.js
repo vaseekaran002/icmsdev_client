@@ -1,108 +1,129 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Modal } from 'react-bootstrap';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { Button, Modal } from "react-bootstrap";
 
-import MuiTypography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
-import { gridSpacing } from 'store/constant';
-import './style.css';
+import MuiTypography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
+import { gridSpacing } from "store/constant";
+import "./style.css";
 
-import UserModal from './user-modal';
+import UserModal from "./user-modal";
+import { useDispatch, useSelector } from "react-redux";
+import { getMusician } from "store/actions/musicianActions";
 
+const Administartion = ({ administration, members }) => {
+  const [modalShow, setModalShow] = React.useState(false);
+  const dispatch = useDispatch();
+  const musicianState = useSelector((state) => state.musician.musician);
+  const [musician, setMusician] = useState();
+  useEffect(() => {
+    dispatch(getMusician({ artistName: "jeverson" }));
+    setMusician(musicianState);
+  }, []);
 
-const Administartion = ({administration, members}) => {
+  useEffect(() => {
+    setMusician(musicianState);
+  }, [musicianState]);
 
-    const [modalShow, setModalShow] = React.useState(false);
+  console.log("mu", musicianState);
 
-    return (
-        <div className="administration section">
+  return (
+    <div className="administration section">
+      {modalShow && (
+        <UserModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          members={members}
+        />
+      )}
 
-          { modalShow && 
-            <UserModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-              members= {members}
-            />
-          }
-
-          <MuiTypography variant="h4" gutterBottom>
-              Administration
-          </MuiTypography>
-          <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} sm={8} className="admin-form-view">
-              {administration && 
+      <MuiTypography variant="h4" gutterBottom>
+        Administration
+      </MuiTypography>
+      <Grid container spacing={gridSpacing}>
+        <Grid item xs={12} sm={8} className="admin-form-view">
+          {(() => {
+            if (musician != undefined && musician.length > 0) {
+              return (
                 <>
                   <div className="flex form-view">
-                    <div className="label">StaksPay Id</div> 
-                    <div className="value">{administration.staksPayId}</div>
+                    <div className="label">StaksPay Id</div>
+                    <div className="value">{musician[0].staksPayId}</div>
                   </div>
                   <div className="flex form-view">
-                    <div className="label">StaksPay Username</div> 
-                    <div className="value">{administration.userName}</div>
+                    <div className="label">StaksPay Username</div>
+                    <div className="value">{musician[0].userName}</div>
                   </div>
                   <div className="flex form-view">
-                    <div className="label">Artist Name (Public)</div> 
-                    <div className="value">{administration.artistName}</div>
+                    <div className="label">Artist Name (Public)</div>
+                    <div className="value">{musician[0].artistName}</div>
                   </div>
                   <div className="flex form-view">
-                    <div className="label">Facebook Link</div> 
+                    <div className="label">Facebook Link</div>
                     <div className="value">
-                      <a target="_blank" href={administration.facebookLink}>{administration.facebookLink}</a>
+                      <a target="_blank" href={musician[0].facebookLink}>
+                        {musician[0].facebookLink}
+                      </a>
                     </div>
                   </div>
                   <div className="flex form-view">
-                    <div className="label">Hometown</div> 
-                    <div className="value">{administration.hometown}</div>
+                    <div className="label">Hometown</div>
+                    <div className="value">{musician[0].hometown}</div>
                   </div>
                   <div className="flex form-view">
-                    <div className="label">Genres</div> 
-                    <div className="value">{administration.genres}</div>
+                    <div className="label">Genres</div>
+                    <div className="value">{musician[0].genres}</div>
                   </div>
                 </>
-              } 
-            </Grid>
-            <Grid item xs={12} sm={4}>
-            <div className="flex members-section">
-              <div>
-                <MuiTypography variant="h5" gutterBottom>
-                    Members
-                </MuiTypography>
-              </div>
-              <div>
-                <Button variant="link" onClick={() => setModalShow(true)}>Discover</Button>
-              </div>
+              );
+            }
+          })()}
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <div className="flex members-section">
+            <div>
+              <MuiTypography variant="h5" gutterBottom>
+                Members
+              </MuiTypography>
             </div>
-              {members && members.length > 0 && 
-                members.map(item => {
-                  return (
-                    <div className="flex members-list"> 
-                      <div>
-                        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-                      </div>
-                      <div className="flex members-details">
-                        <div>
-                          <MuiTypography variant="h5" gutterBottom>
-                              {item.artistName}
-                          </MuiTypography>
-                        </div>
-                        <div>
-                          <Button variant="link" onClick="">Manage</Button>
-                        </div>
-                      </div>
+            <div>
+              <Button variant="link" onClick={() => setModalShow(true)}>
+                Discover
+              </Button>
+            </div>
+          </div>
+          {members &&
+            members.length > 0 &&
+            members.map((item) => {
+              return (
+                <div className="flex members-list">
+                  <div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
+                  </div>
+                  <div className="flex members-details">
+                    <div>
+                      <MuiTypography variant="h5" gutterBottom>
+                        {item.artistName}
+                      </MuiTypography>
                     </div>
-                  )
-                })
-              }
-            </Grid>
-          </Grid>
-          
-        </div>
-    );
-}
+                    <div>
+                      <Button variant="link" onClick="">
+                        Manage
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
 
 Administartion.propTypes = {
   administration: PropTypes.object,
-  members: PropTypes.array
+  members: PropTypes.array,
 };
 
 export default Administartion;

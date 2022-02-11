@@ -62,7 +62,7 @@ const ViewInvoice = () => {
   const [editInvoice, setEditInvoice] = useState();
   const { id } = useParams();
   const invoice = useSelector((state) => state.invoice.invoices);
-
+  const [dateOpen, setDateOpen] = useState(false);
   const validation = Yup.object({
     contractId: Yup.string().required("Contract Id required"),
     totalFeesDue: Yup.string().required("Total Fees Due required"),
@@ -214,10 +214,22 @@ const ViewInvoice = () => {
                         <InputLabel>Due Date</InputLabel>
                         <LocalizationProvider dateAdapter={DateAdapter}>
                           <DesktopDatePicker
-                            inputFormat="MM/dd/yyyy"
+                            open={dateOpen}
+                            onClose={() => setDateOpen(false)}
+                            inputFormat="dd/MM/yyyy"
                             {...field}
                             onChange={(val) => setFieldValue("dueDate", val)}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => {
+                              params.inputProps.placeholder = "Due Date";
+                              return (
+                                <OutlinedInput
+                                  value={field.value}
+                                  {...params}
+                                  variant="outlined"
+                                  onClick={() => setDateOpen(true)}
+                                ></OutlinedInput>
+                              );
+                            }}
                           />
                         </LocalizationProvider>
 
