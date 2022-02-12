@@ -1,40 +1,45 @@
-import * as actionTypes from '../actionTypes/authActionTypes';
+import * as actionTypes from "../actionTypes/authActionTypes";
 
 export const signInUser = (login) => ({
-    type: actionTypes.SIGNIN_USER,
-    payload: login
+  type: actionTypes.SIGNIN_USER,
+  payload: login,
 });
 
 export const logoutUser = (logout) => ({
-    type: actionTypes.LOGOUT_USER,
-    payload: logout
+  type: actionTypes.LOGOUT_USER,
+  payload: logout,
 });
 
 export const resetUserData = () => ({
-    type: actionTypes.RESET_USER_DATA
+  type: actionTypes.RESET_USER_DATA,
+});
+
+export const logoutUserError = (error) => ({
+  type: actionTypes.LOGOUT_USER_ERROR,
+  payload: error,
 });
 
 export const signInUserSuccess = (user) => ({
-    type: actionTypes.SIGNIN_USER_SUCCESS,
-    payload: user
+  type: actionTypes.SIGNIN_USER_SUCCESS,
+  payload: user,
 });
 
 export const signInUserError = (error) => ({
-    type: actionTypes.SIGNIN_USER_ERROR,
-    payload: error
+  type: actionTypes.SIGNIN_USER_ERROR,
+  payload: error,
 });
 
 export const registerUser = (user) => ({
-    type: actionTypes.REGISTER_USER,
-    payload: user
+  type: actionTypes.REGISTER_USER,
+  payload: user,
 });
 
 export const registerUserSuccess = (user) => ({
-    type: actionTypes.REGISTER_USER_SUCCESS,
-    payload: user
+  type: actionTypes.REGISTER_USER_SUCCESS,
+  payload: user,
 });
 
 export const registerUserError = (error) => ({
-    type: actionTypes.REGISTER_USER_ERROR,
-    payload: error
+  type: actionTypes.REGISTER_USER_ERROR,
+  payload: error,
 });
