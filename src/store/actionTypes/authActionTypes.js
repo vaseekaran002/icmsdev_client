@@ -11,3 +11,4 @@ export const REGISTER_USER_ERROR = "REGISTER_USER_ERROR";
 // action - logout reducer
 export const LOGOUT_USER = "LOGOUT_USER"; 
 export const RESET_USER_DATA = "RESET_USER_DATA";
+export const LOGOUT_USER_ERROR = "LOGOUT_USER_ERROR";

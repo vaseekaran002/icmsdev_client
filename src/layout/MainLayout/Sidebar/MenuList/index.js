@@ -12,8 +12,8 @@ const customMenus = [];
 
 const MenuList = () => {
 
-    const menus = useSelector((state) => state.user.user.metadata);
-
+    const menus = useSelector((state) => state.user.user?.metadata);
+    
     if(customMenus.length == 0){
         if(menus && menus.length > 0){
             menus.map((item) => {
