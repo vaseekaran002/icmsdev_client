@@ -52,6 +52,7 @@ export const EditTenant = () => {
   const [editTenant, setEditTenant] = useState();
   const tenants = useSelector((state) => state.tenant.tenants);
   const error = useSelector((state) => state.tenant.tenants);
+  
   const handleCreateTenant = (values) => {
     console.log(values);
     dispatch(createTenant(values));
@@ -73,8 +74,10 @@ export const EditTenant = () => {
   }, []);
 
   useEffect(() => {
-    console.log(editTenant);
-  }, [editTenant]);
+    if (!tenants || tenants.length === 0) {
+      navigate("/tenant");
+    }
+  });
 
   return (
     <Container className={classes.container}>

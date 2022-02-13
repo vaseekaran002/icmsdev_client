@@ -9,21 +9,28 @@ import "./style.css";
 
 import UserModal from "./user-modal";
 import { useDispatch, useSelector } from "react-redux";
-import { getMusician } from "store/actions/musicianActions";
+import { getMusician, getMusicianMembers } from "store/actions/musicianActions";
 
-const Administartion = ({ administration, members }) => {
+const Administartion = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const dispatch = useDispatch();
   const musicianState = useSelector((state) => state.musician.musician);
+  const memberState = useSelector((state) => state.musician.members);
   const [musician, setMusician] = useState();
+  const [members, setMembers] = useState();
   useEffect(() => {
-    dispatch(getMusician({ artistName: "jeverson" }));
+    dispatch(getMusician({ artistName: "prathyu" }));
+    dispatch(getMusicianMembers("MUSIC-92"));
     setMusician(musicianState);
   }, []);
 
   useEffect(() => {
     setMusician(musicianState);
   }, [musicianState]);
+
+  useEffect(() => {
+    setMembers(memberState);
+  }, [members]);
 
   console.log("mu", musicianState);
 
@@ -42,42 +49,82 @@ const Administartion = ({ administration, members }) => {
       </MuiTypography>
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12} sm={8} className="admin-form-view">
-          {(() => {
-            if (musician != undefined && musician.length > 0) {
-              return (
-                <>
-                  <div className="flex form-view">
-                    <div className="label">StaksPay Id</div>
+          <div className="flex form-view">
+            <div className="label">StaksPay Id</div>
+            {(() => {
+              if (musician != undefined && musician.length > 0) {
+                return (
+                  <>
                     <div className="value">{musician[0].staksPayId}</div>
-                  </div>
-                  <div className="flex form-view">
-                    <div className="label">StaksPay Username</div>
+                  </>
+                );
+              }
+            })()}
+          </div>
+          <div className="flex form-view">
+            <div className="label">StaksPay Username</div>
+            {(() => {
+              if (musician != undefined && musician.length > 0) {
+                return (
+                  <>
                     <div className="value">{musician[0].userName}</div>
-                  </div>
-                  <div className="flex form-view">
-                    <div className="label">Artist Name (Public)</div>
+                  </>
+                );
+              }
+            })()}
+          </div>
+          <div className="flex form-view">
+            <div className="label">Artist Name (Public)</div>
+            {(() => {
+              if (musician != undefined && musician.length > 0) {
+                return (
+                  <>
                     <div className="value">{musician[0].artistName}</div>
-                  </div>
-                  <div className="flex form-view">
-                    <div className="label">Facebook Link</div>
-                    <div className="value">
+                  </>
+                );
+              }
+            })()}
+          </div>
+          <div className="flex form-view">
+            <div className="label">Facebook Link</div>
+            <div className="value">
+              {(() => {
+                if (musician != undefined && musician.length > 0) {
+                  return (
+                    <>
                       <a target="_blank" href={musician[0].facebookLink}>
                         {musician[0].facebookLink}
                       </a>
-                    </div>
-                  </div>
-                  <div className="flex form-view">
-                    <div className="label">Hometown</div>
+                    </>
+                  );
+                }
+              })()}
+            </div>
+          </div>
+          <div className="flex form-view">
+            <div className="label">Hometown</div>
+            {(() => {
+              if (musician != undefined && musician.length > 0) {
+                return (
+                  <>
                     <div className="value">{musician[0].hometown}</div>
-                  </div>
-                  <div className="flex form-view">
-                    <div className="label">Genres</div>
+                  </>
+                );
+              }
+            })()}
+          </div>
+          <div className="flex form-view">
+            <div className="label">Genres</div>
+            {(() => {
+              if (musician != undefined && musician.length > 0) {
+                return (
+                  <>
                     <div className="value">{musician[0].genres}</div>
-                  </div>
-                </>
-              );
-            }
-          })()}
+                  </>
+                );
+              }
+            })()}
+          </div>
         </Grid>
         <Grid item xs={12} sm={4}>
           <div className="flex members-section">
@@ -92,29 +139,31 @@ const Administartion = ({ administration, members }) => {
               </Button>
             </div>
           </div>
-          {members &&
-            members.length > 0 &&
-            members.map((item) => {
-              return (
-                <div className="flex members-list">
-                  <div>
-                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-                  </div>
-                  <div className="flex members-details">
+          {(() => {
+            if (members != undefined && members.length > 0) {
+              members.map((item) => {
+                return (
+                  <div className="flex members-list">
                     <div>
-                      <MuiTypography variant="h5" gutterBottom>
-                        {item.artistName}
-                      </MuiTypography>
+                      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
                     </div>
-                    <div>
-                      <Button variant="link" onClick="">
-                        Manage
-                      </Button>
+                    <div className="flex members-details">
+                      <div>
+                        <MuiTypography variant="h5" gutterBottom>
+                          {item.artistName}
+                        </MuiTypography>
+                      </div>
+                      <div>
+                        <Button variant="link" onClick="">
+                          Manage
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              });
+            }
+          })()}
         </Grid>
       </Grid>
     </div>

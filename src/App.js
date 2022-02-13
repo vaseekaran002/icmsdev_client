@@ -13,11 +13,17 @@ import themes from "themes";
 import NavigationScroll from "layout/NavigationScroll";
 import axios from "axios";
 
+import { ICMS_USER_KEY } from "appConstants";
+
 // ==============================|| APP ||============================== //
 
 axios.interceptors.request.use((req) => {
   if (!req.url.includes("auth")) {
-    const token = JSON.parse(sessionStorage.getItem("accessToken"));
+    const icmsUser = JSON.parse(localStorage.getItem(ICMS_USER_KEY) || "{}");
+    let token = "";
+    if (icmsUser && Object.keys(icmsUser).length > 0) {
+      token = `${icmsUser.type} ${icmsUser.accessToken}`;
+    }
     req.headers.Authorization = token;
   }
   return req;

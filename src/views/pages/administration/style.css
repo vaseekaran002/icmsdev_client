@@ -1,57 +1,57 @@
 .flex {
-    display: flex;
+  display: flex;
 }
-.members-container{
-    display: flex;
+.members-container {
+  display: flex;
 }
 
-.members-list img{
-    width: 30px;
-    height: 30px;
+.members-list img {
+  width: 30px;
+  height: 30px;
 }
 
 .contract-section table td:first-child,
 .invoice-section table td:first-child {
-    width: 20%;
+  width: 20%;
 }
 
-.administration .form-view .label{
-    width: 40%;
+.administration .form-view .label {
+  width: 40%;
 }
-.administration .form-view .value{
-    font-weight: bold;
+.administration .form-view .value {
+  font-weight: bold;
 }
 
-.members-section div:first-child{
-    width: 50%;
+.members-section div:first-child {
+  width: 50%;
 }
-.members-section div:nth-child(2){
-    width: 50%;
-    text-align: right;
+.members-section div:nth-child(2) {
+  width: 50%;
+  text-align: right;
 }
 
 .members-details {
-    width: 100%;
-    display: flex;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
-.members-details div:first-child{
-    width: 70%;
-    margin-left: 5px;
+.members-details div:first-child {
+  width: 70%;
+  margin-left: 5px;
 }
-.members-details div:nth-child(2){
-    width: 30%;
-    text-align: right;
+.members-details div:nth-child(2) {
+  width: 30%;
+  text-align: right;
 }
 .section {
-    margin: 15px 0;
+  margin: 15px 0;
 }
 
 .form-view {
-    line-height: 30px;
+  line-height: 30px;
 }
 
-.admin-form-view{
-    border-right: 1px solid #616161;
+.admin-form-view {
+  border-right: 1px solid #616161;
 }

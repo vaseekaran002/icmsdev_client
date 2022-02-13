@@ -12,14 +12,18 @@ import {
 import MuiTypography from "@mui/material/Typography";
 import { Stack, OutlinedInput } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getMusicians } from "store/actions/musicianActions";
+import {
+  addMusicianMembers,
+  getMusicians,
+} from "store/actions/musicianActions";
 import debounce from "lodash.debounce";
 const UserModal = ({ show = true, onHide }) => {
-  const [searchText, setSearchText] = useState(null);
+  const [debounceCount, setDebounceCount] = useState(0);
   const [searchType, setSearchType] = useState("artistName");
   const dispatch = useDispatch();
   const [members, setMembers] = useState();
   const stateMemebers = useSelector((state) => state.musician.musicians);
+  const musician = useSelector((state) => state.musician.musician);
   var params = {
     artistName: "",
     city: "",
@@ -30,13 +34,17 @@ const UserModal = ({ show = true, onHide }) => {
     setMembers(stateMemebers);
   }, [stateMemebers]);
 
+  useEffect(() => {
+    console.log(debounceCount);
+  }, [debounceCount]);
+
   const handleChange = (event) => {
     let text = event.target.value;
-    if (searchType.match("artistName")) {
+    if (searchType.match("Name")) {
       params.artistName = text;
-    } else if (searchType.match("city")) {
+    } else if (searchType.match("City")) {
       params.city = text;
-    } else if (searchType.match("genre")) {
+    } else if (searchType.match("Genre")) {
       params.genre = text;
     } else {
       params.staksId = text;
@@ -46,10 +54,19 @@ const UserModal = ({ show = true, onHide }) => {
     // TODO: API integration to search the musicians
   };
 
-  const debounceOnChange = debounce(handleChange, 500);
+  const debounceOnChange = debounce(handleChange, 2000);
 
   const handleTypeChange = (type) => {
     setSearchType(type);
+  };
+
+  const handleAdd = (memberId) => {
+    dispatch(
+      addMusicianMembers({
+        musicianId: musician[0].radaptiveId,
+        memberId: memberId,
+      })
+    );
   };
 
   return (
@@ -68,26 +85,36 @@ const UserModal = ({ show = true, onHide }) => {
       <Modal.Body>
         <>
           {searchType && (
-            <InputGroup onChange={debounceOnChange}>
+            <InputGroup>
               <DropdownButton
                 variant="outline-secondary"
                 title={searchType}
                 id="search-text-type"
               >
-                <Dropdown.Item onClick={() => handleTypeChange("artistName")}>
+                <Dropdown.Item onClick={() => handleTypeChange("Name")}>
                   Name
                 </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleTypeChange("city")}>
+                <Dropdown.Item onClick={() => handleTypeChange("City")}>
                   City
                 </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleTypeChange("genre")}>
+                <Dropdown.Item onClick={() => handleTypeChange("Genre")}>
                   Genre
                 </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleTypeChange("staksId")}>
+                <Dropdown.Item onClick={() => handleTypeChange("StaksId")}>
                   StaksId
                 </Dropdown.Item>
               </DropdownButton>
-              <FormControl aria-label="Text input with radio button" />
+              <FormControl
+                onChange={(e) => {
+                  if (e.target.value.length > 4) {
+                    handleChange(e);
+                  } else {
+                    debounceOnChange(e);
+                  }
+                }}
+                //onChange={debounceOnChange}
+                aria-label="Text input with radio button"
+              />
             </InputGroup>
           )}
         </>
@@ -108,7 +135,11 @@ const UserModal = ({ show = true, onHide }) => {
                         </MuiTypography>
                       </div>
                       <div>
-                        <Button variant="primary" size="sm">
+                        <Button
+                          onClick={() => handleAdd(item.radaptiveId)}
+                          variant="primary"
+                          size="sm"
+                        >
                           Add
                         </Button>
                       </div>

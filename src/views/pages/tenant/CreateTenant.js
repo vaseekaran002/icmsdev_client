@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import * as Yup from "yup";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Formik } from "formik";
 import { useTheme } from "@emotion/react";
@@ -48,14 +48,16 @@ const CreateTenant = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [statusChecked, setStatusChecked] = useState(true);
-  const tenant = useSelector((state) => state.tenant.tenants);
-  const error = useSelector((state) => state.tenant.tenants);
+  const tenant = useSelector((state) => state.tenant.tenant);
+
+  useEffect(() => {
+    if (tenant) {
+      navigate("/tenant");
+    }
+  }, [tenant]);
+
   const handleCreateTenant = (values) => {
-    //console.log(values);
     dispatch(createTenant(values));
-    // if (tenant) {
-    //   navigate("/tenant");
-    // }
   };
 
   return (
