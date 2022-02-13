@@ -6,6 +6,7 @@ import MuiTypography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import { gridSpacing } from "store/constant";
 import "./style.css";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import UserModal from "./user-modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,7 @@ const Administartion = () => {
   const memberState = useSelector((state) => state.musician.members);
   const [musician, setMusician] = useState();
   const [members, setMembers] = useState();
+
   useEffect(() => {
     dispatch(getMusician({ artistName: "prathyu" }));
     dispatch(getMusicianMembers("MUSIC-92"));
@@ -82,6 +84,11 @@ const Administartion = () => {
                     <div className="value">{musician[0].artistName}</div>
                   </>
                 );
+              }
+              else{
+                return (
+                  <ClipLoader color={"23C860"}  size={20} />
+                )
               }
             })()}
           </div>

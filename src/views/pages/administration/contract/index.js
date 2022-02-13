@@ -19,6 +19,8 @@ import { useNavigate } from "react-router";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getContracts } from "store/actions/contractActions";
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
 
 const useStyles = makeStyles({
   header: {
@@ -33,6 +35,14 @@ const Contracts = ({ contracts }) => {
   const navigate = useNavigate();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [loading,setLoading] =useState(true);
+  const override = css`
+  text-align:center;
+  justify-content:center;
+  align-items: center;
+  margin-left:50%;
+`;
+
   useEffect(() => {
     dispatch(getContracts({ musicianId: "MUSIC-45" }));
   }, []);
@@ -78,15 +88,16 @@ const Contracts = ({ contracts }) => {
                   <TableCell>Venue</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
+                  <TableBody>
                 {rows.map((row, i) => {
                   if (i < 3) {
+                    setLoading(false);
                     return (
                       <TableRow key={row.name}>
                         <TableCell component="th" scope="row">
                           {row.channelName}
                         </TableCell>
-                        <TableCell>{row.description}</TableCell>
+                        <TableCell>{row.description} </TableCell>
                         <TableCell>{row.city}</TableCell>
                         <TableCell>{row.fees}</TableCell>
                         <TableCell>{row.venue}</TableCell>
@@ -107,7 +118,9 @@ const Contracts = ({ contracts }) => {
                   }
                 })}
               </TableBody>
+               
             </Table>
+            <ClipLoader color={"23C860"}  loading={loading} css={override} size={20} />
           </TableContainer>
           {/* <Table responsive>
             <thead>
