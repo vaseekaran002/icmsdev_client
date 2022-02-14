@@ -11,6 +11,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import UserModal from "./user-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getMusician, getMusicianMembers } from "store/actions/musicianActions";
+import { css } from "@emotion/react";
 
 const Administartion = () => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -33,6 +34,13 @@ const Administartion = () => {
   useEffect(() => {
     setMembers(memberState);
   }, [members]);
+
+  const override = css`
+    text-align: center;
+    position: relative;
+    margin-top: 15%;
+    margin-left: 50%;
+  `;
 
   console.log("mu", musicianState);
 
@@ -84,11 +92,8 @@ const Administartion = () => {
                     <div className="value">{musician[0].artistName}</div>
                   </>
                 );
-              }
-              else{
-                return (
-                  <ClipLoader color={"23C860"}  size={20} />
-                )
+              } else {
+                return <ClipLoader color={"23C860"} size={20} />;
               }
             })()}
           </div>
@@ -169,6 +174,8 @@ const Administartion = () => {
                   </div>
                 );
               });
+            } else {
+              return <ClipLoader css={override} color={"23C860"} size={20} />;
             }
           })()}
         </Grid>
