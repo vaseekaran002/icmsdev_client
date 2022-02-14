@@ -87,7 +87,11 @@ const Invoices = ({ invoices }) => {
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12} sm={12}>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <Table
+              style={{ borderCollapse: "inherit" }}
+              sx={{ minWidth: 700 }}
+              aria-label="customized table"
+            >
               <TableHead>
                 <TableRow>
                   {header &&

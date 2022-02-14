@@ -4,6 +4,7 @@ import { Table } from "react-bootstrap";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Button,
+  Divider,
   Grid,
   IconButton,
   Paper,
@@ -83,7 +84,11 @@ const Contracts = ({ contracts }) => {
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12} sm={12}>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <Table
+              style={{ borderCollapse: "inherit" }}
+              sx={{ minWidth: 700 }}
+              aria-label="customized table"
+            >
               <TableHead>
                 <TableRow>
                   <TableCell>Channel Name </TableCell>
@@ -93,6 +98,7 @@ const Contracts = ({ contracts }) => {
                   <TableCell>Venue</TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
                 {rows &&
                   rows.map((row, i) => {

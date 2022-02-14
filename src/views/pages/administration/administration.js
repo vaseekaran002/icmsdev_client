@@ -20,11 +20,12 @@ const Administartion = () => {
   const memberState = useSelector((state) => state.musician.members);
   const [musician, setMusician] = useState();
   const [members, setMembers] = useState();
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     dispatch(getMusician({ artistName: "prathyu" }));
     dispatch(getMusicianMembers("MUSIC-92"));
     setMusician(musicianState);
+    setMembers(memberState);
   }, []);
 
   useEffect(() => {
@@ -33,7 +34,10 @@ const Administartion = () => {
 
   useEffect(() => {
     setMembers(memberState);
-  }, [members]);
+    if (memberState != null && memberState.length > 0) {
+      setLoading(false);
+    }
+  }, [memberState]);
 
   const override = css`
     text-align: center;
@@ -151,33 +155,36 @@ const Administartion = () => {
               </Button>
             </div>
           </div>
-          {(() => {
-            if (members != undefined && members.length > 0) {
-              members.map((item) => {
-                return (
-                  <div className="flex members-list">
+          {members &&
+            members.length > 0 &&
+            members.map((item) => {
+              return (
+                <div key={item.radaptiveId} className="flex members-list">
+                  <div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
+                  </div>
+                  <div className="flex members-details">
                     <div>
-                      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
+                      <MuiTypography variant="h5" gutterBottom>
+                        {item.artistName}
+                      </MuiTypography>
                     </div>
-                    <div className="flex members-details">
-                      <div>
-                        <MuiTypography variant="h5" gutterBottom>
-                          {item.artistName}
-                        </MuiTypography>
-                      </div>
-                      <div>
-                        <Button variant="link" onClick="">
-                          Manage
-                        </Button>
-                      </div>
+                    <div>
+                      <Button variant="link" onClick="">
+                        Manage
+                      </Button>
                     </div>
                   </div>
-                );
-              });
-            } else {
-              return <ClipLoader css={override} color={"23C860"} size={20} />;
-            }
-          })()}
+                </div>
+              );
+            })}
+
+          <ClipLoader
+            loading={loading}
+            css={override}
+            color={"23C860"}
+            size={20}
+          />
         </Grid>
       </Grid>
     </div>
