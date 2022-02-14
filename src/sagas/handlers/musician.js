@@ -48,9 +48,9 @@ export function* handleUpdateMusician({ payload }) {
   try {
     const response = yield call(updateMusician, payload);
     if (response.status === 200) {
-      yield put(updateMusicianSuccess(response.data));
+      yield put(updateMusicianSuccess(response.data.data));
     } else {
-      yield put(updateMusicianError(response.data));
+      yield put(updateMusicianError(response.data.error));
     }
   } catch (error) {
     yield put(updateMusicianError(error.response.data));
@@ -61,9 +61,9 @@ export function* handleAddMusicianMembers({ payload }) {
   try {
     const response = yield call(addMusicianMembers, payload);
     if (response.status === 200) {
-      yield put(addMusicianMembersSuccess(response.data));
+      yield put(addMusicianMembersSuccess(response.data.data));
     } else {
-      yield put(addMusicianMembersError(response.data));
+      yield put(addMusicianMembersError(response.data.error));
     }
   } catch (error) {
     yield put(addMusicianMembersError(error.response.data));
@@ -74,9 +74,9 @@ export function* handleGetMusicianMembers({ payload }) {
   try {
     const response = yield call(getMusicianMembers, payload);
     if (response.status === 200) {
-      yield put(getMusicianMembersSuccess(response.data));
+      yield put(getMusicianMembersSuccess(response.data.data));
     } else {
-      yield put(getMusicianMembersError(response.data));
+      yield put(getMusicianMembersError(response.data.error));
     }
   } catch (error) {
     yield put(getMusicianMembersError(error.response.data));
