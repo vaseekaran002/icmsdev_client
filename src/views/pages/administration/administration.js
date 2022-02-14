@@ -11,6 +11,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import UserModal from "./user-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getMusician, getMusicianMembers } from "store/actions/musicianActions";
+import { css } from "@emotion/react";
 
 const Administartion = () => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -19,11 +20,12 @@ const Administartion = () => {
   const memberState = useSelector((state) => state.musician.members);
   const [musician, setMusician] = useState();
   const [members, setMembers] = useState();
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     dispatch(getMusician({ artistName: "prathyu" }));
     dispatch(getMusicianMembers("MUSIC-92"));
     setMusician(musicianState);
+    setMembers(memberState);
   }, []);
 
   useEffect(() => {
@@ -32,7 +34,17 @@ const Administartion = () => {
 
   useEffect(() => {
     setMembers(memberState);
-  }, [members]);
+    if (memberState != null && memberState.length > 0) {
+      setLoading(false);
+    }
+  }, [memberState]);
+
+  const override = css`
+    text-align: center;
+    position: relative;
+    margin-top: 15%;
+    margin-left: 50%;
+  `;
 
   console.log("mu", musicianState);
 
@@ -84,11 +96,8 @@ const Administartion = () => {
                     <div className="value">{musician[0].artistName}</div>
                   </>
                 );
-              }
-              else{
-                return (
-                  <ClipLoader color={"23C860"}  size={20} />
-                )
+              } else {
+                return <ClipLoader color={"23C860"} size={20} />;
               }
             })()}
           </div>
@@ -146,31 +155,36 @@ const Administartion = () => {
               </Button>
             </div>
           </div>
-          {(() => {
-            if (members != undefined && members.length > 0) {
-              members.map((item) => {
-                return (
-                  <div className="flex members-list">
+          {members &&
+            members.length > 0 &&
+            members.map((item) => {
+              return (
+                <div key={item.radaptiveId} className="flex members-list">
+                  <div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
+                  </div>
+                  <div className="flex members-details">
                     <div>
-                      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
+                      <MuiTypography variant="h5" gutterBottom>
+                        {item.artistName}
+                      </MuiTypography>
                     </div>
-                    <div className="flex members-details">
-                      <div>
-                        <MuiTypography variant="h5" gutterBottom>
-                          {item.artistName}
-                        </MuiTypography>
-                      </div>
-                      <div>
-                        <Button variant="link" onClick="">
-                          Manage
-                        </Button>
-                      </div>
+                    <div>
+                      <Button variant="link" onClick="">
+                        Manage
+                      </Button>
                     </div>
                   </div>
-                );
-              });
-            }
-          })()}
+                </div>
+              );
+            })}
+
+          <ClipLoader
+            loading={loading}
+            css={override}
+            color={"23C860"}
+            size={20}
+          />
         </Grid>
       </Grid>
     </div>
