@@ -2,6 +2,7 @@ import * as actionTypes from "../actionTypes/musicianActionTypes";
 
 export const initialState = {
   musicians: [],
+  members: [],
   musician: undefined,
   error: undefined,
 };
@@ -35,8 +36,8 @@ const musicianReducer = (state = initialState, action) => {
     case actionTypes.GET_MUSICIAN_MEMBERS_SUCCESS:
       return {
         ...state,
-        error: action.payload,
-        musicians: undefined,
+        error: undefined,
+        members: action.payload,
       };
     case actionTypes.UPDATE_MUSICIAN_SUCCESS:
       return {
@@ -49,6 +50,11 @@ const musicianReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         musician: undefined,
+      };
+    case actionTypes.ADD_MUSICIAN_MEMBER_SUCCESS:
+      return {
+        ...state,
+        members: action.payload,
       };
     case actionTypes.ADD_MUSICIAN_MEMBER_ERROR:
       return {

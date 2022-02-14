@@ -28,7 +28,9 @@ import {
   handleUpdateInvoice,
 } from "./handlers/invoice";
 import {
+  handleAddMusicianMembers,
   handleGetMusician,
+  handleGetMusicianMembers,
   handleGetMusicians,
   handleUpdateMusician,
 } from "./handlers/musician";
@@ -52,4 +54,12 @@ export function* watcherSaga() {
   yield takeEvery(invoiceActionTypes.UPDATE_INVOICE, handleUpdateInvoice);
   yield takeEvery(musicianActionTypes.GET_MUSICIAN, handleGetMusician);
   yield takeEvery(musicianActionTypes.GET_MUSICIANS, handleGetMusicians);
+  yield takeEvery(
+    musicianActionTypes.GET_MUSICIAN_MEMBERS,
+    handleGetMusicianMembers
+  );
+  yield takeEvery(
+    musicianActionTypes.ADD_MUSICIAN_MEMBER,
+    handleAddMusicianMembers
+  );
 }

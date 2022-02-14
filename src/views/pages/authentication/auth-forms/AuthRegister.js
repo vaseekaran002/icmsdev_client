@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -23,6 +23,8 @@ import {
     useMediaQuery,
     MenuItem
 } from '@mui/material';
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // third party
 import * as Yup from 'yup';
@@ -40,6 +42,18 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const FirebaseRegister = ({ ...others }) => {
+
+    const filterOptions = createFilterOptions({
+        matchFrom: 'start',
+        limit: 500,
+    });
+
+    const[selectedOptions, setSelectedOptions] = useState([])
+    const[loading, setLoading] = useState(false)
+    const[errorText, setErrorText] = useState("")
+    const[options,setOptions] = useState(["FAN","MUSICIAN","SPUSER","ADMIN","SUPERADMIN"])
+
+
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -60,13 +74,14 @@ const FirebaseRegister = ({ ...others }) => {
     };
 
     const handleRegisterUser = (values) => {   
-        dispatch(registerUser(values));   
+        // dispatch(registerUser(values)); 
+        console.log(checked);
     };
 
     useEffect(() => {
         console.log("use effect called back====");
         if(user){
-            navigate('/dashboard', { replace: true });           
+            // navigate('/dashboard', { replace: true });           
         }else if(error){
             console.log("Error seciton is called==");
             setErrorMessage(`${error.error} - ${error.message}`); 
@@ -108,11 +123,16 @@ const FirebaseRegister = ({ ...others }) => {
                     lastName: '',
                     firstName: '',
                     role: '',
+                    termsCheck: false,
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    email: Yup.string().email('Must be a valid email').max(500).required('Email is required'),
+                    password: Yup.string().max(255).required('Password is required'),
+                    termsCheck: Yup
+                    .boolean()
+                    .oneOf([true], "Required terms of use")
+                    .required("Required terms of use"),
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
@@ -156,7 +176,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     sx={{ ...theme.typography.customInput }}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={12}>
+                            {/* <Grid item xs={12} sm={12}>
                                 <TextField fullWidth id="select" sx={{ ...theme.typography.customInput }} value="Select Role" select>
                                     <MenuItem value="Select Role">Select Role</MenuItem>
                                     <MenuItem value="FAN">Fan</MenuItem>
@@ -165,6 +185,34 @@ const FirebaseRegister = ({ ...others }) => {
                                     <MenuItem value="ADMIN">Admin</MenuItem>
                                     <MenuItem value="SUPERADMIN">Superadmin</MenuItem>
                                 </TextField>
+                            </Grid> */}
+                            <Grid item xs={12} sm={12}>
+                                <Autocomplete 
+                                        filterOptions={filterOptions}
+                                        options={options}
+                                        value={selectedOptions}
+                                        getOptionDisabled={(option) => (selectedOptions.length === 5 || selectedOptions.includes(option) ? true : false)}
+                                        id="limited-select"
+                                        loading={loading}
+                                        onChange={(e, value) => {
+                                            setSelectedOptions(value)
+                                        }}
+                                        autoHighlight={true}
+                                        multiple
+                                        renderInput={(params) => 
+                                            <TextField {...params} label="Select Roles" variant="outlined" 
+                                                helperText={selectedOptions.length === 5 && errorText === "" ? "Maximum number of selections have been made." : errorText}
+                                                InputProps={{
+                                                    ...params.InputProps,
+                                                    endAdornment: (
+                                                        <React.Fragment>
+                                                            {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                                            {params.InputProps.endAdornment}
+                                                        </React.Fragment>),
+                                                }}
+                                            />
+                                            }
+                                    />
                             </Grid>
                         </Grid>
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
@@ -251,8 +299,10 @@ const FirebaseRegister = ({ ...others }) => {
                                         <Checkbox
                                             checked={checked}
                                             onChange={(event) => setChecked(event.target.checked)}
-                                            name="checked"
+                                            id="termsCheck"
+                                            name="termsCheck"
                                             color="primary"
+                                            required
                                         />
                                     }
                                     label={
@@ -264,6 +314,9 @@ const FirebaseRegister = ({ ...others }) => {
                                         </Typography>
                                     }
                                 />
+                                <FormHelperText error>
+                                {errors.termsCheck ? errors.termsCheck.message : " "}
+                                </FormHelperText>
                             </Grid>
                         </Grid>
                         {errorMessage && (
@@ -282,8 +335,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     type="submit"
                                     variant="contained"
                                     color="custom"
-                                    id="white-color"
-                                    type="submit"
+                                    id="white-color"   
                                 >
                                     Sign up
                                 </Button>

@@ -19,6 +19,8 @@ import { useNavigate } from "react-router";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getContracts } from "store/actions/contractActions";
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
 
 const useStyles = makeStyles({
   header: {
@@ -33,12 +35,25 @@ const Contracts = ({ contracts }) => {
   const navigate = useNavigate();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const override = css`
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50%;
+  `;
+
   useEffect(() => {
     dispatch(getContracts({ musicianId: "MUSIC-45" }));
   }, []);
 
   const rows = useSelector((state) => state.contract.contracts);
-  console.log(rows);
+  useEffect(() => {
+    if (rows != null && rows.length > 0) {
+      setLoading(false);
+    }
+  }, [rows]);
+
   return (
     <div className="contract-section section">
       <div className={classes.header}>
@@ -79,58 +94,43 @@ const Contracts = ({ contracts }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row, i) => {
-                  if (i < 3) {
-                    return (
-                      <TableRow key={row.name}>
-                        <TableCell component="th" scope="row">
-                          {row.channelName}
-                        </TableCell>
-                        <TableCell>{row.description}</TableCell>
-                        <TableCell>{row.city}</TableCell>
-                        <TableCell>{row.fees}</TableCell>
-                        <TableCell>{row.venue}</TableCell>
-                        <TableCell>
-                          <Button
-                            onClick={() => {
-                              navigate(
-                                `/contracts/view-contracts/${row.contractId}`
-                              );
-                            }}
-                            color="primary"
-                          >
-                            View
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  }
-                })}
+                {rows &&
+                  rows.map((row, i) => {
+                    if (i < 3) {
+                      return (
+                        <TableRow key={row.name}>
+                          <TableCell component="th" scope="row">
+                            {row.channelName}
+                          </TableCell>
+                          <TableCell>{row.description} </TableCell>
+                          <TableCell>{row.city}</TableCell>
+                          <TableCell>{row.fees}</TableCell>
+                          <TableCell>{row.venue}</TableCell>
+                          <TableCell>
+                            <Button
+                              onClick={() => {
+                                navigate(
+                                  `/contracts/view-contracts/${row.contractId}`
+                                );
+                              }}
+                              color="primary"
+                            >
+                              View
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    }
+                  })}
               </TableBody>
             </Table>
+            <ClipLoader
+              color={"23C860"}
+              loading={loading}
+              css={override}
+              size={20}
+            />
           </TableContainer>
-          {/* <Table responsive>
-            <thead>
-              {header &&
-                header.length > 0 &&
-                header.map((item) => <th>{item}</th>)}
-            </thead>
-            <tbody>
-              {contracts &&
-                contracts.length > 0 &&
-                contracts.map((item) => {
-                  return (
-                    <tr>
-                      <td>{item.dateOfContract}</td>
-                      <td>{item.contractDescription}</td>
-                      <td>
-                        
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table> */}
         </Grid>
       </Grid>
     </div>
