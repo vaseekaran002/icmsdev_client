@@ -4,7 +4,9 @@ import { Button, Container, Typography, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-
+import { getInvoices } from "store/actions/invoiceActions";
+import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/react";
 const useStyles = makeStyles({
   createBtn: {
     display: "flex",
@@ -16,12 +18,23 @@ const useStyles = makeStyles({
 export default function DataTable() {
   const classes = useStyles();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const allInvoices = useSelector((state) => state.invoice.invoices);
-
+  const [loading, setLoading] = React.useState(true);
+  const override = css`
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 48%;
+    margin-top: 12%;
+  `;
   React.useEffect(() => {
     console.log("rows", allInvoices);
   }, [allInvoices]);
+
+  React.useEffect(() => {
+    dispatch(getInvoices({ musicianId: "MUSIC-45" }));
+  }, []);
 
   const columns = [
     {
@@ -36,6 +49,11 @@ export default function DataTable() {
           </span>
         </Tooltip>
       ),
+      sortComparator: (v1, v2, param1, param2) => {
+        const a = param1.id.split("-")[1];
+        const b = param2.id.split("-")[1];
+        return a - b;
+      },
     },
     {
       field: "channelName",
@@ -122,7 +140,7 @@ export default function DataTable() {
     },
     {
       field: "edit",
-      headerName: "Edit",
+      headerName: "Actions",
       width: 200,
       renderCell: (params) => {
         return (
@@ -159,6 +177,16 @@ export default function DataTable() {
           pageSize={5}
           rowsPerPageOptions={[5]}
           disableSelection={true}
+          components={{
+            NoRowsOverlay: () => (
+              <ClipLoader
+                color={"23C860"}
+                loading={loading}
+                css={override}
+                size={30}
+              />
+            ),
+          }}
         />
       </div>
     </Container>

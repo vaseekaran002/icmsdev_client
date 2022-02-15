@@ -15,7 +15,7 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  Container
+  Container,
 } from "@mui/material";
 import { gridSpacing } from "store/constant";
 import MuiTypography from "@mui/material/Typography";
@@ -26,7 +26,6 @@ import { getContracts } from "store/actions/contractActions";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 import { DataGrid } from "@mui/x-data-grid";
-
 
 const useStyles = makeStyles({
   header: {
@@ -42,38 +41,31 @@ const Contracts = ({ contracts }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [contractRows,setContractRows]= useState([]);
+  const [contractRows, setContractRows] = useState([]);
   const override = css`
     text-align: center;
     justify-content: center;
     align-items: center;
     margin-left: 48%;
-    margin-top:12%;
+    margin-top: 12%;
   `;
   const rows = useSelector((state) => state.contract.contracts);
 
   useEffect(() => {
     dispatch(getContracts({ musicianId: "MUSIC-45" }));
-  //   for (let i = 0; i < 3; i += 1) {
-  //     contractRows.push(rows[i]);
-  // }
- 
   }, []);
 
-  useEffect(()=>{
-    if(rows!=null){
-      const arr=rows.slice(0,3)
+  useEffect(() => {
+    if (rows != null) {
+      const arr = rows.slice(0, 3);
       setContractRows(arr);
     }
-  
-    console.log("Only 3",contractRows);
 
-  },[rows])
-
-
+    console.log("Only 3", contractRows);
+  }, [rows]);
 
   useEffect(() => {
-    console.log("Contract",rows);
+    console.log("Contract", rows);
     if (rows != null && rows.length > 0) {
       setLoading(false);
     }
@@ -93,7 +85,7 @@ const Contracts = ({ contracts }) => {
         </Tooltip>
       ),
     },
-    
+
     {
       field: "description",
       headerName: "Description",
@@ -127,7 +119,7 @@ const Contracts = ({ contracts }) => {
         </Tooltip>
       ),
     },
-    
+
     {
       field: "venue",
       headerName: "Venue",
@@ -151,16 +143,14 @@ const Contracts = ({ contracts }) => {
                 replace: false,
               })
             }
-            variant="contained"
-            color="custom"
+            color="primary"
           >
-            <Typography color="#ffffff">View</Typography>
+            View
           </Button>
         );
       },
     },
   ];
-
 
   return (
     <div className="contract-section section">
@@ -190,7 +180,7 @@ const Contracts = ({ contracts }) => {
       </div>
       {/* <Grid container spacing={gridSpacing}>
         <Grid item xs={12} sm={12}> */}
-        <div
+      <div
         style={{
           height: 300,
           width: "100%",
@@ -203,19 +193,18 @@ const Contracts = ({ contracts }) => {
           columns={columns}
           rowsPerPageOptions={[]}
           components={{
-            NoRowsOverlay:() =>(
+            NoRowsOverlay: () => (
               <ClipLoader
-              color={"23C860"}
-              loading={loading}
-              css={override}
-              size={30}
-            />
-            )  
+                color={"23C860"}
+                loading={loading}
+                css={override}
+                size={30}
+              />
+            ),
           }}
-          
         />
-        
-          {/* <TableContainer component={Paper}>
+
+        {/* <TableContainer component={Paper}>
             <Table
               style={{ borderCollapse: "inherit" }}
               sx={{ minWidth: 700 }}

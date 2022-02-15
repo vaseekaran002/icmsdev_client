@@ -29,3 +29,8 @@ export const getRolesByTenantError = (error) => ({
   type: actionTpyes.GET_ROLE_BY_TENANT_ERROR,
   payload: error,
 });
+
+export const getRolesByTenantAuth = () => ({
+  type: actionTpyes.GET_ROLE_BY_TENANT_AUTH,
+  payload: undefined,
+});

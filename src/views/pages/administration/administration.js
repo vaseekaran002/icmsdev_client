@@ -12,6 +12,24 @@ import UserModal from "./user-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getMusician, getMusicianMembers } from "store/actions/musicianActions";
 import { css } from "@emotion/react";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  membersHeader: {
+    display: "flex",
+    alignItems: "center",
+  },
+  members: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "3%",
+  },
+  memberGrid: {
+    "&&": {
+      paddingTop: "0px",
+    },
+  },
+});
 
 const Administartion = () => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -21,6 +39,7 @@ const Administartion = () => {
   const [musician, setMusician] = useState();
   const [members, setMembers] = useState();
   const [loading, setLoading] = useState(true);
+  const classes = useStyles();
   useEffect(() => {
     dispatch(getMusician({ artistName: "prathyu" }));
     dispatch(getMusicianMembers("MUSIC-92"));
@@ -142,12 +161,10 @@ const Administartion = () => {
             })()}
           </div>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <div className="flex members-section">
-            <div>
-              <MuiTypography variant="h5" gutterBottom>
-                Members
-              </MuiTypography>
+        <Grid className={classes.memberGrid} item xs={12} sm={4}>
+          <div className={classes.members}>
+            <div className={classes.membersHeader}>
+              <MuiTypography variant="h5">Members</MuiTypography>
             </div>
             <div>
               <Button variant="link" onClick={() => setModalShow(true)}>

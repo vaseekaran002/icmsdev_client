@@ -19,7 +19,7 @@ import {
 import debounce from "lodash.debounce";
 const UserModal = ({ show = true, onHide }) => {
   const [debounceCount, setDebounceCount] = useState(0);
-  const [searchType, setSearchType] = useState("artistName");
+  const [searchType, setSearchType] = useState("Name");
   const dispatch = useDispatch();
   const [members, setMembers] = useState();
   const stateMemebers = useSelector((state) => state.musician.musicians);

@@ -13,7 +13,7 @@ import {
   TableHead,
   TableRow,
   Tooltip,
-  Typography
+  Typography,
 } from "@mui/material";
 import { gridSpacing } from "store/constant";
 import MuiTypography from "@mui/material/Typography";
@@ -47,7 +47,7 @@ const Invoices = ({ invoices }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [invoiceRows,setInvoiceRows] = useState([]);
+  const [invoiceRows, setInvoiceRows] = useState([]);
   const override = css`
     text-align: center;
     justify-content: center;
@@ -60,21 +60,18 @@ const Invoices = ({ invoices }) => {
 
   useEffect(() => {
     dispatch(getInvoices({ musicianId: "MUSIC-45" }));
-    
   }, []);
 
-  useEffect(()=>{
-    if(rows!=null){
-      const arr=rows.slice(0,3)
+  useEffect(() => {
+    if (rows != null) {
+      const arr = rows.slice(0, 3);
       setInvoiceRows(arr);
     }
-    console.log("Invoice",invoiceRows);
+    console.log("Invoice", invoiceRows);
     if (rows != null && rows.length > 0) {
       setLoading(false);
     }
-  },[rows])
-  
-
+  }, [rows]);
 
   const columns = [
     {
@@ -90,7 +87,7 @@ const Invoices = ({ invoices }) => {
         </Tooltip>
       ),
     },
-    
+
     {
       field: "contractDescription",
       headerName: "Description",
@@ -110,7 +107,9 @@ const Invoices = ({ invoices }) => {
       width: 200,
       renderCell: (params) => (
         <Tooltip title={params.row.contractId}>
-          <span className={classes.tablecelltrucate}>{params.row.contractId}</span>
+          <span className={classes.tablecelltrucate}>
+            {params.row.contractId}
+          </span>
         </Tooltip>
       ),
     },
@@ -124,14 +123,16 @@ const Invoices = ({ invoices }) => {
         </Tooltip>
       ),
     },
-    
+
     {
       field: "totalFeesDue",
       headerName: "Fees Due",
       width: 200,
       renderCell: (params) => (
         <Tooltip title={params.row.totalFeesDue}>
-          <span className={classes.tablecelltrucate}>{params.row.totalFeesDue}</span>
+          <span className={classes.tablecelltrucate}>
+            {params.row.totalFeesDue}
+          </span>
         </Tooltip>
       ),
     },
@@ -148,10 +149,9 @@ const Invoices = ({ invoices }) => {
                 replace: false,
               })
             }
-            variant="contained"
-            color="custom"
+            color="primary"
           >
-            <Typography color="#ffffff">View</Typography>
+            View
           </Button>
         );
       },
@@ -196,17 +196,17 @@ const Invoices = ({ invoices }) => {
           columns={columns}
           rowsPerPageOptions={[]}
           components={{
-            NoRowsOverlay:() =>(
+            NoRowsOverlay: () => (
               <ClipLoader
-              color={"23C860"}
-              loading={loading}
-              css={override}
-              size={30}
-            />
-            )  
-          }} 
+                color={"23C860"}
+                loading={loading}
+                css={override}
+                size={30}
+              />
+            ),
+          }}
         />
-        </div>
+      </div>
       {/* <Grid container spacing={gridSpacing}>
         <Grid item xs={12} sm={12}>
           <TableContainer component={Paper}>
@@ -258,7 +258,7 @@ const Invoices = ({ invoices }) => {
               size={20}
             />
           </TableContainer> */}
-          {/* <Table responsive>
+      {/* <Table responsive>
             <thead>
               {header &&
                 header.length > 0 &&
@@ -287,7 +287,7 @@ const Invoices = ({ invoices }) => {
                 })}
             </tbody>
           </Table> */}
-        {/* </Grid>
+      {/* </Grid>
       </Grid> */}
     </div>
   );
