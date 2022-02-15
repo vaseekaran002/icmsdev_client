@@ -23,7 +23,7 @@ const MenuList = () => {
                         id: `${item.id}_${item.componentName}`,
                         title: item.displayName,
                         type: 'item',
-                        url: `/sample-page`,
+                        url: `/${item.componentName}`,
                         icon: IconPalette,
                         breadcrumbs: false
                     });
