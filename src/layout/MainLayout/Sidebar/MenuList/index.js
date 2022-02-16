@@ -7,6 +7,7 @@ import { Typography } from '@mui/material';
 import NavGroup from './NavGroup';
 import menuItem from 'menu-items';
 import { IconPalette } from '@tabler/icons';
+import dashboard from 'menu-items/dashboard';
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 const customMenus = [];
 

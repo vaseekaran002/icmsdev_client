@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router";
+import { getContracts } from "store/actions/contractActions";
+import { ClipLoader } from "react-spinners";
+import { css } from "@emotion/react";
 
 const useStyles = makeStyles({
   tablecelltrucate: {
@@ -17,14 +20,36 @@ const useStyles = makeStyles({
     justifyContent: "end",
     margin: "2rem 2rem 2rem 2rem",
   },
+  "@global": {
+    "*::-webkit-scrollbar": {
+      width: "0.5em",
+      height: "0.5em",
+    },
+    "*::-webkit-scrollbar-track": {
+      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+    },
+    "*::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.1)",
+    },
+  },
 });
 
 export const ContractDisplay = () => {
   const [rows, setRows] = useState();
   const navigate = useNavigate();
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const stateContracts = useSelector((state) => state.contract.contracts);
+
+  const [loading, setLoading] = useState(true);
+
+  const override = css`
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 48%;
+    margin-top: 12%;
+  `;
 
   useEffect(() => {
     console.log(stateContracts);
@@ -36,11 +61,15 @@ export const ContractDisplay = () => {
     );
   }, [stateContracts]);
 
+  useEffect(() => {
+    dispatch(getContracts({ musicianId: "MUSIC-45" }));
+  }, []);
+
   const columns = [
     {
       field: "id",
       headerName: "ID",
-      width: 90,
+      width: 110,
       type: "string",
       renderCell: (params) => (
         <Tooltip title={params.row.contractId}>
@@ -49,6 +78,11 @@ export const ContractDisplay = () => {
           </span>
         </Tooltip>
       ),
+      sortComparator: (v1, v2, param1, param2) => {
+        const a = param1.id.split("-")[1];
+        const b = param2.id.split("-")[1];
+        return a - b;
+      },
     },
     // {
     //   field: "title",
@@ -141,7 +175,7 @@ export const ContractDisplay = () => {
 
     {
       field: "edit",
-      headerName: "Edit",
+      headerName: "Actions",
       width: 100,
       renderCell: (params) => {
         return (
@@ -187,6 +221,16 @@ export const ContractDisplay = () => {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
+          components={{
+            NoRowsOverlay: () => (
+              <ClipLoader
+                color={"23C860"}
+                loading={loading}
+                css={override}
+                size={30}
+              />
+            ),
+          }}
         />
       </div>
     </Container>

@@ -15,7 +15,7 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  Container
+  Container,
 } from "@mui/material";
 import { gridSpacing } from "store/constant";
 import MuiTypography from "@mui/material/Typography";
@@ -27,12 +27,17 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 import { DataGrid } from "@mui/x-data-grid";
 
-
 const useStyles = makeStyles({
   header: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  grid: {
+    width: "100%",
+    backgroundColor: "#ffffff",
+    marginTop: "1%",
+    height: 300,
   },
 });
 
@@ -42,38 +47,28 @@ const Contracts = ({ contracts }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [contractRows,setContractRows]= useState([]);
+  const [contractRows, setContractRows] = useState([]);
   const override = css`
     text-align: center;
     justify-content: center;
     align-items: center;
     margin-left: 48%;
-    margin-top:12%;
+    margin-top: 12%;
   `;
   const rows = useSelector((state) => state.contract.contracts);
 
   useEffect(() => {
     dispatch(getContracts({ musicianId: "MUSIC-45" }));
-  //   for (let i = 0; i < 3; i += 1) {
-  //     contractRows.push(rows[i]);
-  // }
- 
   }, []);
 
-  useEffect(()=>{
-    if(rows!=null){
-      const arr=rows.slice(0,3)
+  useEffect(() => {
+    if (rows != null) {
+      const arr = rows.slice(0, 3);
       setContractRows(arr);
     }
-  
-    console.log("Only 3",contractRows);
-
-  },[rows])
-
-
+  }, [rows]);
 
   useEffect(() => {
-    console.log("Contract",rows);
     if (rows != null && rows.length > 0) {
       setLoading(false);
     }
@@ -93,7 +88,7 @@ const Contracts = ({ contracts }) => {
         </Tooltip>
       ),
     },
-    
+
     {
       field: "description",
       headerName: "Description",
@@ -127,7 +122,7 @@ const Contracts = ({ contracts }) => {
         </Tooltip>
       ),
     },
-    
+
     {
       field: "venue",
       headerName: "Venue",
@@ -151,16 +146,14 @@ const Contracts = ({ contracts }) => {
                 replace: false,
               })
             }
-            variant="contained"
-            color="custom"
+            color="primary"
           >
-            <Typography color="#ffffff">View</Typography>
+            View
           </Button>
         );
       },
     },
   ];
-
 
   return (
     <div className="contract-section section">
@@ -180,6 +173,7 @@ const Contracts = ({ contracts }) => {
           </IconButton>
         </div>
         <Button
+          style={{ marginRight: "6%" }}
           onClick={() => {
             navigate("/contracts");
           }}
@@ -190,87 +184,23 @@ const Contracts = ({ contracts }) => {
       </div>
       {/* <Grid container spacing={gridSpacing}>
         <Grid item xs={12} sm={12}> */}
-        <div
-        style={{
-          height: 300,
-          width: "100%",
-          backgroundColor: "#ffffff",
-        }}
-      >
+      <div className={classes.grid}>
         <DataGrid
+          hideFooter
           rows={contractRows}
           getRowId={(r) => r.contractId}
           columns={columns}
-          rowsPerPageOptions={[]}
           components={{
-            NoRowsOverlay:() =>(
+            NoRowsOverlay: () => (
               <ClipLoader
-              color={"23C860"}
-              loading={loading}
-              css={override}
-              size={30}
-            />
-            )  
+                color={"23C860"}
+                loading={loading}
+                css={override}
+                size={30}
+              />
+            ),
           }}
-          
         />
-        
-          {/* <TableContainer component={Paper}>
-            <Table
-              style={{ borderCollapse: "inherit" }}
-              sx={{ minWidth: 700 }}
-              aria-label="customized table"
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell>Channel Name </TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell>City</TableCell>
-                  <TableCell>Fees</TableCell>
-                  <TableCell>Venue</TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {rows &&
-                  rows.map((row, i) => {
-                    if (i < 3) {
-                      return (
-                        <TableRow key={row.name}>
-                          <TableCell component="th" scope="row">
-                            {row.channelName}
-                          </TableCell>
-                          <TableCell>{row.description} </TableCell>
-                          <TableCell>{row.city}</TableCell>
-                          <TableCell>{row.fees}</TableCell>
-                          <TableCell>{row.venue}</TableCell>
-                          <TableCell>
-                            <Button
-                              onClick={() => {
-                                navigate(
-                                  `/contracts/view-contracts/${row.contractId}`
-                                );
-                              }}
-                              color="primary"
-                            >
-                              View
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    }
-                  })}
-              </TableBody>
-            </Table>
-            <ClipLoader
-              color={"23C860"}
-              loading={loading}
-              css={override}
-              size={20}
-            />
-          </TableContainer> */}
-        {/* </Grid>
-      </Grid> */}
       </div>
     </div>
   );
