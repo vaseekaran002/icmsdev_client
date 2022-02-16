@@ -73,7 +73,7 @@ const StaksCoinSection = () => {
         </ButtonBaseStyle>
       </Tooltip>
 
-      <Tooltip title="Coin" arrow>
+      <Tooltip title="Coin 400" arrow>
         <ButtonBaseStyle>
           <AvatarStyle variant="rounded" aria-haspopup="true" color="inherit">
             <IconCoin stroke={1.5} size="1.3rem" />

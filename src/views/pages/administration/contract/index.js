@@ -33,6 +33,12 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  grid: {
+    width: "100%",
+    backgroundColor: "#ffffff",
+    marginTop: "1%",
+    height: 300,
+  },
 });
 
 const Contracts = ({ contracts }) => {
@@ -60,12 +66,9 @@ const Contracts = ({ contracts }) => {
       const arr = rows.slice(0, 3);
       setContractRows(arr);
     }
-
-    console.log("Only 3", contractRows);
   }, [rows]);
 
   useEffect(() => {
-    console.log("Contract", rows);
     if (rows != null && rows.length > 0) {
       setLoading(false);
     }
@@ -170,6 +173,7 @@ const Contracts = ({ contracts }) => {
           </IconButton>
         </div>
         <Button
+          style={{ marginRight: "6%" }}
           onClick={() => {
             navigate("/contracts");
           }}
@@ -180,18 +184,12 @@ const Contracts = ({ contracts }) => {
       </div>
       {/* <Grid container spacing={gridSpacing}>
         <Grid item xs={12} sm={12}> */}
-      <div
-        style={{
-          height: 300,
-          width: "100%",
-          backgroundColor: "#ffffff",
-        }}
-      >
+      <div className={classes.grid}>
         <DataGrid
+          hideFooter
           rows={contractRows}
           getRowId={(r) => r.contractId}
           columns={columns}
-          rowsPerPageOptions={[]}
           components={{
             NoRowsOverlay: () => (
               <ClipLoader
@@ -203,63 +201,6 @@ const Contracts = ({ contracts }) => {
             ),
           }}
         />
-
-        {/* <TableContainer component={Paper}>
-            <Table
-              style={{ borderCollapse: "inherit" }}
-              sx={{ minWidth: 700 }}
-              aria-label="customized table"
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell>Channel Name </TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell>City</TableCell>
-                  <TableCell>Fees</TableCell>
-                  <TableCell>Venue</TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {rows &&
-                  rows.map((row, i) => {
-                    if (i < 3) {
-                      return (
-                        <TableRow key={row.name}>
-                          <TableCell component="th" scope="row">
-                            {row.channelName}
-                          </TableCell>
-                          <TableCell>{row.description} </TableCell>
-                          <TableCell>{row.city}</TableCell>
-                          <TableCell>{row.fees}</TableCell>
-                          <TableCell>{row.venue}</TableCell>
-                          <TableCell>
-                            <Button
-                              onClick={() => {
-                                navigate(
-                                  `/contracts/view-contracts/${row.contractId}`
-                                );
-                              }}
-                              color="primary"
-                            >
-                              View
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    }
-                  })}
-              </TableBody>
-            </Table>
-            <ClipLoader
-              color={"23C860"}
-              loading={loading}
-              css={override}
-              size={20}
-            />
-          </TableContainer> */}
-        {/* </Grid>
-      </Grid> */}
       </div>
     </div>
   );

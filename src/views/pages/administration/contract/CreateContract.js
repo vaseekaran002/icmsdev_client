@@ -57,16 +57,7 @@ export const CreateContract = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const contracts = useSelector((state) => state.contract.contracts);
-  const initialValues = {
-    channelName: "",
-    city: "",
-    description: "",
-    fees: "",
-    timeZone: "",
-    title: "",
-    venue: "",
-    staksPayId: "",
-  };
+  const musician = useSelector((state) => state.musician.musician);
 
   const validatation = Yup.object({
     staksPayId: Yup.string().required("StaksPayId required"),
@@ -89,30 +80,20 @@ export const CreateContract = () => {
         </Grid>
         <Grid className={classes.form} item>
           <Formik
-            initialValues={initialValues}
+            initialValues={{
+              channelName: "",
+              city: "",
+              description: "",
+              fees: "",
+              timeZone: "",
+              title: "",
+              venue: "",
+              staksPayId: musician[0].staksPayId,
+            }}
             validationSchema={validatation}
             onSubmit={handleSubmit}
           >
             <Form>
-              <Field name="staksPayId">
-                {(props) => {
-                  const { field, form, meta } = props;
-                  return (
-                    <FormControl
-                      fullWidth
-                      sx={{ ...theme.typography.customInput }}
-                    >
-                      <InputLabel>StaksPay Id</InputLabel>
-                      <OutlinedInput fullWidth {...field}></OutlinedInput>
-                      {meta.touched && meta.error ? (
-                        <FormHelperText error id="staksPayId">
-                          {meta.error}
-                        </FormHelperText>
-                      ) : null}
-                    </FormControl>
-                  );
-                }}
-              </Field>
               <Field name="channelName">
                 {(props) => {
                   const { field, form, meta } = props;

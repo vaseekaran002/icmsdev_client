@@ -32,6 +32,12 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  grid: {
+    width: "100%",
+    backgroundColor: "#ffffff",
+    marginTop: "1%",
+    height: 300,
+  },
 });
 
 const Invoices = ({ invoices }) => {
@@ -67,7 +73,6 @@ const Invoices = ({ invoices }) => {
       const arr = rows.slice(0, 3);
       setInvoiceRows(arr);
     }
-    console.log("Invoice", invoiceRows);
     if (rows != null && rows.length > 0) {
       setLoading(false);
     }
@@ -176,6 +181,7 @@ const Invoices = ({ invoices }) => {
           </MuiTypography>
         </div>
         <Button
+          style={{ marginRight: "6%" }}
           onClick={() => {
             navigate("/invoices");
           }}
@@ -183,14 +189,9 @@ const Invoices = ({ invoices }) => {
           All Invoices
         </Button>
       </div>
-      <div
-        style={{
-          height: 300,
-          width: "100%",
-          backgroundColor: "#ffffff",
-        }}
-      >
+      <div className={classes.grid}>
         <DataGrid
+          hideFooter
           rows={invoiceRows}
           getRowId={(r) => r.invoiceId}
           columns={columns}
@@ -207,88 +208,6 @@ const Invoices = ({ invoices }) => {
           }}
         />
       </div>
-      {/* <Grid container spacing={gridSpacing}>
-        <Grid item xs={12} sm={12}>
-          <TableContainer component={Paper}>
-            <Table
-              style={{ borderCollapse: "inherit" }}
-              sx={{ minWidth: 700 }}
-              aria-label="customized table"
-            >
-              <TableHead>
-                <TableRow>
-                  {header &&
-                    header.length > 0 &&
-                    header.map((item) => <TableCell>{item}</TableCell>)}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows &&
-                  rows.map((row, i) => {
-                    if (i < 3) {
-                      return (
-                        <TableRow key={row.name}>
-                          <TableCell component="th" scope="row">
-                            {row.channelName}
-                          </TableCell>
-                          <TableCell>{row.contractDescription}</TableCell>
-                          <TableCell>{row.contractId}</TableCell>
-                          <TableCell>{row.dueDate}</TableCell>
-                          <TableCell>{row.totalFeesDue}</TableCell>
-                          <TableCell>
-                            <Button
-                              onClick={() => {
-                                navigate(`/view-invoice/${row.invoiceId}`);
-                              }}
-                              color="primary"
-                            >
-                              View
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    }
-                  })}
-              </TableBody>
-            </Table>
-            <ClipLoader
-              color={"23C860"}
-              loading={loading}
-              css={override}
-              size={20}
-            />
-          </TableContainer> */}
-      {/* <Table responsive>
-            <thead>
-              {header &&
-                header.length > 0 &&
-                header.map((item) => <th>{item}</th>)}
-            </thead>
-            <tbody>
-              {invoices &&
-                invoices.length > 0 &&
-                invoices.map((item) => {
-                  return (
-                    <tr>
-                      <td>{item.invoiceDate}</td>
-                      <td>{item.invoiceTo}</td>
-                      <td>{item.status}</td>
-                      <td>
-                        <Button
-                          onClick={() => {
-                            navigate(`/view-invoice/${item.id}`);
-                          }}
-                        >
-                          View
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table> */}
-      {/* </Grid>
-      </Grid> */}
     </div>
   );
 };

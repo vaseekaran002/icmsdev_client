@@ -34,6 +34,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  margin-bottom: 0.5em;
 }
 
 .members-details div:first-child {
@@ -53,5 +54,5 @@
 }
 
 .admin-form-view {
-  border-right: 1px solid #616161;
+  /* border-right: 1px solid #616161; */
 }

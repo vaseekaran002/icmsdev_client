@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Button, Modal } from "react-bootstrap";
 
 import MuiTypography from "@mui/material/Typography";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { gridSpacing } from "store/constant";
 import "./style.css";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -24,9 +23,25 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     marginBottom: "3%",
   },
+  admin: {
+    marginTop: "1%",
+    marginBottom: "3%",
+  },
   memberGrid: {
     "&&": {
       paddingTop: "0px",
+    },
+  },
+  "@global": {
+    "*::-webkit-scrollbar": {
+      width: "0.3em",
+      height: "0.3em",
+    },
+    "*::-webkit-scrollbar-track": {
+      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+    },
+    "*::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.1)",
     },
   },
 });
@@ -65,8 +80,6 @@ const Administartion = () => {
     margin-left: 50%;
   `;
 
-  console.log("mu", musicianState);
-
   return (
     <div className="administration section">
       {modalShow && (
@@ -77,11 +90,14 @@ const Administartion = () => {
         />
       )}
 
-      <MuiTypography variant="h4" gutterBottom>
-        Administration
-      </MuiTypography>
       <Grid container spacing={gridSpacing}>
-        <Grid item xs={12} sm={8} className="admin-form-view">
+        <Grid className={classes.memberGrid} item xs={12} sm={6}>
+          <div className={classes.admin}>
+            <div className={classes.membersHeader}>
+              <MuiTypography variant="h4">Administration</MuiTypography>
+            </div>
+          </div>
+
           <div className="flex form-view">
             <div className="label">StaksPay Id</div>
             {(() => {
@@ -127,9 +143,17 @@ const Administartion = () => {
                 if (musician != undefined && musician.length > 0) {
                   return (
                     <>
-                      <a target="_blank" href={musician[0].facebookLink}>
+                      {/* <a target="_blank" href={musician[0].facebookLink}>
                         {musician[0].facebookLink}
-                      </a>
+                      </a> */}
+                      <Button
+                        target="_blank"
+                        style={{ marginLeft: "-6%" }}
+                        href={musician[0].facebookLink}
+                        color="primary"
+                      >
+                        {musician[0].facebookLink}
+                      </Button>
                     </>
                   );
                 }
@@ -164,10 +188,10 @@ const Administartion = () => {
         <Grid className={classes.memberGrid} item xs={12} sm={4}>
           <div className={classes.members}>
             <div className={classes.membersHeader}>
-              <MuiTypography variant="h5">Members</MuiTypography>
+              <MuiTypography variant="h4">Members</MuiTypography>
             </div>
             <div>
-              <Button variant="link" onClick={() => setModalShow(true)}>
+              <Button color="primary" onClick={() => setModalShow(true)}>
                 Discover
               </Button>
             </div>
@@ -182,12 +206,12 @@ const Administartion = () => {
                   </div>
                   <div className="flex members-details">
                     <div>
-                      <MuiTypography variant="h5" gutterBottom>
+                      <MuiTypography variant="body1" gutterBottom>
                         {item.artistName}
                       </MuiTypography>
                     </div>
                     <div>
-                      <Button variant="link" onClick="">
+                      <Button color="primary" onClick="">
                         Manage
                       </Button>
                     </div>

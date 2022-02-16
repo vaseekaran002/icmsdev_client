@@ -20,6 +20,18 @@ const useStyles = makeStyles({
     justifyContent: "end",
     margin: "2rem 2rem 2rem 2rem",
   },
+  "@global": {
+    "*::-webkit-scrollbar": {
+      width: "0.5em",
+      height: "0.5em",
+    },
+    "*::-webkit-scrollbar-track": {
+      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+    },
+    "*::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.1)",
+    },
+  },
 });
 
 export const ContractDisplay = () => {
