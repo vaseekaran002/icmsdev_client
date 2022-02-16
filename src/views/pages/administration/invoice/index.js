@@ -12,6 +12,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import { gridSpacing } from "store/constant";
 import MuiTypography from "@mui/material/Typography";
@@ -22,6 +24,7 @@ import { getInvoices } from "store/actions/invoiceActions";
 import { useDispatch, useSelector } from "react-redux";
 import { css } from "@emotion/react";
 import { ClipLoader } from "react-spinners";
+import { DataGrid } from "@mui/x-data-grid";
 
 const useStyles = makeStyles({
   header: {
@@ -44,21 +47,117 @@ const Invoices = ({ invoices }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [invoiceRows, setInvoiceRows] = useState([]);
   const override = css`
     text-align: center;
     justify-content: center;
     align-items: center;
-    margin-left: 50%;
+    margin-left: 48%;
+    margin-top: 12%;
   `;
+
+  const rows = useSelector((state) => state.invoice.invoices);
+
   useEffect(() => {
     dispatch(getInvoices({ musicianId: "MUSIC-45" }));
   }, []);
-  const rows = useSelector((state) => state.invoice.invoices);
+
   useEffect(() => {
+    if (rows != null) {
+      const arr = rows.slice(0, 3);
+      setInvoiceRows(arr);
+    }
+    console.log("Invoice", invoiceRows);
     if (rows != null && rows.length > 0) {
       setLoading(false);
     }
   }, [rows]);
+
+  const columns = [
+    {
+      field: "channelName",
+      headerName: "Channel Name",
+      width: 200,
+      type: "string",
+      renderCell: (params) => (
+        <Tooltip title={params.row.channelName}>
+          <span className={classes.tablecelltrucate}>
+            {params.row.channelName}
+          </span>
+        </Tooltip>
+      ),
+    },
+
+    {
+      field: "contractDescription",
+      headerName: "Description",
+      width: 200,
+      renderCell: (params) => (
+        <Tooltip title={params.row.contractDescription}>
+          <span className={classes.tablecelltrucate}>
+            {params.row.contractDescription}
+          </span>
+        </Tooltip>
+      ),
+    },
+
+    {
+      field: "contractId",
+      headerName: "Contract Id",
+      width: 200,
+      renderCell: (params) => (
+        <Tooltip title={params.row.contractId}>
+          <span className={classes.tablecelltrucate}>
+            {params.row.contractId}
+          </span>
+        </Tooltip>
+      ),
+    },
+    {
+      field: "dueDate",
+      headerName: "Due Date",
+      width: 200,
+      renderCell: (params) => (
+        <Tooltip title={params.row.dueDate}>
+          <span className={classes.tablecelltrucate}>{params.row.dueDate}</span>
+        </Tooltip>
+      ),
+    },
+
+    {
+      field: "totalFeesDue",
+      headerName: "Fees Due",
+      width: 200,
+      renderCell: (params) => (
+        <Tooltip title={params.row.totalFeesDue}>
+          <span className={classes.tablecelltrucate}>
+            {params.row.totalFeesDue}
+          </span>
+        </Tooltip>
+      ),
+    },
+
+    {
+      field: "action",
+      headerName: "Actions",
+      width: 100,
+      renderCell: (params) => {
+        return (
+          <Button
+            onClick={() =>
+              navigate(`/view-invoice/${params.row.invoiceId}`, {
+                replace: false,
+              })
+            }
+            color="primary"
+          >
+            View
+          </Button>
+        );
+      },
+    },
+  ];
+
   return (
     <div className="invoice-section section">
       <div className={classes.header}>
@@ -84,7 +183,31 @@ const Invoices = ({ invoices }) => {
           All Invoices
         </Button>
       </div>
-      <Grid container spacing={gridSpacing}>
+      <div
+        style={{
+          height: 300,
+          width: "100%",
+          backgroundColor: "#ffffff",
+        }}
+      >
+        <DataGrid
+          rows={invoiceRows}
+          getRowId={(r) => r.invoiceId}
+          columns={columns}
+          rowsPerPageOptions={[]}
+          components={{
+            NoRowsOverlay: () => (
+              <ClipLoader
+                color={"23C860"}
+                loading={loading}
+                css={override}
+                size={30}
+              />
+            ),
+          }}
+        />
+      </div>
+      {/* <Grid container spacing={gridSpacing}>
         <Grid item xs={12} sm={12}>
           <TableContainer component={Paper}>
             <Table
@@ -134,8 +257,8 @@ const Invoices = ({ invoices }) => {
               css={override}
               size={20}
             />
-          </TableContainer>
-          {/* <Table responsive>
+          </TableContainer> */}
+      {/* <Table responsive>
             <thead>
               {header &&
                 header.length > 0 &&
@@ -164,8 +287,8 @@ const Invoices = ({ invoices }) => {
                 })}
             </tbody>
           </Table> */}
-        </Grid>
-      </Grid>
+      {/* </Grid>
+      </Grid> */}
     </div>
   );
 };

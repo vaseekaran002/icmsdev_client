@@ -9,6 +9,7 @@ import * as musicianActionTypes from "store/actionTypes/musicianActionTypes";
 import {
   handleCreateRole,
   handleGetRoleByTenant,
+  handleGetRoleByTenantAuth,
   handleGetRoles,
 } from "./handlers/role";
 import { handleCreateTenant, handleGetAllTenant } from "./handlers/tenant";
@@ -41,6 +42,10 @@ export function* watcherSaga() {
   yield takeEvery(userActionTypes.LOGOUT_USER, handleLogoutUser);
   yield takeEvery(roleActionTypes.CREATE_ROLE_REQUEST, handleCreateRole);
   yield takeEvery(roleActionTypes.GET_ROLE_BY_TENANT, handleGetRoleByTenant);
+  yield takeEvery(
+    roleActionTypes.GET_ROLE_BY_TENANT_AUTH,
+    handleGetRoleByTenantAuth
+  );
   yield takeEvery(tenantActionTypes.CREATE_TENANT_REQUEST, handleCreateTenant);
   yield takeEvery(tenantActionTypes.GET_ALL_TENANT, handleGetAllTenant);
   yield takeEvery(

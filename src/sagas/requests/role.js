@@ -14,3 +14,9 @@ export const getRolesByTenant = async () => {
     `${environment.api_url}/${environment.tenantId}/role/list`
   );
 };
+
+export const getRolesByTenantAuth = async () => {
+  return await axios.get(
+    `${environment.auth_url}/${environment.tenantId}/role/list`
+  );
+};
