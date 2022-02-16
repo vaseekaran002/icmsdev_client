@@ -12,7 +12,7 @@ import logo from 'assets/images/logo.jpeg';
 
 const Logo = () => {
     console.log('Logo');
-    return <img src={logo} alt="Logo" width="100" />;
+    return <img src={logo} alt="Logo" width="150" />;
 };
 
 export default Logo;
