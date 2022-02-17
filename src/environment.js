@@ -1,5 +1,5 @@
 export const environment = {
-  api_url: "http://18.205.56.216:90/api",
+  api_url: "http://18.205.56.216:7070/api",
   auth_url: "http://18.205.56.216:7070/auth",
   tenantId: "88eb970f-d7ea-49a7-9442-97e522135af5",
 };

@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes/contractActionTypes';
 
 export const initialState = {
-    contracts: [],
+    contracts: undefined,
     contract: undefined,
     error: undefined
  };

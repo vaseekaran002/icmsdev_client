@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import * as Yup from "yup";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { Formik, Field, Form } from "formik";
 import { useTheme } from "@emotion/react";
@@ -77,7 +77,7 @@ const ViewInvoice = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log("Hello");
     console.log(invoice);
     setEditInvoice(invoice.filter((item) => item.invoiceId === id));
@@ -85,6 +85,12 @@ const ViewInvoice = () => {
       setIsEdit(false);
     }
   }, []);
+
+  useEffect(()=>{
+    if (location.pathname.includes("edit")) {
+      setIsEdit(false);
+    }
+  },[location.pathname])
 
   return (
     <Container className={classes.container}>
@@ -291,6 +297,7 @@ const ViewInvoice = () => {
                 <Box sx={{ mt: 2 }}>
                   <AnimateButton>
                     <Button
+                      hidden={isEdit}
                       disableElevation
                       fullWidth
                       size="large"
@@ -300,6 +307,26 @@ const ViewInvoice = () => {
                       type="submit"
                     >
                       Submit
+                    </Button>
+                  </AnimateButton>
+                </Box>
+                <Box sx={{ mt: 2 }}>
+                  <AnimateButton>
+                    <Button
+                      hidden={!isEdit}
+                      disableElevation
+                      fullWidth
+                      size="large"
+                      variant="contained"
+                      color="custom"
+                      id="white-color"
+                      onClick={() =>
+                        navigate(`/invoices/edit-invoice/${id}`, {
+                          replace: true,
+                        })
+                      }
+                    >
+                      Edit
                     </Button>
                   </AnimateButton>
                 </Box>
