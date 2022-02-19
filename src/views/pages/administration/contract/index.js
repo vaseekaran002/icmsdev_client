@@ -62,9 +62,13 @@ const Contracts = ({ contracts }) => {
   }, []);
 
   useEffect(() => {
-    if (rows != null) {
-      const arr = rows.slice(0, 3);
-      setContractRows(arr);
+    if (rows === undefined) {
+      // const arr = rows.slice(0, 3);
+      // setContractRows(arr);
+      setLoading(true);
+    }
+    else if(rows===[]){
+      setLoading(false);
     }
   }, [rows]);
 

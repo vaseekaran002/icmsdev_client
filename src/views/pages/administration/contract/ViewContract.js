@@ -59,6 +59,7 @@ export const ViewContract = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const contracts = useSelector((state) => state.contract.contracts);
+  const musician = useSelector((state) => state.musician.musician);
   const [editContract, SetEditContract] = useState();
   const [isEdit, setIsEdit] = useState(true);
   useEffect(() => {
@@ -68,14 +69,19 @@ export const ViewContract = () => {
     }
   }, []);
 
+  useEffect(()=>{
+    if (location.pathname.includes("edit")) {
+      setIsEdit(false);
+    }
+  },[location.pathname])
+
   const validatation = Yup.object({
-    staksPayId: Yup.string().required("StaksPayId required"),
     fees: Yup.string().required("fees required"),
     description: Yup.string().required("description required"),
   });
 
   const handleSubmit = (values) => {
-    console.log(values);
+    console.log("Submit",values);
     dispatch(updateContract(values));
     if (contracts) {
       navigate("/contracts");
@@ -99,13 +105,13 @@ export const ViewContract = () => {
                 timeZone: editContract[0].timeZone,
                 title: editContract[0].timeZone,
                 venue: editContract[0].venue,
-                staksPayId: editContract[0].staksPayId,
+                staksPayId: musician[0].staksPayId,
               }}
               validationSchema={validatation}
               onSubmit={handleSubmit}
             >
               <Form>
-                <Field name="staksPayId">
+                {/* <Field name="staksPayId">
                   {(props) => {
                     const { field, form, meta } = props;
                     return (
@@ -127,7 +133,7 @@ export const ViewContract = () => {
                       </FormControl>
                     );
                   }}
-                </Field>
+                </Field> */}
                 <Field name="channelName">
                   {(props) => {
                     const { field, form, meta } = props;
@@ -292,6 +298,7 @@ export const ViewContract = () => {
                 <Box sx={{ mt: 2 }}>
                   <AnimateButton>
                     <Button
+                      hidden={isEdit}
                       disableElevation
                       fullWidth
                       size="large"
@@ -301,6 +308,26 @@ export const ViewContract = () => {
                       type="submit"
                     >
                       Submit
+                    </Button>
+                  </AnimateButton>
+                </Box>
+                <Box sx={{ mt: 2 }}>
+                  <AnimateButton>
+                    <Button
+                      hidden={!isEdit}
+                      disableElevation
+                      fullWidth
+                      size="large"
+                      variant="contained"
+                      color="custom"
+                      id="white-color"
+                      onClick={() =>
+                        navigate(`/contracts/edit-contracts/${id}`, {
+                          replace: true,
+                        })
+                      }
+                    >
+                      Edit
                     </Button>
                   </AnimateButton>
                 </Box>
